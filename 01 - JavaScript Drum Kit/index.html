@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS Drum Kit</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+
+<body>
+
+    <div class="keys">
+        <div data-key="65" class="key">
+            <kbd>A</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="83" class="key">
+            <kbd>S</kbd>
+            <span class="sound">hihat</span>
+        </div>
+        <div data-key="68" class="key">
+            <kbd>D</kbd>
+            <span class="sound">kick</span>
+        </div>
+        <div data-key="70" class="key">
+            <kbd>F</kbd>
+            <span class="sound">openhat</span>
+        </div>
+        <div data-key="71" class="key">
+            <kbd>G</kbd>
+            <span class="sound">boom</span>
+        </div>
+        <div data-key="72" class="key">
+            <kbd>H</kbd>
+            <span class="sound">ride</span>
+        </div>
+        <div data-key="74" class="key">
+            <kbd>J</kbd>
+            <span class="sound">snare</span>
+        </div>
+        <div data-key="75" class="key">
+            <kbd>K</kbd>
+            <span class="sound">tom</span>
+        </div>
+        <div data-key="76" class="key">
+            <kbd>L</kbd>
+            <span class="sound">tink</span>
+        </div>
+    </div>
+
+    <audio data-key="65" src="sounds/clap.wav"></audio>
+    <audio data-key="83" src="sounds/hihat.wav"></audio>
+    <audio data-key="68" src="sounds/kick.wav"></audio>
+    <audio data-key="70" src="sounds/openhat.wav"></audio>
+    <audio data-key="71" src="sounds/boom.wav"></audio>
+    <audio data-key="72" src="sounds/ride.wav"></audio>
+    <audio data-key="74" src="sounds/snare.wav"></audio>
+    <audio data-key="75" src="sounds/tom.wav"></audio>
+    <audio data-key="76" src="sounds/tink.wav"></audio>
+
+    <script>
+
+        //Creamos la función removeTransition que recibe como parámetro el evento:
+
+        function removeTransition(e) {
+
+            /**Al igual que en el otro listener, sólo nos interesa un único atributo: el propertyName,
+            * utilizaremos un if para que sólo se imprima si su valor es igual a transform
+            */
+            if (e.propertyName == "transform") {
+                //console.log(e.propertyName)
+                /**Ahora que ya tenemos el listener y comprobamos que funciona correctamente,
+                * llamamos a classlist.remove sobre el objeto this, que en este contexto se refiere
+                * al elemento HTML sobre el que se desencadenó el evento
+                */
+
+                this.classList.remove("playing")
+            }
+        }
+
+        function playAudio(e) {
+
+            /**La representación del evento es un objeto JSON con muchos datos, pero en este caso
+            * sólo nos interesa el keyCode, un código numérico asociado a cada tecla*/
+
+            //console.log(e.keyCode)
+
+            /**
+            *Cada uno de los audios tiene asociado el keyCode de la respectiva tecla que lo reproducirá
+            *en el atributo data-key, por lo que crearemos una variable llamada audio la cual buscará el
+            *elemento HTML audio cuyo atributo coincida con el valor dataKey de la tecla presionada y lo imprimirá
+            *en la consola del navegador*/
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+            //console.log(audio)
+
+            //Si el audio no es null o undefined, se reproducirá desde el inicio cada vez que se presione la tecla
+            if (!!audio) {
+                audio.currentTime = 0
+                audio.play()
+            }
+
+            /**Para la animación crearemos otra constante que representa las teclas en pantalla
+            *e imprimimos el elemento del DOM en consola*/
+            const key = document.querySelector(`div[data-key="${e.keyCode}"]`)
+            //console.log(key)
+
+            //Si la tecla no es nula, le añadimos la clase playing
+            if (!!key) {
+                key.classList.add("playing")
+            }
+        }
+
+        /**Obtenemos un array de todas las teclas en pantalla mediante document.querySelectorAll()
+            * y lo guardamos en la constante keys
+            */
+        const keys = document.querySelectorAll(".key")
+        console.log(keys) //Imprimimos el array por consola
+
+        /**No podemos poner un listener en el array directamente ya que no es un elemento del DOM,
+        * por lo tanto tendremos que iterar sobre cada uno de sus elementos y poner un listener
+        * en el elemento en cuestión mediante el método forEach
+        */
+        keys.forEach(key => key.addEventListener("transitionend", removeTransition))
+
+
+        /**
+        * Añadimos un EventListener en toda la ventana, el tipo de evento será keydown
+        * y el callback recibirá el evento (e) como parámetro*/
+        window.addEventListener("keydown", playAudio)
+    </script>
+</body>
+
+</html>
