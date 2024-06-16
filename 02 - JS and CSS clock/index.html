@@ -18,17 +18,28 @@
         </div>
     </div>
     <script>
+
         //Obtenemos el elemento HTML que representa el segundero del reloj mediante document.querySelector
         const secondHand = document.querySelector(".second-hand")
+        //Obtenemos el minutero de la misma forma
+        const minuteHand = document.querySelector(".min-hand")
 
         //Creamos una función para mover las manecillas dependeindo de la hora actual
         function setTime() {
 
             const now = new Date() //Creamos un objeto de tipo Date que representa la fecha y hora actuales
+
+            //Código para mover el segundero: 
             const seconds = now.getSeconds() //Obtenemos los segundos de la hora actual con getSeconds() 
             const secondsDegrees = ((seconds / 60) * 360) + 90 //Convertimos los segundos a grados dividiendo entre 60 y multiplicando por 360
             secondHand.style.transform = `rotate(${secondsDegrees}deg)`
-            console.log(seconds) //imprimimos los segundos en consola
+            //console.log({ seconds }) //imprimimos los segundos en consola
+
+            //Código para mover el minutero
+            const minutes = now.getMinutes()
+            const minutesDegrees = ((minutes / 60) * 360) + 90
+            minuteHand.style.transform = `rotate(${minutesDegrees}deg)`
+            //console.log({ minutes })
         }
 
         setInterval(setTime, 1000) //Esto ejecutará la función setTime cada segundo
