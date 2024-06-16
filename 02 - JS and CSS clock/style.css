@@ -45,9 +45,22 @@ body {
     position: absolute;
     top: 50%;
     transform-origin: 100%;
-    /*Esto nos servirá para que rote alrededor de un punto central*/
+    /*Esto nos servirá para que rote alrededor de su extremo derecho en vez de por el centro*/
     transform: rotate(90deg);
     /*Esto es para que todas las manecillas empicen en las doce horas por default*/
     transition: all 0.05s;
     /*Esto es para que tarde un poco en cada movimiento y no se vea tan brusca la transición*/
+    transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    /*Esto servirá para que las manecillas hagan un pequeño retroceso en cada movimiento,
+    simulando así el tic-tac de un reloj real*/
+}
+
+.second-hand {
+    background-color: red;
+    height: 4px
+}
+
+.hour-hand {
+    width: 35%;
+    margin-left: 15%;
 }
