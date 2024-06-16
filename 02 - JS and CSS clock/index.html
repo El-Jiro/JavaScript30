@@ -14,10 +14,26 @@
         <div class="clock-face">
             <div class="hand hour-hand"></div>
             <div class="hand min-hand"></div>
-            <div class="hand second-hand" style="transition-timing-function:cubic-bezier(0.1, 2.7, 0.58, 1);
-                background-color:red;"></div>
+            <div class="hand second-hand" style="background-color:red;"></div>
         </div>
     </div>
+    <script>
+        //Obtenemos el elemento HTML que representa el segundero del reloj mediante document.querySelector
+        const secondHand = document.querySelector(".second-hand")
+
+        //Creamos una función para mover las manecillas dependeindo de la hora actual
+        function setTime() {
+
+            const now = new Date() //Creamos un objeto de tipo Date que representa la fecha y hora actuales
+            const seconds = now.getSeconds() //Obtenemos los segundos de la hora actual con getSeconds() 
+            const secondsDegrees = ((seconds / 60) * 360) + 90 //Convertimos los segundos a grados dividiendo entre 60 y multiplicando por 360
+            secondHand.style.transform = `rotate(${secondsDegrees}deg)`
+            console.log(seconds) //imprimimos los segundos en consola
+        }
+
+        setInterval(setTime, 1000) //Esto ejecutará la función setTime cada segundo
+
+    </script>
 </body>
 
 </html>
