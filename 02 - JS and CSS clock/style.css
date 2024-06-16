@@ -46,6 +46,7 @@ body {
     top: 50%;
     transform-origin: 100%;
     /*Esto nos servirá para que rote alrededor de su extremo derecho en vez de por el centro*/
+    /*Esto nos servirá para que rote alrededor de su extremo derecho en vez de por el centro*/
     transform: rotate(90deg);
     /*Esto es para que todas las manecillas empicen en las doce horas por default*/
     transition: all 0.05s;
