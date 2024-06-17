@@ -40,7 +40,7 @@ body {
 
 .hand {
     width: 50%;
-    height: 6px;
+    height: 5.5px;
     background: black;
     position: absolute;
     top: 50%;
@@ -58,7 +58,11 @@ body {
 
 .second-hand {
     background-color: red;
-    height: 4px
+    height: 3px;
+}
+
+.min-hand {
+    height: 4px;
 }
 
 .hour-hand {
