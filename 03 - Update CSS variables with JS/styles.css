@@ -1,3 +1,16 @@
+  /*Definimos las variables dentro del pseudoelemento root,
+  que representa la raíz del documento, es decir la etiqueta html*/
+
+  :root {
+      --base: #ffc600;
+      /*Esta variable es el color base de la página*/
+      --spacing: 10px;
+      /*Esta otra es el tamaño del padding*/
+      --blur: 10px;
+      /*Este es el valor del desenfocado*/
+  }
+
+
   /*
       misc styles, nothing to do with CSS variables
     */
@@ -17,4 +30,16 @@
 
   input {
       width: 100px;
+  }
+
+  /*Para usar una variable invocamos a la función var y le pasamos el nombre de la variable,
+    que debe ir precedido de dos guiones (--variable)*/
+  img {
+      padding: var(--spacing);
+      background-color: var(--base);
+      filter: blur(var(--blur));
+  }
+
+  .hl {
+      color: var(--base);
   }
