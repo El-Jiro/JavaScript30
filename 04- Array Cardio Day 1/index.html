@@ -41,29 +41,107 @@
         ];
 
         // Array.prototype.filter()
-        // 1. Filtra la lista de inventores por los que naciero nen 1500
+        // 1. Filtra la lista de inventores por los que nacieron en los 1500
+        const filteredInventors = inventors.filter((i) => i.year >= 1500 && i.year < 1600)
+        console.table(filteredInventors)
 
         // Array.prototype.map()
-        // 2. Danos un array de los nombre y apellidos de los inventores
+        // 2. Danos un array de los nombres y apellidos de los inventores
+        const mappedInventors = inventors.map((i) => `${i.first} ${i.last}`)
+        console.log(mappedInventors)
 
         // Array.prototype.sort()
         // 3. Ordena los inventores por fecha de nacimiento, del más viejo al más joven
+        const sortedInventors = inventors.sort((a, b) => a.year - b.year)
+        console.table(sortedInventors)
 
         // Array.prototype.reduce()
         // 4. Cuántos años en total vivieron los inventores contándolos a todos
 
+        inventors.forEach((i) => {
+            const edad = i.passed - i.year
+            i.age = edad
+        })
+
+        //console.log(inventors)
+
+        const initialValue = 0
+        const reducedInventors = inventors.reduce((accumulator, currentValue) => accumulator + currentValue.age, initialValue)
+
+        console.table(reducedInventors)
+
         // 5. Ordena los inventores por el número de años vividos
+
+        const sortedInventors2 = inventors.sort((a, b) => a.age - b.age)
+        console.table(sortedInventors2)
 
         // 6. Crea una lista de los Boulevards en Paris que contengan "de" en cualquier parte del nombre
         // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+        const boulevardsString =
+
+            `City walls of Paris
+Thiers wall
+Wall of Charles V
+Wall of Philip II Augustus
+City gates of Paris
+Haussmann's renovation of Paris
+Boulevards of the Marshals
+Boulevard Auguste-Blanqui
+Boulevard Barbès
+Boulevard Beaumarchais
+Boulevard de l'Amiral-Bruix
+Boulevard Mortier
+Boulevard Poniatowski
+Boulevard Soult
+Boulevard des Capucines
+Boulevard de la Chapelle
+Boulevard de Clichy
+Boulevard du Crime
+Boulevard du Général-d'Armée-Jean-Simon
+Boulevard Haussmann
+Boulevard de l'Hôpital
+Boulevard des Italiens
+Boulevard Lefebvre
+Boulevard de la Madeleine
+Boulevard de Magenta
+Boulevard Malesherbes
+Boulevard Marguerite-de-Rochechouart
+Boulevard Montmartre
+Boulevard du Montparnasse
+Boulevard Raspail
+Boulevard Richard-Lenoir
+Boulevard Saint-Germain
+Boulevard Saint-Michel
+Boulevard de Sébastopol
+Boulevard de Strasbourg
+Boulevard du Temple
+Boulevard Voltaire
+Boulevard de la Zone`
+
+        const boulevardsList = boulevardsString.split("\n")
+        console.log(boulevardsList)
+
+        const filteredBoulevards = boulevardsList.filter((b) => b.includes("de"))
+        console.log(filteredBoulevards)
 
         // 7. Ejercicio de Ordenamiento
         // Organiza las personas por su apellido en orden alfabético 
-
+        const sortedPeople = people.sort()
+        console.log(sortedPeople)
         // 8. Ejercicio de reducción
         // Suma las instancias de cada uno: 
-        const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+        const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', "motorbike"];
+
+        const transportation = data.reduce((obj, item) => {
+
+            !obj[item] ? obj[item] = 0 : null
+            obj[item]++
+            console.log(item)
+            return obj
+        }, {})
+
+        console.log(transportation)
     </script>
 </body>
 
