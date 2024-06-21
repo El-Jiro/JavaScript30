@@ -19,6 +19,9 @@ body {
 .panels {
     min-height: 100vh;
     overflow: hidden;
+    display: flex;
+    /*Añadimos la propiedad display: flex para que los paneles se 
+        alineen de forma horizontal en vez de vertical*/
 }
 
 .panel {
