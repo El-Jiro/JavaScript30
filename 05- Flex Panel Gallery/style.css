@@ -83,6 +83,29 @@ body {
     align-items: center;
 }
 
+/*Ocultamos el texto de arriba por default realizando 
+una traslación de -100% en el eje Y*/
+.panel>*:first-child {
+    transform: translateY(-100%);
+}
+
+/*Lo mismo que arriba pero con el texto de abajo
+y la traslación será en sentido positivo*/
+.panel>*:last-child {
+    transform: translateY(100%);
+}
+
+/*Cuando el panel tenga la clase open-active deshacemos 
+la traslación*/
+
+.panel.open-active>*:first-child {
+    transform: translateY(0);
+}
+
+.panel.open-active>*:last-child {
+    transform: translateY(0);
+}
+
 .panel p {
     text-transform: uppercase;
     font-family: 'Amatic SC', cursive;
@@ -95,5 +118,6 @@ body {
 }
 
 .panel.open {
+
     font-size: 40px;
 }
