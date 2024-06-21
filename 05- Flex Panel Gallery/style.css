@@ -118,6 +118,8 @@ la traslación*/
 }
 
 .panel.open {
-
+    flex: 5;
+    /*Cuando tenga la clase open, la imagen crecerá
+    5 veces su tamaño habitual*/
     font-size: 40px;
 }
