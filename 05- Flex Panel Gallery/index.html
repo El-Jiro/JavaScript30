@@ -42,6 +42,45 @@
         </div>
     </div>
 
+    <script>
+
+        //Obtenemos una lista de todos los paneles con document.querySelectorAll()
+        const panels = document.querySelectorAll(".panel")
+        console.log(panels)
+
+        //Creamos una función para añadir y remover (toggle) la clase open
+        function toggleOpen() {
+            this.classList.toggle("open")
+        }
+
+        /**Creamos otra función para la clase open-active, pero esta será un poco diferente,
+         * en primer lugar recibiremos un objeto e (Event) como parámetro, ya que habrá múltiples eventos
+         * de transición tomando lugar al mismo tiempo y necesitaremos saber cual desencadenará esta función
+        */
+
+        function toggleActive(e) {
+            /**Imprimimos en consola el atributo propertyName del evento, el cual
+             * nos da dos resultados simultáneas: flex-grow y font-size, ya que en el css
+             * de nuestra clase open indicamos que creciera tanto el flex como el tamaño de fuente
+             * */
+            console.log(e.propertyName)
+
+            /**En Safari el evento se llama simplemente flex, pero en Chrome y otros navegadores 
+             * es flex-grow, cubriremos ambos casos aquí evaluando si el propertyName incluye flex,
+             * en cuyo caso haremos el toggle de open-active
+            */
+            if (e.propertyName.includes("flex")) {
+                this.classList.toggle("open-active")
+            }
+
+        }
+
+        //Añadimos un evenListener de tipo onclick a cada uno de los paneles con un forEach
+        panels.forEach((p) => p.addEventListener("click", toggleOpen))
+
+        //Añadimos un segundo listener de tipo ontransitionend de la misma forma
+        panels.forEach((p) => p.addEventListener("transitionend", toggleActive))
+    </script>
 </body>
 
 </html>
