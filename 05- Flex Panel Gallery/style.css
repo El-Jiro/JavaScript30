@@ -39,6 +39,13 @@ body {
     font-size: 20px;
     background-size: cover;
     background-position: center;
+    justify-content: center;
+    /*Estos dos centrarán el texto en el eje X*/
+    align-items: center;
+    display: flex;
+    /*Esto lo centrará en el eje Y*/
+    flex-direction: column;
+    /*Esto apilará el texto en forma de columna*/
     flex: 1;
     /*Esto distribuirá el espacio disponible de forma equitativa entre todas las
     imágenes, de esta manera cubrirán toda la pantalla y no dejarán espacios en blanco*/
@@ -64,11 +71,16 @@ body {
     background-image: url("clouds.jpg");
 }
 
-/* Flex Children */
+/* Flex Items */
 .panel>* {
+    /*border: 1px solid red;*/
     margin: 0;
     width: 100%;
     transition: transform 0.5s;
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .panel p {
