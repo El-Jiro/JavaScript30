@@ -39,6 +39,9 @@ body {
     font-size: 20px;
     background-size: cover;
     background-position: center;
+    flex: 1;
+    /*Esto distribuirá el espacio disponible de forma equitativa entre todas las
+    imágenes, de esta manera cubrirán toda la pantalla y no dejarán espacios en blanco*/
 }
 
 .panel1 {
