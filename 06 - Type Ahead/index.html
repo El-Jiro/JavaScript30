@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
 <body>
 
     <form class="search-form">
-        <input type="text" class="search" placeholder="Ciudad o Estado">
+        <input type="text" id="place" class="search" placeholder="Ciudad o Estado">
         <ul class="suggestions">
             <li>Filtrar por Ciudad</li>
             <li>O por Estado</li>
@@ -48,6 +48,29 @@
         }).catch((err) => {
             console.log(err)
         })
+
+        /**Creamos la función findMatches que recibe dos argumentos, el string a comparar 
+         * para buscar coincidencias y el array de ciudades (cities)*/
+        function findMatches(matchingWord, cities) {
+
+            //console.log(matchingWord, cities)
+            const matches = cities.filter((place) => {
+
+                //console.log(place)
+                /**Aquí tenemos que determinar si la ciudad o estado coinciden con la búsqueda realizada, para ello 
+                 * creamos una expresión regular con el constructor de la clase RegExp, y le pasamos como primer 
+                 * argumento el parámetro matchingWord de nuestra función, y como segundo las flags "gi" que significan
+                 * global search (es decir que buscará por toda la cadena), e insensitive (insensible a mayúsculas y minúsculas)
+                 * respectivamente*/
+                const regex = new RegExp(matchingWord, "gi")
+                //Si el estado o la ciudad coinciden con la búsqueda, nos regresará el item respectivo
+                const matchings = place.city.match(regex) || place.state.match(regex)
+                return matchings
+            })
+
+            return matches
+        }
+
 
     </script>
 </body>
