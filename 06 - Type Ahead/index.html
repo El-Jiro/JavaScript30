@@ -18,7 +18,36 @@
         </ul>
     </form>
     <script>
+
         const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+        const cities = []
+
+        /**Para realizar una petición http sin librerías externas o frameworks utilizamos 
+         * la función fetch, que viene incluida en la API de JavaScript, esto nos devolverá un 
+         * objeto de tipo promise, por lo que debe ser llamada como una promesa, de la siguiente forma:*/
+
+        fetch(endpoint).then((res) => {
+            /**Dentro del then invocamos al método json() de nuestro
+             * objeto res, el cual en sí mismo nos devolverá otra promesa,
+             * la cual, sí se cumple, nos permitrá obtener los datos del json*/
+            res.json().then((data) => {
+                /**Si intentamos asignar data a cities directamente nos dará un error en tiempo de 
+                 * ejecución ya que cities está definido como constante, es decir que no se puede reasignar
+                 * su valor, por lo que en su lugar usaremos el método push de la clase array
+                */
+
+                /*Aquí utilizamos el operador spread (...) para meter cada uno de los
+                objetos JSON contenidos en el array data de manera inidividual en el array
+                cities, de no usarlo tendríamos un array de arrays*/
+                cities.push(...data)
+                console.log(cities)
+
+            }).catch((error) => {
+                console.log(error)
+            })
+        }).catch((err) => {
+            console.log(err)
+        })
 
     </script>
 </body>
