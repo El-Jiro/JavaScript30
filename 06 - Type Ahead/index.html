@@ -72,6 +72,23 @@
             return matches
         }
 
+        /**Otra función que recibirá el número de población en bruto 
+         * y lo transformará en un string con sus respectivas comas*/
+
+        function insertCommasToNumber(number) {
+
+            //Creamos esta expresión regular para que la función sepa dónde insertar las comas.
+            const commaRegex = /\B(?=(\d{3})+(?!\d))/g
+
+
+            /**Convertimos el número a string y le aplicamos el método replace que recibirá como
+             * parámetros la expresión regular que creamos arriba y una coma*/
+            const numberWithCommas = number.toString().replace(commaRegex, ",")
+
+
+            return numberWithCommas
+        }
+
         //Creamos otra función para mostrar los valores en pantalla:
         function displayMatches() {
 
@@ -96,10 +113,11 @@
                 */
 
                 //En el primer span reemplazamos place.city con cityName y en el segundo place.state por stateName
+                //Le aplicamos la función insertCommas a la población antes de mostrarla en el html
                 const listOfPlaces = `
                     <li>
                         <span class="name">${cityName}, ${stateName}</span>
-                        <span class="population">${place.population}</span>
+                        <span class="population">${insertCommasToNumber(place.population)}</span>
                     </li>
                 `
                 return listOfPlaces
