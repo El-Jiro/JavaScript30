@@ -83,14 +83,22 @@
             //Mapeamos nuestro matchArray y guardamos el resultado en la variable html
             const html = matchArray.map((place) => {
 
+                //Creamos otra expresión regular de manera similar a como lo hicimos en findMatches
+                const nameRegex = new RegExp(this.value, "gi")
+                //Reemplazamos la parte del nombre que coincida con un span de clase hl que tendrá el valor de la búsqueda dentro
+                const cityName = place.city.replace(nameRegex, `<span class=hl>${this.value}</span>`)
+                //Hacemos lo mismo con el estado
+                const stateName = place.state.replace(nameRegex, `<span class=hl>${this.value}</span>`)
 
                 /**Creamos un elemento html <li> (un elemento de lista) el cual contendrá dos spans, uno de clase name
                  * y otro de clase population, dentro del primero pondremos una cadena de texto compuesta por el nombre de
                  * la ciudad y el estado y en el segundo la población de dicha ciudad.
                 */
+
+                //En el primer span reemplazamos place.city con cityName y en el segundo place.state por stateName
                 const listOfPlaces = `
                     <li>
-                        <span class="name">${place.city}, ${place.state}</span>
+                        <span class="name">${cityName}, ${stateName}</span>
                         <span class="population">${place.population}</span>
                     </li>
                 `
