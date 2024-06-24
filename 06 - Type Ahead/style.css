@@ -22,7 +22,7 @@ input {
     margin: 50px auto;
 }
 
-input.search {
+input#search {
     margin: 0;
     text-align: center;
     outline: 0;

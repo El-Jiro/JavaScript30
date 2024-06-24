@@ -11,7 +11,7 @@
 <body>
 
     <form class="search-form">
-        <input type="text" id="place" class="search" placeholder="Ciudad o Estado">
+        <input type="text" id="search" placeholder="Ciudad o Estado">
         <ul class="suggestions">
             <li>Filtrar por Ciudad</li>
             <li>O por Estado</li>
@@ -22,9 +22,9 @@
         const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
         const cities = []
 
-        /**Para realizar una petición http sin librerías externas o frameworks utilizamos 
-         * la función fetch, que viene incluida en la API de JavaScript, esto nos devolverá un 
-         * objeto de tipo promise, por lo que debe ser llamada como una promesa, de la siguiente forma:*/
+        /**Para realizar una petición http simple de tipo GET sin librerías externas o frameworks utilizamos 
+         * la función fetch, que viene incluida de forma predeterminada en la API de JavaScript, esto nos devolverá 
+         * un objeto de tipo promise, por lo que debe ser llamada como una promesa, de la siguiente forma:*/
 
         fetch(endpoint).then((res) => {
             /**Dentro del then invocamos al método json() de nuestro
@@ -40,7 +40,7 @@
                 objetos JSON contenidos en el array data de manera inidividual en el array
                 cities, de no usarlo tendríamos un array de arrays*/
                 cities.push(...data)
-                console.log(cities)
+                //console.log(cities)
 
             }).catch((error) => {
                 console.log(error)
@@ -65,12 +65,50 @@
                 const regex = new RegExp(matchingWord, "gi")
                 //Si el estado o la ciudad coinciden con la búsqueda, nos regresará el item respectivo
                 const matchings = place.city.match(regex) || place.state.match(regex)
+
                 return matchings
             })
 
             return matches
         }
 
+        //Creamos otra función para mostrar los valores en pantalla:
+        function displayMatches() {
+
+            /**Llamamos a la función findMatches pasandóle como argumentos this.value, es decir, 
+             * el valor del objeto sobre el cual sea llamada la función, en este caso nuestro 
+             * input search y el array de cities. Guardamos su resultado en matchArray*/
+            const matchArray = findMatches(this.value, cities)
+
+            //Mapeamos nuestro matchArray y guardamos el resultado en la variable html
+            const html = matchArray.map((place) => {
+
+
+                /**Creamos un elemento html <li> (un elemento de lista) el cual contendrá dos spans, uno de clase name
+                 * y otro de clase population, dentro del primero pondremos una cadena de texto compuesta por el nombre de
+                 * la ciudad y el estado y en el segundo la población de dicha ciudad.
+                */
+                const listOfPlaces = `
+                    <li>
+                        <span class="name">${place.city}, ${place.state}</span>
+                        <span class="population">${place.population}</span>
+                    </li>
+                `
+                return listOfPlaces
+            }).join("") //Concatenamos el método join para que nos lo regrese todo en forma de string en vez de array
+
+            //console.log(html)
+
+            //Accedemos a la lista de sugerencias y establecemos el valor de su atributo innerHTML a nuestra variable html
+            suggestions.innerHTML = html
+        }
+
+        const searchInput = document.getElementById("search") //Obtenemos el input mediante su id
+        const suggestions = document.querySelector(".suggestions") //Obtenemos la lista de sugerencias mediante su clase
+
+        /**Añadimos un listener con el evento keyup, es decir se activará cada 
+        vez que soltemos una tecla que hayamos presionado*/
+        searchInput.addEventListener("keyup", displayMatches)
 
     </script>
 </body>
