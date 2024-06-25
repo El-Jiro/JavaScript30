@@ -27,18 +27,37 @@
             { text: 'Nice Nice Nice!', id: 542328 }
         ];
 
+        console.log(people)
+        console.log(comments)
+
         // Comprobaciones de Some y Every
         // Array.prototype.some() // ¿Al menos una persona tiene 19 años o más?
+
+        const some = people.some((p) => (new Date().getFullYear() - p.year) >= 19)
+        console.log(some)
         // Array.prototype.every() // ¿Todos tienen 19 años o más?
+        const every = people.every((p) => (new Date().getFullYear() - p.year) >= 19)
+        console.log(every)
+
 
         // Array.prototype.find()
         // Find es similar a filter, con la diferencia de que sólo te regresa el elemento específico que estás buscando
         //  Encuentra el comentario con ID de 823423
 
+        const find = comments.find((comment) => comment.id == 823423)
+        console.log(find)
+
         // Array.prototype.findIndex()
         // Encuentra el comentario con este ID
         // Borra el comentario con el ID de 823423
 
+        const findIndex = comments.findIndex((comment) => comment.id == 823423)
+        console.log(findIndex)
+
+        const removedElement = comments.splice(findIndex, 1)
+        console.log(removedElement)
+
+        console.log(comments)
     </script>
 </body>
 
