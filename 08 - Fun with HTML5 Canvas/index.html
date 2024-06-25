@@ -14,10 +14,6 @@
         body {
             margin: 0;
         }
-
-        canvas {
-            border: 1px solid red;
-        }
     </style>
 
     <canvas id="draw" width="800" height="800">
@@ -25,6 +21,27 @@
     </canvas>
 
     <script>
+
+        //Lo primero que deberemos hacer es acceder a nuestro elemento canvas
+        const canvas = document.getElementById("draw")
+        console.log(canvas)
+
+        /**No dibujamos directamente sobre el canvas, sino sobre algo llamado contexto,
+         * por lo que deberemos acceder a este tambien, para ello utilizamos el método
+         * getContext de nuestro objeto canvas, al cual le pasaremos como argumento un
+         * string que diga 2d, esto significa que estamos accediendo al contexto bidimensional
+        */
+
+        const context = canvas.getContext("2d")
+        console.log(context)
+
+        /**Por defecto el tamaño del canvas es de 800 x 800 tal como especificamos al declararlo
+         * en el html, pero en este caso queremos que ocupe la pantalla completa, por lo que lo 
+         * redimensionaremos al tamaño de la ventana del navegador antes de empezar a dibujar:
+        */
+
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
 
     </script>
 </body>
