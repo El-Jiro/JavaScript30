@@ -43,6 +43,67 @@
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight
 
+        context.strokeStyle = "#BADA55" //Esto es el color inicial de nuestro pincel
+        context.lineCap = "round" //Esto indica que se realizarán trazos redondeados
+        context.lineJoin = "round" //Cuando dos líneas se unan la unión será igualmente redondeada
+
+        /**Esta variable servirá para indicarle al programa si queremos o no dibujar, por defecto su valor
+         * será false, cuando presionemos el botón izquierdo del mouse mientras lo arrastramos cambiará
+         * a true, y será nuevamente false cuando soltemos el botón.
+        */
+        let isDrawing = false
+
+        //Estas dos variables sirven para indicarle al programa donde debe terminar la línea
+        let lastX = 0
+        let lastY = 0
+
+        //Creamos la función draw que recibe un evento e imprime su información en consola
+        function draw(e) {
+
+            //Esto hará que la función sólo se active cuando isDrawing sea true, es decir cuando presionemos el botón del mouse
+            if (isDrawing) {
+
+                //imprimimos en consola la información del evento
+                console.log(e)
+                //Llamamos al método beginPath de context para empezar a dibujar
+                context.beginPath()
+                //Posicionamos el "lápiz" en las coordenadas lastX y lastY que son 0,0 por defecto
+                context.moveTo(lastX, lastY)
+                /**le indicamos las coordenadas donde debe terminar la línea, es decir la posición actual
+                 * del mouse respecto al canvas, podemos obtener dicha información revisando los atributos 
+                 * offsetX y offsetY de nuestro objeto e, el cual representa el evento mousemove */
+                context.lineTo(e.offsetX, e.offsetY)
+                //Finalmente llamamos a stroke para ahora sí dibujar la línea
+                context.stroke()
+
+                /**Debemos actualizar lastX y lastY para que cada vez que hagamos una nueva línea
+                 * continúe desde la posición actual
+                */
+                lastX = e.offsetX
+                lastY = e.offsetY
+            }
+        }
+
+        //Añadimos un eventListener de tipo mousemove a nuestro canvas y le pasamos la función draw
+        canvas.addEventListener("mousemove", draw)
+        //Añadimos dos eventListener más; uno de tipo mousedown (presionar el botón) y otro de tipo mouseup (soltar el botón)
+        canvas.addEventListener("mousedown", (e) => {
+            //Cambiamos el valor de isDrawing por true
+            isDrawing = true
+            /**Actualizamos el valor de lastX y lastY cada vez que iniciemos una nueva línea 
+             * para que esta inicie en la posición actual del mouse en vez de continuar donde se
+             * quedó la anterior*/
+            lastX = e.offsetX
+            lastY = e.offsetY
+        })
+
+        canvas.addEventListener("mouseup", () => isDrawing = false)
+
+        /**Añadimos un cuarto listener de tipo mouseout, esto quiere decir que si movemos el mouse
+         *fuera del canvas se desactivará el modo de dibujo aún si no soltamos el botón*/
+        canvas.addEventListener("mouseout", () => isDrawing = false)
+
+
     </script>
 </body>
 
