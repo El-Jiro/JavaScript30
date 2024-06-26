@@ -46,6 +46,7 @@
         context.strokeStyle = "#BADA55" //Esto es el color inicial de nuestro pincel
         context.lineCap = "round" //Esto indica que se realizarán trazos redondeados
         context.lineJoin = "round" //Cuando dos líneas se unan la unión será igualmente redondeada
+        //context.globalCompositeOperation = "multiply"
 
         /**Esta variable servirá para indicarle al programa si queremos o no dibujar, por defecto su valor
          * será false, cuando presionemos el botón izquierdo del mouse mientras lo arrastramos cambiará
@@ -57,6 +58,13 @@
         let lastX = 0
         let lastY = 0
 
+        /**Esta variable nos permitirá cambiar el color del pincel dinámicamente mediante
+         * la sintaxis hsl, y, tal como su nombre indica, representa la parte del hue o matiz,
+         * es decir nuestro color base
+        */
+        let hue = 0
+        //Creamos una variable booleana llamada dirección, que controlará el crecimiento de la línea
+        let direction = true
         //Creamos la función draw que recibe un evento e imprime su información en consola
         function draw(e) {
 
@@ -65,6 +73,15 @@
 
                 //imprimimos en consola la información del evento
                 console.log(e)
+                /**Modificamos el color del pincel mediante la sintaxis hsl usando como primer parámetro nuestra variable 
+                 * hue, el segundo parámetro representa la saturación o intensidad, es decir qué tan vivo es nuestro color, 0%
+                 * significa gris y 100% es el color más vivo posible. Por último, el tercer parámetro representa la luminosidad,
+                 * es decir que tan claro u oscuro será el color, un 0% es negro y un 100% blanco*/
+                context.strokeStyle = `hsl(${hue}, 100%, 50%)`
+
+                //También podemos cambiar el tamaño de la línea de manera acorde: 
+                //context.lineWidth = hue
+
                 //Llamamos al método beginPath de context para empezar a dibujar
                 context.beginPath()
                 //Posicionamos el "lápiz" en las coordenadas lastX y lastY que son 0,0 por defecto
@@ -81,6 +98,31 @@
                 */
                 lastX = e.offsetX
                 lastY = e.offsetY
+
+                /**Aumentamos en 1 el valor de hue cada vez que se ejecute la función, esto significa
+                 * que cada vez tendremos un color base distinto
+                */
+                hue++
+
+                //Cuando el hue pase de 360 se reiniciará automáticamente
+                hue > 360 ? hue = 0 : null
+                console.log(hue)
+
+
+                // Toggle direction based on a specific condition
+                if (context.lineWidth >= 100 || context.lineWidth <= 1) {
+                    direction = !direction;
+                }
+
+                if (!!direction) {
+                    context.lineWidth++;
+                } else {
+                    context.lineWidth--;
+                }
+
+
+                console.log(direction)
+                console.log(context.lineWidth)
             }
         }
 
