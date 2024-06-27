@@ -11,13 +11,142 @@
 <body>
     <p onclick="makeGreen()">xBREAKxDOWN</p>
     <script>
-        const dogs = [{ name: "Snickers", age: 2 }, { name: "Hugo", age: 8 }]
+        const dogs = [
+            { name: "Snickers", age: 2, breed: "Golden Retriever" },
+            { name: "Hugo", age: 8, breed: "Husky" },
+            { name: "Conan", age: 5, breed: "Doberman" }
+        ]
 
         function makeGreen() {
             const p = document.querySelector("p")
-            p.style.color = "BADA55"
+            p.style.color = "#BADA55"
             p.style.fontSize = "50px"
         }
+
+        //Regular: Esto es el console.log de toda la vida
+        console.log("¡Hola!")
+
+        /**Interpolado: Si ponemos un signo de porcentaje seguido de una s, 
+         * este será reemplazado por el string que pasemos como segundo argumento,
+         * incluso puede ser  una variable, sin embargo este ha caído en desuso 
+         * actualmente, ya que a partir de ES6 podemos usar los bakcticks o tildes inversas `` 
+         * que nos permiten  interpolar variables directamente en el string con esta sintaxis 
+         * ${var} sin tener que romperlo o usar placeholders como en este caso*/
+
+        console.log("¡Hola, soy un %s string!", "💩")
+
+        /**Estilizado: si ponemos un signo de porcentaje seguido de una c 
+         * justo al inicio, en el segundo argumento podremos pasar un string 
+         * que represente uno o más estilos CSS, los cuales serán aplicados 
+         * al texto en consola,  por ejemplo aquí lo agrandaremos usando 
+         * la propiedad fontsize:*/
+
+        console.log("%c¡Hola, soy un texto grande!",
+            "font-size: 50px; background: red; text-shadow: 10px 10px 0 blue")
+
+
+        /**Advertencia: Esto imprimirá el texto de un amarillo oscuro con un fondo 
+         * amarillo claro, además de un emoji de advertencia al inicio */
+        console.warn("Advertencia: *Inserte mensaje de advertencia genérico*")
+
+        /**Error: Similar al de arriba pero con tonos rojos y un tache o x al inicio*/
+        console.error("Ha ocurrido un error")
+
+        /**Info: Similar a console.log, pero pensado para mensajes específicos que puedan
+         * proveer información importante sobre la ejecución del código o el funcionamiento
+         * de la aplicación. Sin embargo, no está estandarizado como otros métodos de console,
+         * por lo que su comportamiento puede variar dependiendo del navegador, por ejemplo, 
+         * en algunos podría mostrar un emoji de ! azul antes del mensaje
+        */
+        console.info("Los cocodrilos se comen a 3-4 personas por año")
+
+        /**Testing: console.assert nos dirá si una condición que hemos establecido es falsa, 
+         * en cuyo caso nos dará un mensaje de error, que por defecto dirá "error en la aserción: 
+         * console.assert", pero puede ser personalizado pasando el mensaje que queramos como segundo 
+         * argumento de la función. Por el contrario, si la condición es verdadera, no hará nada.
+        */
+
+        //En este caso seleccionamos neustro parráfo y comprobamos si contiene una clase llamada "ouch"
+        const p = document.querySelector("p")
+        console.assert(p.classList.contains("ouch"), "El elemento no posee una clase con ese nombre")
+
+        /**Limpiar: Tal como su nombre indica, console.clear limpiará nuestra consola 
+         * de cualquier cosa que hayamos impreso anteriormente y nos mostrará el mensaje
+         * "Se han borrado los datos de la consola"*/
+        console.clear()
+
+        /**Ver elementos del DOM: console.dir nos permitirá ver toda la información de un elemento
+         * del DOM (atributos, estilos CSS activos, métodos, etc) en forma de un objeto JSON
+         */
+
+
+        //Comparación con console.log
+        console.log(p)
+        console.dir(p)
+
+        /**Agrupar cosas: En casos como estos, donde tenemos varias sentencias console.log
+         * relacionadas a un mismo tema, en este caso a nuestro array de perros, pueden volverse
+         * un poco confusas y díficiles de leer. Para hacerlo un poco más legible y ordenado, podemos
+         * usar console.group, que nos permitirá crear una especie de lista desplegable donde veremos
+         * el nombre del perro antes de cada uno de nuestras impresiones y que podemos replegar si queremos.
+         * También podemos usar console.groupCollapsed para que la lista esté replegada por default y sólo 
+         * veamos el elemento que necesitemos dandole clic.
+        */
+
+        dogs.forEach((dog) => {
+
+            //Usamos console.group antes de empezar a imprimir los datos
+            console.groupCollapsed(dog.name)
+
+            console.log(`Este es ${dog.name}`)
+            console.log(`${dog.name} tiene ${dog.age} años`)
+            console.log(`${dog.name} tiene ${dog.age * 7} años perro`)
+            console.log(`${dog.name} es de raza ${dog.breed}`)
+            /**Debemos usar console.groupEnd después de terminar nuestra lista 
+             * para que los subsecuentes console.log no se sigan agrupando*/
+            console.groupEnd()
+        })
+
+        /**Contar: console.log nos dice cuántas veces ha sido llamada con un argumento
+         * específico, peude servir para contar el número de veces que ha sido llamada 
+         * una función o se ha activado un evento
+        */
+
+        console.count("Wes")
+        console.count("Steve")
+        console.count("Wes")
+        console.count("Steve")
+        console.count("Steve")
+        console.count("Steve")
+        console.count("Steve")
+        console.count("Steve")
+
+        /**Tomar el tiempo: Si queremos saber cuando ha tardado en ejecutarse 
+         * una acción específica, podemos hacerlo con console.time(), por ejemplo
+         * aquí obtendremos datos de github con fetch y veremos cuando tarda
+        */
+
+        console.time("obteniendo datos...") //Invocamos console.time con una etiqueta/string arbitrario para empezar a tomar el tiempo
+
+        //Obtenemos los datos de github
+        fetch("https://api.github.com/users/wesbos").then((res) => {
+            //Convertimos la respuesta a un JSON
+            res.json().then((data) => {
+                console.log(data) //imprimimos los datos
+                console.timeEnd("obteniendo datos...") //llamamos a timeEnd con el mismo string que pusimos arriba para terminar el conteo
+            }).catch((err) => {
+                console.error(err)
+            })
+        }).catch((error) => {
+            console.error(error)
+        })
+
+
+        //Finalmente, tenemos console.table(), que nos imprimirá un array de objetos json en forma de tabla
+
+        console.table(dogs)
+
+
     </script>
 </body>
 
