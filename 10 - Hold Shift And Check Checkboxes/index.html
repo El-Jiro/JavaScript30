@@ -92,6 +92,19 @@
         })
 
 
+        /**Buscamos todos los inputs de tipo checkbox mediante document.querySelectorAll
+         * y guardamos el resultado en la variable checkboxes. Sin embargo La función 
+         * document.querySelectorAll nos devuelve un objeto de tipo NodeListOf<Element>,
+         * no un array, por lo que si queremos trabajar con métodos propios de la clase Array 
+         * tales como el forEach, deberemos transformar esa lista en un array, para esto usamos 
+         * el constructor de la clase Array y le pasamos la ejecución de queySelectorAll, recordando 
+         * usar el operador spread (...), pues de lo contrario tendríamos un NodeList dentro de un Array.
+         * Guardamos ek resultado en checkboxes 
+        */
+        const checkboxes = new Array(...document.querySelectorAll("input[type='checkbox']"))
+        console.log(checkboxes)
+
+
     </script>
 </body>
 
