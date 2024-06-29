@@ -58,8 +58,8 @@
 
     <script>
 
-        /**Creamos una variable que nos diga si la tecla shift está siendo presionada; 
-         * su valor por defecto será false*/
+        /**Primeramente creamos una variable que nos diga si la tecla shift 
+         * está siendo presionada; su valor por defecto será false*/
         let holdedShift = false
 
         /**Añadimos un eventListener de tipo keydown con un callback que 
@@ -79,9 +79,9 @@
             }
         })
 
-        /**Creamos otro eventListener similar al de arriba, pero en este caso será de tipo keyup, 
-         * es decir que se activará cuando dejemos de presionar la tecla, y su función será devolver
-         * el holdedShift a false
+        /**Creamos otro eventListener similar al de arriba, pero en este caso 
+         * será de tipo keyup, es decir que se activará cuando dejemos de presionar 
+         * la tecla, y su función será devolver el valor de holdedShift a false.
         */
         window.addEventListener("keyup", (e) => {
             console.log(e.key)
@@ -95,15 +95,67 @@
         /**Buscamos todos los inputs de tipo checkbox mediante document.querySelectorAll
          * y guardamos el resultado en la variable checkboxes. Sin embargo La función 
          * document.querySelectorAll nos devuelve un objeto de tipo NodeListOf<Element>,
-         * no un array, por lo que si queremos trabajar con métodos propios de la clase Array 
-         * tales como el forEach, deberemos transformar esa lista en un array, para esto usamos 
+         * no un arreglo, por lo que si queremos trabajar con métodos propios de un objeto Array 
+         * tales como el forEach, deberemos transformar esa lista en un arreglo, para esto usamos 
          * el constructor de la clase Array y le pasamos la ejecución de queySelectorAll, recordando 
          * usar el operador spread (...), pues de lo contrario tendríamos un NodeList dentro de un Array.
-         * Guardamos ek resultado en checkboxes 
+         * Guardamos el resultado dentro de checkboxes.
         */
         const checkboxes = new Array(...document.querySelectorAll("input[type='checkbox']"))
         console.log(checkboxes)
 
+
+        /**Creamos dos variables llamadas firstcheck y lastCheck, las cuales guardarán la posición 
+         * de la primera y la segunda casilla que seleccionemos. Esto nos servirá para saber cuantas y cuales
+         * son las casillas intermedias que deben ser seleccionadas también cuando presionemos Shift
+        */
+
+        let firstCheck = null
+        let lastCheck = null
+
+
+        /**Creamos la función markAllCheckboxes que controlará la lógica para marcar las casillas 
+         * intermedias entre las dos que seleccionemos, recibirá dos parámetros que son los mismos del forEach, 
+         * es decir element e index
+        */
+
+        function markAllCheckBoxes(element, index) {
+
+            /**Si el elemento está seleccionado y firstcheck aún no tiene un valor (es null), 
+             * entonces le asignaremos el valor del índice del elemento (o sea su posición dentro
+             * del array) y lo imprimimos en consola
+            */
+            if (element.checked && firstCheck == null) {
+                firstCheck = index
+                console.log(firstCheck)
+            } else {
+                //En caso contrario el índice del elemento se asignará a lastCheck
+                lastCheck = index
+                console.log(lastCheck)
+                //console.assert((lastCheck > firstCheck) && holdedShift)
+
+                /**Si lastCheck es mayor a firstCkeck, es decir, si está más abajo, recorreremos el array 
+                 * de checkboxes con un bucle for, empezando en firstCheck, e iremos marcando todas las casillas
+                 * hasta llegar a lastCheck
+                */
+                if ((lastCheck > firstCheck) && holdedShift) {
+                    for (let i = firstCheck; i < lastCheck; i++) {
+                        checkboxes[i].checked = true
+                    }
+                }
+            }
+        }
+
+        /**Finalmente, usamos un forEach para añadirle un eventListener a cada checkbox,
+         * en el primer argumento pasaremos el tipo ("click") y en el segundo pasaremos
+         * un callback que a su vez invocará nuestra función markAllCheckboxes
+        */
+
+        //console.log("Preparando eventListeners")
+        checkboxes.forEach((element, index) => {
+            //console.log(`$Añadiendo oyente a la checkbox ${index}`)
+            element.addEventListener("click", () => markAllCheckBoxes(element, index))
+        })
 
     </script>
 </body>
