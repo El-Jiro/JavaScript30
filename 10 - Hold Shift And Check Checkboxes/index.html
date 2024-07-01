@@ -127,20 +127,27 @@
             */
             if (element.checked && firstCheck == null) {
                 firstCheck = index
-                console.log(firstCheck)
+                //console.log(firstCheck)
             } else {
                 //En caso contrario el índice del elemento se asignará a lastCheck
                 lastCheck = index
-                console.log(lastCheck)
-                //console.assert((lastCheck > firstCheck) && holdedShift)
 
-                /**Si lastCheck es mayor a firstCkeck, es decir, si está más abajo, recorreremos el array 
-                 * de checkboxes con un bucle for, empezando en firstCheck, e iremos marcando todas las casillas
-                 * hasta llegar a lastCheck
-                */
-                if ((lastCheck > firstCheck) && holdedShift) {
-                    for (let i = firstCheck; i < lastCheck; i++) {
-                        checkboxes[i].checked = true
+
+                /*Si holdedShift es true, usaremos un bloque forEach para marcar todas las casillas intermedias*/
+                if (holdedShift) {
+
+                    /**Calculamos cual de las casillas seleccionadas tiene el índice mayor y el menor valor 
+                     * usando Math.max y Math.min respectivamente, y guardamos cada uno en una constante 
+                     * distinta*/
+                    const maxIndex = Math.max(firstCheck, lastCheck)
+                    const minIndex = Math.min(firstCheck, lastCheck)
+
+                    /**Recorreremos todo el array empezando por el índice menor e incrementando hasta el mayor,
+                     * esto funcionará en ambos sentidos, tanto de arriba hacia abajo como de abajo hacia arriba,
+                     * sin importar cual se clickeó primero.
+                    */
+                    for (let i = minIndex; i <= maxIndex; i++) {
+                        checkboxes[i].checked = true;
                     }
                 }
             }
