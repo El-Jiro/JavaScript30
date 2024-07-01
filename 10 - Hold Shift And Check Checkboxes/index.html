@@ -99,9 +99,9 @@
                 */
                 if (e.shiftKey) {
 
-                    /**Calculamos cual de las casillas seleccionadas tiene el índice mayor y el menor valor 
-                     * usando Math.max y Math.min respectivamente, y guardamos cada uno en una constante 
-                     * distinta*/
+                    /**Calculamos cual de las casillas seleccionadas tiene el índice de mayor y menor valor 
+                     * usando Math.max y Math.min respectivamente, guardamos el más alto en maxIndex y el más
+                     * bajo en minIndex*/
                     const maxIndex = Math.max(firstCheck, lastCheck)
                     const minIndex = Math.min(firstCheck, lastCheck)
 
@@ -109,7 +109,7 @@
                      * esto funcionará en ambos sentidos, tanto de arriba hacia abajo como de abajo hacia arriba,
                      * sin importar cual se clickeó primero.
                     */
-                    for (let i = minIndex; i <= maxIndex; i++) {
+                    for (let i = minIndex; i < maxIndex; i++) {
                         checkboxes[i].checked = true;
                     }
                 }
