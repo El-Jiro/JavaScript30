@@ -59,15 +59,9 @@
     <script>
 
         /**Buscamos todos los inputs de tipo checkbox mediante document.querySelectorAll
-         * y guardamos el resultado en la variable checkboxes. Sin embargo La función 
-         * document.querySelectorAll nos devuelve un objeto de tipo NodeListOf<Element>,
-         * no un arreglo, por lo que si queremos trabajar con métodos propios de un objeto Array 
-         * tales como el forEach, deberemos transformar esa lista en un arreglo, para esto usamos 
-         * el constructor de la clase Array y le pasamos la ejecución de queySelectorAll, recordando 
-         * usar el operador spread (...), pues de lo contrario tendríamos un NodeList dentro de un Array.
-         * Guardamos el resultado dentro de checkboxes.
+         * y guardamos el resultado en la variable checkboxes. 
         */
-        const checkboxes = new Array(...document.querySelectorAll("input[type='checkbox']"))
+        const checkboxes = document.querySelectorAll("input[type='checkbox']")
         console.log(checkboxes)
 
 
@@ -99,10 +93,9 @@
                 //En caso contrario el índice del elemento se asignará a lastCheck
                 lastCheck = index
 
-
                 /**El propio evento click nos permite saber si se está presionando la tecla shift
                  * mediante la propiedad shiftKey del objeto Event, por lo que la usaremos como 
-                 * condición para activar la función
+                 * condición para activar la parte de la función encargada de marcar todas las casillas
                 */
                 if (e.shiftKey) {
 
