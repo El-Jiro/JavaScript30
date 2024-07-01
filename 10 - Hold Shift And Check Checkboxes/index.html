@@ -58,40 +58,6 @@
 
     <script>
 
-        /**Primeramente creamos una variable que nos diga si la tecla shift 
-         * está siendo presionada; su valor por defecto será false*/
-        let holdedShift = false
-
-        /**Añadimos un eventListener de tipo keydown con un callback que 
-         * reciba la información del evento como parámetro.
-        */
-        window.addEventListener("keydown", (e) => {
-
-            //Imprimimos el nombre de la tecla en consola
-            console.log(e.key)
-
-            /**Si el nombre es Shift, holdedShift cambiará su valor a true
-             * y lo imprimiremos en consola
-            */
-            if (e.key == "Shift") {
-                holdedShift = true
-                console.log(holdedShift)
-            }
-        })
-
-        /**Creamos otro eventListener similar al de arriba, pero en este caso 
-         * será de tipo keyup, es decir que se activará cuando dejemos de presionar 
-         * la tecla, y su función será devolver el valor de holdedShift a false.
-        */
-        window.addEventListener("keyup", (e) => {
-            console.log(e.key)
-            if (e.key == "Shift") {
-                holdedShift = false
-                console.log(holdedShift)
-            }
-        })
-
-
         /**Buscamos todos los inputs de tipo checkbox mediante document.querySelectorAll
          * y guardamos el resultado en la variable checkboxes. Sin embargo La función 
          * document.querySelectorAll nos devuelve un objeto de tipo NodeListOf<Element>,
@@ -115,11 +81,12 @@
 
 
         /**Creamos la función markAllCheckboxes que controlará la lógica para marcar las casillas 
-         * intermedias entre las dos que seleccionemos, recibirá dos parámetros que son los mismos del forEach, 
-         * es decir element e index
+         * intermedias entre las dos que seleccionemos, recibirá tres parámetros, los primeros dos 
+         * son los mismos del forEach, es decir element e index, mientras que el tercero llamado e 
+         * es la información del evento
         */
 
-        function markAllCheckBoxes(element, index) {
+        function markAllCheckBoxes(element, index, e) {
 
             /**Si el elemento está seleccionado y firstcheck aún no tiene un valor (es null), 
              * entonces le asignaremos el valor del índice del elemento (o sea su posición dentro
@@ -133,8 +100,11 @@
                 lastCheck = index
 
 
-                /*Si holdedShift es true, usaremos un bloque forEach para marcar todas las casillas intermedias*/
-                if (holdedShift) {
+                /**El propio evento click nos permite saber si se está presionando la tecla shift
+                 * mediante la propiedad shiftKey del objeto Event, por lo que la usaremos como 
+                 * condición para activar la función
+                */
+                if (e.shiftKey) {
 
                     /**Calculamos cual de las casillas seleccionadas tiene el índice mayor y el menor valor 
                      * usando Math.max y Math.min respectivamente, y guardamos cada uno en una constante 
@@ -161,7 +131,7 @@
         //console.log("Preparando eventListeners")
         checkboxes.forEach((element, index) => {
             //console.log(`$Añadiendo oyente a la checkbox ${index}`)
-            element.addEventListener("click", () => markAllCheckBoxes(element, index))
+            element.addEventListener("click", (e) => markAllCheckBoxes(element, index, e))
         })
 
     </script>
