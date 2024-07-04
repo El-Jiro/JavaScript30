@@ -3,7 +3,7 @@
 const video = document.querySelector("video")
 
 //Obtenemos el botón de reproducción de la misma manera
-const playButton = document.getElementById("player")
+const playButton = document.querySelector(".toggle")
 console.log(playButton)
 playButton.style.fontSize = "20px"
 
@@ -16,6 +16,12 @@ volumeControl.title = `Volumen: ${volumeControl.value * 100}`
 //Obtenemos el control de velocidad 
 const rateControl = document.getElementById("playbackRate")
 console.log(rateControl)
+
+/**Obtenemos los botones de adelantar y retroceder, para esto usaremos querySelectorAll 
+ * y en nuestra consulta buscaremos los elementos con la clase player__button y que posean
+ * el atributo data-skip. Los guardaremos en timeControls*/
+const timeControls = document.querySelectorAll(".player__button[data-skip]")
+console.log(timeControls)
 
 //Ponemos la velocidad de reproducción actual en el title
 rateControl.title = `Velocidad de reproducción: x${video.playbackRate}`
@@ -41,13 +47,32 @@ function togglePlaying() {
 
 //Creamos una función que actualice el valor del volumen
 function handleVolume() {
+    //Asignamos el valor del controlador al atributo volume de video (debe ser un número entre 0 y 1)
     video.volume = volumeControl.value
+    //Actualizamos el título con el valor del controlador pero multiplicado por 100 para mejor comprensión del usuario
     volumeControl.title = `Volumen: ${volumeControl.value * 100}`
 }
 
+//Creamos otra función similar para manejar la velocidad de reproducción
 function handlePlaybackRate() {
     video.playbackRate = rateControl.value
     rateControl.title = `Velocidad de reproducción: x${video.playbackRate}`
+}
+
+//Creamos una función para adelantar o retroceder el vídeo según el caso
+
+function backAndForward() {
+
+    /**Primeramente obtenemos el valor del atributo data-skip, esto nos dirá el número 
+     * de segundos que debemos adelantar o retroceder según el caso. Lo convertimos a un 
+     * número entero mediante parseInt y lo guardamos en numberOfSeconds*/
+    const numberOfSeconds = parseInt(this.dataset.skip)
+    //Imprimimos numberOfSeconds en consola
+    console.log(numberOfSeconds)
+    /**Le sumamos numberOfSeconds al tiempo actual del video, dado que uno de ellos tiene el
+     * valor de -10, en la práctica es como si le estuviéramos restando 10 segundos
+    */
+    video.currentTime += numberOfSeconds
 }
 
 //Añadimos al botón un event listener de tipo click que llamará a nuestra función togglePlaying
@@ -56,3 +81,10 @@ playButton.addEventListener("click", togglePlaying)
 volumeControl.addEventListener("change", handleVolume)
 //Otro más para la velocidad de reproducción
 rateControl.addEventListener("change", handlePlaybackRate)
+
+/**Dado que timeControls es una lista, deberemos hacer un forEach para añadir
+ * el eventListener a cada uno de los elementos dentro de ella:
+*/
+timeControls.forEach((e) => {
+    e.addEventListener("click", backAndForward)
+})
