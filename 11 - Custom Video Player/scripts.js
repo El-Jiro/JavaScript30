@@ -7,6 +7,11 @@ const playButton = document.getElementById("player")
 console.log(playButton)
 playButton.style.fontSize = "20px"
 
+//Obtenemos el control de volumen
+const volumeControl = document.getElementById("volume")
+console.log(volumeControl)
+//Ponemos el nivel de volumen actual multplicado por 100 en el title
+volumeControl.title = `volumen: ${volumeControl.value * 100}`
 
 function togglePlaying() {
     /**Si el vídep está pausado, lo reproduciremos, además de cambiar el símbolo 
@@ -20,12 +25,20 @@ function togglePlaying() {
     } else {
 
         /**Por el contrario, si se está reproduciendo, lo pausamos y cambiamos el símbolo 
-         * de pausa por el de play y ajustar el tamaño de la fuente a 20px*/
+         * de pausa por el de play y ajustamos el tamaño de la fuente a 20px*/
         video.pause()
         playButton.innerText = "►"
         playButton.style.fontSize = "20px"
     }
 }
 
-//Añadimos al botón un event listener de tió click que llamará a neustra función togglePlaying
+//Creamos una función que actualice el valor del volumen
+function handleVolume() {
+    video.volume = volumeControl.value
+    volumeControl.title = `volumen: ${volumeControl.value * 100}`
+}
+
+//Añadimos al botón un event listener de tipo click que llamará a nuestra función togglePlaying
 playButton.addEventListener("click", togglePlaying)
+//Añadimos otro eventListener de tipo change que llamará a handleVolume
+volumeControl.addEventListener("change", handleVolume)
