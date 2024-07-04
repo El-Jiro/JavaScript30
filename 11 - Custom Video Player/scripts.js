@@ -11,10 +11,17 @@ playButton.style.fontSize = "20px"
 const volumeControl = document.getElementById("volume")
 console.log(volumeControl)
 //Ponemos el nivel de volumen actual multplicado por 100 en el title
-volumeControl.title = `volumen: ${volumeControl.value * 100}`
+volumeControl.title = `Volumen: ${volumeControl.value * 100}`
+
+//Obtenemos el control de velocidad 
+const rateControl = document.getElementById("playbackRate")
+console.log(rateControl)
+
+//Ponemos la velocidad de reproducción actual en el title
+rateControl.title = `Velocidad de reproducción: x${video.playbackRate}`
 
 function togglePlaying() {
-    /**Si el vídep está pausado, lo reproduciremos, además de cambiar el símbolo 
+    /**Si el vídeo está pausado, lo reproduciremos, además de cambiar el símbolo 
      * de play por el de pausa y ajustar el tamaño de fuente a 11px
     */
     if (!!video.paused) {
@@ -35,10 +42,17 @@ function togglePlaying() {
 //Creamos una función que actualice el valor del volumen
 function handleVolume() {
     video.volume = volumeControl.value
-    volumeControl.title = `volumen: ${volumeControl.value * 100}`
+    volumeControl.title = `Volumen: ${volumeControl.value * 100}`
+}
+
+function handlePlaybackRate() {
+    video.playbackRate = rateControl.value
+    rateControl.title = `Velocidad de reproducción: x${video.playbackRate}`
 }
 
 //Añadimos al botón un event listener de tipo click que llamará a nuestra función togglePlaying
 playButton.addEventListener("click", togglePlaying)
 //Añadimos otro eventListener de tipo change que llamará a handleVolume
 volumeControl.addEventListener("change", handleVolume)
+//Otro más para la velocidad de reproducción
+rateControl.addEventListener("change", handlePlaybackRate)
