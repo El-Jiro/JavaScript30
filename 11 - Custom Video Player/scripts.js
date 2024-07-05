@@ -23,6 +23,9 @@ console.log(rateControl)
 const progressBar = document.querySelector(".progress__filled")
 console.log(progressBar)
 
+//Obtenemos la parte de la barra que no está llena
+const progress = document.querySelector(".progress")
+console.log(progress)
 
 
 /**Obtenemos los botones de adelantar y retroceder, para esto usaremos querySelectorAll 
@@ -87,11 +90,13 @@ function handleProgress() {
 
     //Calculamos el porcentaje de llenado diviendo el tiempo actual del vídeo entre su duración total y multiplicandolo por 100
     const progressPercent = (video.currentTime / video.duration) * 100
-    console.log(progressPercent) //Lo imprimimos en consola
+    //console.log(progressPercent) //Lo imprimimos en consola
     //Actualizamos el valor de la propiedad css flexBasis de progressBar a progressPercent
     progressBar.style.flexBasis = `${progressPercent}%`;
 
-    progressBar.title = `${getCurrentTimeFormatted(video.currentTime)}`
+    const formattedTime = `${getCurrentTimeFormatted(video.currentTime)}`
+
+    progressBar.title = formattedTime
 }
 
 //Esta función mostrará el tiempo actual en formato MM:SS
@@ -100,13 +105,36 @@ function getCurrentTimeFormatted(currentTime) {
     let minutes = Math.floor(currentTime / 60);
     let seconds = Math.floor(currentTime % 60);
 
-    //Añadimos un 0 para rellenar de ser necesario
+    //Convertimos ambos a strings y les añadimos un 0 al inicio para rellenar de ser necesario
     minutes = String(minutes).padStart(2, '0');
     seconds = String(seconds).padStart(2, '0');
 
-    const formatedTime = `${minutes}:${seconds}`
+    //Guardamos el tiempo formateado en esta variable y la retornamos
+    const formattedTime = `${minutes}:${seconds}`
 
-    return formatedTime;
+    return formattedTime;
+}
+
+//Esta función nos servirá para adelantar el video arrastrando la barra de progreso
+
+/**Necesitaremos calcular los segundos exactos que debemos adelantar el vídeo
+ *según la posición a la que arrastramos la barra de progreso, para ello obtenemos
+ *la propiedad offsetX del objeto e, esto nos dirá la coordenada exacta del eje x en
+ *la que hicimos click contando a partir del borde izquierdo del elemento. 
+ 
+ *También deberemos obtener el ancho de la barra mediante offsetWidth, esto nos da el ancho total 
+ *contando border, padding, width, etc. Divideremos el primer valor entre el segundo y esto nos dará un porcentaje,
+ *el cual multiplicaremos por la duración del video para obtener el número exacto de segundos a adelantar.
+ 
+ *Finalmente, ajustaremos el tiempo actual del vídeo según corresponda
+ */
+function scrubProgressBar(e) {
+
+    const scrubSeconds = (e.offsetX / progress.offsetWidth) * video.duration
+    console.log(e.offsetX)
+    console.log(scrubSeconds)
+
+    video.currentTime = scrubSeconds
 }
 
 
@@ -122,6 +150,9 @@ rateControl.addEventListener("change", handlePlaybackRate)
 /**Añadimos un eventListener sobre el propio vídeo, el cual llamará a nuestra función handleProgress. 
  * Para ello utilizaremos el evento timeupdate*/
 video.addEventListener("timeupdate", handleProgress)
+
+/**Añadimos un eventListener de tipo click en la barra de progreso*/
+progress.addEventListener("click", scrubProgressBar)
 
 /**Dado que timeControls es una lista, deberemos hacer un forEach para añadir
  * el eventListener a cada uno de los elementos dentro de ella:
