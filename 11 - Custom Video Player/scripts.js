@@ -69,7 +69,7 @@ function handlePlaybackRate() {
 
 //Creamos una función para adelantar o retroceder el vídeo según el caso
 
-function backAndForward() {
+function skip() {
 
     /**Primeramente obtenemos el valor del atributo data-skip, esto nos dirá el número 
      * de segundos que debemos adelantar o retroceder según el caso. Lo convertimos a un 
@@ -99,5 +99,5 @@ rateControl.addEventListener("change", handlePlaybackRate)
  * el eventListener a cada uno de los elementos dentro de ella:
 */
 timeControls.forEach((e) => {
-    e.addEventListener("click", backAndForward)
+    e.addEventListener("click", skip)
 })
