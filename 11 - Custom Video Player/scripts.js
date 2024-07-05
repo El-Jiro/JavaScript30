@@ -20,8 +20,8 @@ console.log(volumeControl)
 volumeControl.title = `Volumen: ${volumeControl.value * 100}`
 
 //Obtenemos el control de velocidad 
-const rateControl = document.getElementById("playbackRate")
-console.log(rateControl)
+const skipButtons = document.getElementById("playbackRate")
+console.log(skipButtons)
 
 
 /**Obtenemos los botones de adelantar y retroceder, para esto usaremos querySelectorAll 
@@ -73,16 +73,16 @@ function skip() {
 
     /**Primeramente obtenemos el valor del atributo data-skip, esto nos dirá el número 
      * de segundos que debemos adelantar o retroceder según el caso. Lo convertimos a un 
-     * número entero mediante parseInt y lo guardamos en numberOfSeconds*/
-    const numberOfSeconds = parseInt(this.dataset.skip)
+     * número entero mediante parseInt y lo guardamos en secondsToSkip*/
+    const secondsToSkip = parseInt(this.dataset.skip)
 
-    //Imprimimos numberOfSeconds en consola
-    console.log(numberOfSeconds)
+    //Imprimimos secondsToSkip en consola
+    console.log(secondsToSkip)
 
-    /**Le sumamos numberOfSeconds al tiempo actual del video, dado que uno de ellos tiene el
+    /**Le sumamos secondsToSkip al tiempo actual del video, dado que uno de ellos tiene el
      * valor de -10, en la práctica es como si le estuviéramos restando 10 segundos
     */
-    video.currentTime += numberOfSeconds
+    video.currentTime += secondsToSkip
 }
 
 
