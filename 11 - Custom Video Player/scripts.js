@@ -1,11 +1,17 @@
+//--------------------------Obtener elementos-----------------------------------
+
 /**Obtenemos el elemento de vídeo mediante document.querySelector 
  * y lo guardamos en la constante video*/
 const video = document.querySelector("video")
+console.log(video)
+
+//Obtenemos la barra de progreso
+const progressBar = document.querySelector(".progress__filled")
+console.log(progressBar)
 
 //Obtenemos el botón de reproducción de la misma manera
 const playButton = document.querySelector(".toggle")
 console.log(playButton)
-playButton.style.fontSize = "20px"
 
 //Obtenemos el control de volumen
 const volumeControl = document.getElementById("volume")
@@ -17,6 +23,7 @@ volumeControl.title = `Volumen: ${volumeControl.value * 100}`
 const rateControl = document.getElementById("playbackRate")
 console.log(rateControl)
 
+
 /**Obtenemos los botones de adelantar y retroceder, para esto usaremos querySelectorAll 
  * y en nuestra consulta buscaremos los elementos con la clase player__button y que posean
  * el atributo data-skip. Los guardaremos en timeControls*/
@@ -26,14 +33,15 @@ console.log(timeControls)
 //Ponemos la velocidad de reproducción actual en el title
 rateControl.title = `Velocidad de reproducción: x${video.playbackRate}`
 
+//-------------------------------Crear funciones---------------------------------------
+
 function togglePlaying() {
     /**Si el vídeo está pausado, lo reproduciremos, además de cambiar el símbolo 
      * de play por el de pausa y ajustar el tamaño de fuente a 11px
     */
     if (!!video.paused) {
         video.play()
-        playButton.innerText = "\u2590\u2590"
-        playButton.style.fontSize = "11px"
+        playButton.innerText = "❚ ❚"
 
     } else {
 
@@ -41,7 +49,7 @@ function togglePlaying() {
          * de pausa por el de play y ajustamos el tamaño de la fuente a 20px*/
         video.pause()
         playButton.innerText = "►"
-        playButton.style.fontSize = "20px"
+
     }
 }
 
@@ -67,13 +75,18 @@ function backAndForward() {
      * de segundos que debemos adelantar o retroceder según el caso. Lo convertimos a un 
      * número entero mediante parseInt y lo guardamos en numberOfSeconds*/
     const numberOfSeconds = parseInt(this.dataset.skip)
+
     //Imprimimos numberOfSeconds en consola
     console.log(numberOfSeconds)
+
     /**Le sumamos numberOfSeconds al tiempo actual del video, dado que uno de ellos tiene el
      * valor de -10, en la práctica es como si le estuviéramos restando 10 segundos
     */
     video.currentTime += numberOfSeconds
 }
+
+
+//--------------------------------Añadir EventListeners-------------------------------------------
 
 //Añadimos al botón un event listener de tipo click que llamará a nuestra función togglePlaying
 playButton.addEventListener("click", togglePlaying)
