@@ -160,3 +160,29 @@ progress.addEventListener("click", scrubProgressBar)
 skipButtons.forEach((e) => {
     e.addEventListener("click", skip)
 })
+
+/**Duplicaremos el evento con otro listener de tipo mousemove, antes que nada
+ * creamos una variable booleana que nos indique si estamos presionando el botón del mouse
+*/
+
+let mousedown = false
+
+//Cuando haya un evento mousemove, si mousedown es true, se invocará a nuestra función scrubProgresBar
+progress.addEventListener("mousemove", (e) => mousedown ? scrubProgressBar(e) : null)
+
+
+//Cuando haya un evento mousedown, la variable homónima se volverá true y el cursor cambiará a grabbing
+progress.addEventListener("mousedown", () => {
+    mousedown = true
+    progress.style.cursor = "grabbing"
+})
+
+/**Cuando haya un evento mouseup (soltar el botón) o mouseout (mover el mouse fuera de la barra),
+ * mousedown será false de nuevo y el cursor volverá a ser de tipo grab
+*/
+progress.addEventListener("mouseup", () => {
+    mousedown = false
+    progress.style.cursor = "grab"
+})
+
+

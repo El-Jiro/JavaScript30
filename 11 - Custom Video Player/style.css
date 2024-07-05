@@ -97,7 +97,7 @@ body {
     transition: height 0.3s;
     background: #CCCCCC;
     cursor: ew-resize;
-    cursor: pointer;
+    cursor: grab;
 }
 
 .progress__filled {
