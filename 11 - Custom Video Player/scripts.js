@@ -20,15 +20,15 @@ console.log(volumeControl)
 volumeControl.title = `Volumen: ${volumeControl.value * 100}`
 
 //Obtenemos el control de velocidad 
-const skipButtons = document.getElementById("playbackRate")
-console.log(skipButtons)
+const rateControl = document.getElementById("playbackRate")
+console.log(rateControl)
 
 
 /**Obtenemos los botones de adelantar y retroceder, para esto usaremos querySelectorAll 
  * y en nuestra consulta buscaremos los elementos con la clase player__button y que posean
  * el atributo data-skip. Los guardaremos en timeControls*/
-const timeControls = document.querySelectorAll(".player__button[data-skip]")
-console.log(timeControls)
+const skipButtons = document.querySelectorAll(".player__button[data-skip]")
+console.log(skipButtons)
 
 //Ponemos la velocidad de reproducción actual en el title
 rateControl.title = `Velocidad de reproducción: x${video.playbackRate}`
@@ -73,16 +73,16 @@ function skip() {
 
     /**Primeramente obtenemos el valor del atributo data-skip, esto nos dirá el número 
      * de segundos que debemos adelantar o retroceder según el caso. Lo convertimos a un 
-     * número entero mediante parseInt y lo guardamos en secondsToSkip*/
-    const secondsToSkip = parseInt(this.dataset.skip)
+     * número entero mediante parseInt y lo guardamos en numberOfSeconds*/
+    const numberOfSeconds = parseInt(this.dataset.skip)
 
-    //Imprimimos secondsToSkip en consola
-    console.log(secondsToSkip)
+    //Imprimimos numberOfSeconds en consola
+    console.log(numberOfSeconds)
 
-    /**Le sumamos secondsToSkip al tiempo actual del video, dado que uno de ellos tiene el
+    /**Le sumamos numberOfSeconds al tiempo actual del video, dado que uno de ellos tiene el
      * valor de -10, en la práctica es como si le estuviéramos restando 10 segundos
     */
-    video.currentTime += secondsToSkip
+    video.currentTime += numberOfSeconds
 }
 
 
@@ -98,6 +98,6 @@ rateControl.addEventListener("change", handlePlaybackRate)
 /**Dado que timeControls es una lista, deberemos hacer un forEach para añadir
  * el eventListener a cada uno de los elementos dentro de ella:
 */
-timeControls.forEach((e) => {
+skipButtons.forEach((e) => {
     e.addEventListener("click", skip)
 })
