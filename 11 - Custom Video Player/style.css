@@ -165,3 +165,7 @@ input[type=range]::-moz-range-thumb {
     background: #ffc600;
     cursor: pointer;
 }
+
+button#full-screen {
+    font-size: 20px;
+}
