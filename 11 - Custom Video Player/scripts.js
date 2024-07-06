@@ -34,6 +34,11 @@ console.log(progress)
 const skipButtons = document.querySelectorAll(".player__button[data-skip]")
 console.log(skipButtons)
 
+
+//Obtenemos el botón de pantalla completa
+const fullScreenButton = document.getElementById("full-screen")
+console.log(fullScreenButton)
+
 //Ponemos la velocidad de reproducción actual en el title
 rateControl.title = `Velocidad de reproducción: x${video.playbackRate}`
 
@@ -138,6 +143,26 @@ function scrubProgressBar(e) {
 }
 
 
+//Crearemos una función para entrar y salir del modo pantalla completa
+function toggleFullScreen() {
+
+    /**Si el vídeo no está en modo de pantalla completa, invocamos a requestFullscreen 
+     * para cambiar a dicho modo, además cambiaremos el texto del title por "salir del modo
+     * pantalla completa"*/
+    if (document.fullscreenElement === null) {
+        //console.log("El vídeo está en modo pantalla completa")
+        video.requestFullscreen()
+        fullScreenButton.title = "Salir del modo pantalla completa"
+
+        /**Si ya está en pantalla completa, llamamos a document.exitFullScreen para volver 
+         * al modo normal, y volvemos a poner en el title "Cambiar a modo pantalla completa"
+        */
+    } else {
+        //console.log("El vídeo no está en modo pantalla completa")
+        document.exitFullscreen()
+        fullScreenButton.title = "Cambiar a modo pantalla completa"
+    }
+}
 //--------------------------------Añadir EventListeners-------------------------------------------
 
 //Añadimos al botón un event listener de tipo click que llamará a nuestra función togglePlaying
@@ -185,4 +210,6 @@ progress.addEventListener("mouseup", () => {
     progress.style.cursor = "grab"
 })
 
+//Añadimos el eventListener para el botón de pantalla completa:
+fullScreenButton.addEventListener("click", toggleFullScreen)
 
