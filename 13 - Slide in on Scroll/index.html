@@ -101,7 +101,8 @@
 
         <img src="http://unsplash.it/400/400" class="align-right slide-in">
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae
             dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil
             voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus
             facilis. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium
@@ -122,8 +123,10 @@
             necessitatibus distinctio molestias eum, quidem. Delectus impedit quidem laborum, fugit vel neque quo,
             ipsam, quasi aspernatur quas odio nihil? Veniam amet reiciendis blanditiis quis reprehenderit repudiandae
             neque, ab ducimus, odit excepturi voluptate saepe ipsam. Voluptatem eum error voluptas porro officiis, amet!
-            Molestias, fugit, ut! Tempore non magnam, amet, facere ducimus accusantium eos veritatis neque.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae
+            Molestias, fugit, ut! Tempore non magnam, amet, facere ducimus accusantium eos veritatis neque.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae
             dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil
             voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus
             facilis. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium
@@ -144,7 +147,8 @@
             necessitatibus distinctio molestias eum, quidem. Delectus impedit quidem laborum, fugit vel neque quo,
             ipsam, quasi aspernatur quas odio nihil? Veniam amet reiciendis blanditiis quis reprehenderit repudiandae
             neque, ab ducimus, odit excepturi voluptate saepe ipsam. Voluptatem eum error voluptas porro officiis, amet!
-            Molestias, fugit, ut! Tempore non magnam, amet, facere ducimus accusantium eos veritatis neque.</p>
+            Molestias, fugit, ut! Tempore non magnam, amet, facere ducimus accusantium eos veritatis neque.
+        </p>
     </div>
 
     <script>
@@ -161,23 +165,67 @@
                     timeout = null;
                     if (!immediate) func.apply(context, args);
                 };
-                var callNow = immediate && !timeout;
+                let callNow = immediate && !timeout;
                 clearTimeout(timeout);
                 timeout = setTimeout(later, wait);
                 if (callNow) func.apply(context, args);
             };
         }
 
+        console.log(window.scrollY)
+
         //Primero necesitamos obtener todas las imágenes que vamos a deslizar
         const sliderImages = document.querySelectorAll("img")
         console.log(sliderImages)
 
-        /**Creamos la función para deslizar las imágenes, la cual recibirá
-         * un objeto de tipo Event como parámetro
+        /**Creamos la función para deslizar las imágenes, la cual recibirá como parámetro un objeto
+         * de tipo Event y encargará de ir mostrando las imágenes conforme vayamos bajando en la página
         */
         function checkSlide(e) {
-            console.log(e)
-            console.count(e)
+            /**Con este atributo podemos saber que tanto hemos bajado, sin embargo, no nos dice la posición exacta
+             * ya que no toma en cuenta las coordenadas exactas de inicio, para saber conocer la posición exacta
+             * deberemos sumarle el atributo innerWidth de la  ventana y restarle la altura de la imagen dividida 
+             * entre 2, esto porque queremos empezar a deslizarlas cuando vayan por la mitad
+            */
+            //console.log(window.scrollY)
+            //console.count(e)
+            sliderImages.forEach((e) => {
+                //console.log(e)
+                /**Esta variable nos dirá la posición exacta vertical en la que debemos empezar a deslizar la imagen*/
+                const slideInAt = (window.scrollY + window.innerHeight) - (e.height / 2)
+                console.log(slideInAt)
+
+                /**También necesitamos saber donde esta el fondo de la imagen para que se vuelva a ocultar 
+                 * en cuanto la pasemos de largo, para esto utilizamos la propiedad offsetTop que nos dirá 
+                 * la distancia en píxeles del borde superior de la imagen (contando height, padding, border, etc)
+                 * hasta la parte superiror del documento HTML y le sumaremos la altura de la imagen
+                */
+                const imageBotton = e.offsetTop + e.height
+
+                /**Otra cosa que necesitamos saber es si al menos la mitad de la imagen está siendo mostrada, 
+                 * utilizaremos para ello una variable booleana que compruebe si nuestra variable slideInAt 
+                 * (la mitad de la altura de la imagen) es mayor o igual que la propiedad offSetTop de la imagen. 
+                */
+                const isHalfShown = slideInAt > e.offsetTop
+
+                /**De manera similar, necesitamos una varible que nos diga si no hemos pasado de largo la imagen. 
+                 * para esto comprobeamos si imageBottom (el borde inferior de la imagen) es menor que window.scrollY.
+                */
+
+                const isNotScrolledPast = window.scrollY < imageBotton
+
+                /**Ahora comprobamos si la mitad de la imagen está siendo mostrada y no la hemos pasado de largo,
+                 * de ser el caso, añadiremos a cada imagen la clase active para que se deslice a su posición
+                 * correspondiente, de lo contrario le quitamos la clase, pues significa que ya la pasamos o 
+                 * simplemente aún no hemos llegado a ella.
+                */
+
+                if (isHalfShown && isNotScrolledPast) {
+                    e.classList.add("active")
+                } else {
+                    e.classList.remove("active")
+                }
+            })
         }
 
         /**Añadimos un EventListener de tipo scroll a la ventana y le pasamos como segundo argumento 
@@ -187,6 +235,7 @@
          * pasando el intervalo de milisegundos en los que queremos ejecutar la función como segundo argumento
         */
         window.addEventListener("scroll", debounce(checkSlide, 50))
+
     </script>
 </body>
 
