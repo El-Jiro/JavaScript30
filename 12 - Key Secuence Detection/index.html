@@ -9,7 +9,39 @@
 </head>
 
 <body>
-    <script></script>
+    <script>
+
+        //Creamos un array vacío que guardará las 6 primeras teclas presionadas:
+        const pressedKeys = []
+        const secretCode = "wesbos" //Este será la secuencia de teclas que necesitamos presionar
+        /**Añadimos un eventListener de tipo keyup a toda la ventana 
+         * 
+         * con un callback que recibirá un objeto Event como único parámetro 
+         * e imprimirá la propiedad key del mismo en consola*/
+
+        function handleSecretCode(e) {
+            //Imprimimos la tecla en consola
+            console.log(e.key)
+            //Añadimos la tecla a nuestro array
+            pressedKeys.push(e.key)
+            /**Si el largo del array es mayor al de secret code, iremos eliminando los elementos
+             * más antiguos y reemplazándolos por los nuevos, iniciando por la última posición del array */
+            pressedKeys.splice(-secretCode.length - 1, pressedKeys.length - secretCode.length)
+            //Imprimimos el array en consola
+            console.log(pressedKeys)
+
+            //Comprobamos si el array es igual a nuestro código secreto e imprimimos Ding Ding! en consola de ser el caso:
+            if (pressedKeys.join("") == secretCode) {
+                console.log("%cDING DING!", "font-size: 50px; background: red; text-shadow: 10px 5px 0 blue")
+                /**También llamaremos a la función cornify_add() de nuestro script cornify.js que irá 
+                 * creando gifs de unicornios y/o arcoiris en lugares random de la pantalla cada vez que 
+                 * presionemos la secuencia de teclas correspondiente a nuestro código secreto*/
+                cornify_add()
+            }
+        }
+
+        window.addEventListener("keyup", (e) => handleSecretCode(e))
+    </script>
 </body>
 
 </html>
