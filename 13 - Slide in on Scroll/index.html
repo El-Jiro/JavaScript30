@@ -148,11 +148,16 @@
     </div>
 
     <script>
+        /**Esta función llamará otra función que le sea pasada como argumento cada 20
+         * milisegundos, lo cual es útil para evitar problemas de rendimiento en operaciones
+         * que se ejecutan muchísimas veces por segundo y de manera consecutiva, como por ejemplo 
+         * los eventos de scroll.
+        */
         function debounce(func, wait = 20, immediate = true) {
-            var timeout;
+            let timeout;
             return function () {
-                var context = this, args = arguments;
-                var later = function () {
+                let context = this, args = arguments;
+                const later = function () {
                     timeout = null;
                     if (!immediate) func.apply(context, args);
                 };
@@ -162,6 +167,26 @@
                 if (callNow) func.apply(context, args);
             };
         }
+
+        //Primero necesitamos obtener todas las imágenes que vamos a deslizar
+        const sliderImages = document.querySelectorAll("img")
+        console.log(sliderImages)
+
+        /**Creamos la función para deslizar las imágenes, la cual recibirá
+         * un objeto de tipo Event como parámetro
+        */
+        function checkSlide(e) {
+            console.log(e)
+            console.count(e)
+        }
+
+        /**Añadimos un EventListener de tipo scroll a la ventana y le pasamos como segundo argumento 
+         * la función debounce la cual a su vez recibirá  como argumento la función checkSlide, esto para 
+         * evitar problemas de rendimiento, ya que el evento scroll se ejecuta hasta 50 veces por segundo,
+         * mientras que con debounce sólo se ejecutará de 15 a 20 veces en promedio. Podemos cambiar esto 
+         * pasando el intervalo de milisegundos en los que queremos ejecutar la función como segundo argumento
+        */
+        window.addEventListener("scroll", debounce(checkSlide, 50))
     </script>
 </body>
 
