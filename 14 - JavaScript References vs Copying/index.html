@@ -69,6 +69,10 @@
         //Ahora cuando lo actualizamos no se modifica el original
         team4[3] = "Kevin"
         console.log(players, team4)
+
+        //Por último podemos usar Array.from
+        const team5 = Array.from(players)
+        team5[3] = "Ruben"
         //Lo mismo aplica para los objetos, digamos que tenemos un objeto persona
 
         //Con objetos
@@ -77,15 +81,47 @@
             age: 80
         };
 
+        //console.log(person)
+
         // Y pensamos que hicimos una copia:
+        const person2 = person
+        //person2.number = 99
 
         // ¿Cómo hacemos una copia en realidad?
 
+        /**Obect.assign toma tres parámetros, un objeto vacío, el objeto del que queremos copiar
+         * las propiedades, y opcionalmente un tercer objeto con las nuevas propiedades que queremos que
+         * tenga nuestra copia
+        */
+        const person3 = Object.assign({}, person, { number: 99, age: 12 })
+        console.log(person3)
+
         // Con suerte pronto veremos el objeto ...spread
+        //Ignoren el comentario de arriba, ya funciona esta wea
+        const person4 = { ...person }
+        console.log(person4)
 
-        /**Nota - Esto es sólo de 1 nivel de profundidad - tanto para Objetos como Arrays.
-         * Lodash tiene un método cloneDeep, pero deberías pensar dos veces antes de usarlo.*/
+        /**Nota - Esto es sólo de 1 nivel de profundidad - tanto para Objetos como Arrays. 
+         * Esto significa que si tenemos objetos o arrays anidados sólo se creará una referencia a
+         * estos, más no una copia, lo cual implica que los cambios hechos en este afectarán también
+         * al original. Lodash tiene un método cloneDeep, pero deberías pensar dos veces antes de usarlo.*/
 
+        const wes = {
+            name: "Wes",
+            age: 100,
+            social: {
+                twitter: "@wesbos",
+                facebook: "wesbos.developer"
+            }
+        }
+
+        console.clear()
+        const dev = Object.assign({}, wes)
+        console.log(dev)
+
+        //Una alternativa sin usar librerías o dependencias externas es JSON.parse(JSON.stringify(Object))
+        const dev2 = JSON.parse(JSON.stringify(wes))
+        console.log(dev2)
     </script>
 
 </body>
