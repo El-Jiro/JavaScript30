@@ -41,11 +41,13 @@
         const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
         // y queremos hacer una copia del mismo.
+        const team = players
 
-        // Podrías pensar que simplemente podríamos hacer algo así:
+        // Penserías que simplemente podríamos hacer algo así:
+        console.log(players, team)
 
-        // Sin embargo ¿Que pasa cuando actualizanmos ese array?
-
+        // Sin embargo ¿Que pasa cuando actualizamos ese array?
+        //team[3] = "Lux"
         // ¡Ahora tenemos aquí un problema!
 
         // !Oh no, hemos editado el array original también!
@@ -54,14 +56,19 @@
 
         // ¿Entonces, como arreglamos esto? ¡Haciendo una copia en su lugar!
 
+
         // Una forma de hacerlo
+        const team2 = players.slice()
 
-        // O crea un nuevo array y concatenalo con el viejo
+        // O crea un nuevo array y concatena el viejo en su interior
+        const team3 = [].concat(players)
 
-        // O utliza el nuevo operador Spread de ES6
+        // O utliza el nuevo operador Spread ... de ES6
+        const team4 = [...players]
 
         //Ahora cuando lo actualizamos no se modifica el original
-
+        team4[3] = "Kevin"
+        console.log(players, team4)
         //Lo mismo aplica para los objetos, digamos que tenemos un objeto persona
 
         //Con objetos
