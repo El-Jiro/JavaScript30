@@ -10,48 +10,49 @@
 <body>
 
     <script>
-        // start with strings, numbers and booleans
+        // Empecemos con strings, números y booleanos
 
-        // Let's say we have an array
+        // Digamos que tenemos un array
         const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
-        // and we want to make a copy of it.
+        // y queremos hacer una copia del mismo.
 
-        // You might think we can just do something like this:
+        // Podrías pensar que simplemente podríamos hacer algo así:
 
-        // however what happens when we update that array?
+        // Sin embargo ¿Que pasa cuando actualizanmos ese array?
 
-        // now here is the problem!
+        // ¡Ahora tenemos aquí un problema!
 
-        // oh no - we have edited the original array too!
+        // !Oh no, hemos editado el array original también!
 
-        // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+        // ¿Por qué? Pues porque esto es una referencia al array, no una copia ¡Ambas apuntan al mismo array!
 
-        // So, how do we fix this? We take a copy instead!
+        // ¿Entonces, como arreglamos esto? ¡Haciendo una copia en su lugar!
 
-        // one way
+        // Una forma de hacerlo
 
-        // or create a new array and concat the old one in
+        // O crea un nuevo array y concatenalo con el viejo
 
-        // or use the new ES6 Spread
+        // O utliza el nuevo operador Spread de ES6
 
-        // now when we update it, the original one isn't changed
+        //Ahora cuando lo actualizamos no se modifica el original
 
-        // The same thing goes for objects, let's say we have a person object
+        //Lo mismo aplica para los objetos, digamos que tenemos un objeto persona
 
-        // with Objects
+        //Con objetos
         const person = {
             name: 'Wes Bos',
             age: 80
         };
 
-        // and think we make a copy:
+        // Y pensamos que hicimos una copia:
 
-        // how do we take a copy instead?
+        // ¿Cómo hacemos una copia en realidad?
 
-        // We will hopefully soon see the object ...spread
+        // Con suerte pronto veremos el objeto ...spread
 
-        // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+        /**Nota - Esto es sólo de 1 nivel de profundidad - tanto para Objetos como Arrays.
+         * Lodash tiene un método cloneDeep, pero deberías pensar dos veces antes de usarlo.*/
 
     </script>
 
