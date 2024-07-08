@@ -11,6 +11,31 @@
 
     <script>
         // Empecemos con strings, números y booleanos
+        let age = 100
+        let age2 = age
+
+        //Reasignamos age a 200
+        age = 200
+        console.log(age, age2)
+
+        let name = "Wes"
+        let name2 = name
+
+        //Reasignamos name a Wesley
+        name = "Wesley"
+        console.log(name, name2)
+
+        let condition = true
+        let condition2 = condition
+
+        //Reasignamos condition a false
+        condition = false
+        console.log(condition, condition2)
+
+        /**Si se crea una variable con un tipo de dato primitivo como number, string o boolean,
+         * y después se crea otra que apunta hacia ella, la segunda será una copia, no una referencia
+         * es decir, que su valor no cambiará incluso si se cambia el valor de la original y viceversa
+        */
 
         // Digamos que tenemos un array
         const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
