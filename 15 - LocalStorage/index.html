@@ -45,11 +45,11 @@
 
     <script>
         //Obtenemos el formulario
-        const addItemsForm = document.querySelector('.add-items');
+        const addItemsForm = document.querySelector('.add-items')
         //Obtenemos la lista de platillos
-        const itemsList = document.querySelector('.plates');
+        const itemsList = document.querySelector('.plates')
         //Guardamos todos los elementos aquí
-        const items = [];
+        const items = []
 
         /**Creamos una función para añadir elementos a la lista, recibirá un objeto Event 
          * como parámetro y lo imprimirá en consola*/
@@ -80,10 +80,41 @@
 
             //Añadimos el objeto dentro del array:
             items.push(item)
-            //Por pultimo limpiamos el formulario con el método reset
+
+            //invocamos a populateList
+            populateList(items, itemsList)
+            //Por último limpiamos el formulario con el método reset
             this.reset()
         }
 
+        /**Creamos la función populateList que se encargará de generar el html correspondiente
+         * para mostrar nuestra lista de objetos al usuario. Esta recibirá dos parámetros, el
+         * array donde se encuentran almacenados los items y el elemento HTML <ul> (lista desordenada) 
+         * donde se mostrará cada item. El primer parámetro llamado plates será igual a un array vacío 
+         * por defecto, así no se romperá el programa si por alguna razón no recibe el array de objetos
+        */
+
+        function populateList(plates = [], platesList) {
+
+            //Mapeamos el array e igualamos el innerHTML de platesList a su resultado
+
+            /** Dentro de map creamos un elemento de lista <li> con elemento label que tenga el nombre*del objeto dentro. 
+             * También pondremos un checkbox con un atributo data-index (el cual será igual al índice del objeto dentro del array) 
+             * que nos ayudará más adelante. Le añadiremos además el atributo id con el valor item${i}, esto nos asegura que se creará 
+             * un id único por cada elemento del array. Ponemos el mismo valor en el atributo for de nuestro label para que así ambas queden 
+             * vinculadas*/
+            platesList.innerHTML = plates.map((p, i) => {
+
+                const html =
+                    `
+                    <li>
+                        <input type="checkbox" data-index="${i}" id="item${i}" ${p.checked ? "checked" : ""}>
+                        <label for="item${i}">${p.name}</label>
+                    </li>
+                    `
+                return html
+            }).join('') //Aplicamos un .join al final para que nos devuelva el html en forma de string y no de array
+        }
         /**Acoplamos la función a un EventListener de nuestro formulario,
          * escucharemos por el evento submit
         */
