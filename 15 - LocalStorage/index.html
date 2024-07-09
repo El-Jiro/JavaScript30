@@ -32,21 +32,64 @@
     </svg>
 
     <div class="wrapper">
-        <h2>LOCAL TAPAS</h2>
+        <h2>TAPAS LOCALES</h2>
         <p></p>
         <ul class="plates">
-            <li>Loading Tapas...</li>
+            <li>Cargando Tapas...</li>
         </ul>
         <form class="add-items">
-            <input type="text" name="item" placeholder="Item Name" required>
-            <input type="submit" value="+ Add Item">
+            <input type="text" name="item" placeholder="Nombre del elemento" required>
+            <input type="submit" value="+ Agregar">
         </form>
     </div>
 
     <script>
-        const addItems = document.querySelector('.add-items');
+        //Obtenemos el formulario
+        const addItemsForm = document.querySelector('.add-items');
+        //Obtenemos la lista de platillos
         const itemsList = document.querySelector('.plates');
+        //Guardamos todos los elementos aquí
         const items = [];
+
+        /**Creamos una función para añadir elementos a la lista, recibirá un objeto Event 
+         * como parámetro y lo imprimirá en consola*/
+        function addItem(e) {
+            /**Para evitar que la página se recargue al enviar el formulario, 
+             * llamamos al método preventDefault de nuestro objeto e*/
+            e.preventDefault()
+
+            //console.log(e)
+
+            /**Ahora obtendremos el texto del formulario mediante un this.querySelector, 
+             * esto buscará dentro del elemento sobre el cual se llamó la función, y una vez
+             * obtenida la referencia al input sacamos el texto con .value*/
+
+            const itemName = (this.querySelector("input")).value
+            console.log(itemName)
+
+            /**Ahora creamos un objeto JSON que guardará la información del objeto: 
+             * su nombre y si está seleccionada su checkbox: */
+
+            const item = {
+                name: `${itemName}`,
+                checked: false
+            }
+
+            //imprimimos el objeto en consola
+            console.log(item)
+
+            //Añadimos el objeto dentro del array:
+            items.push(item)
+            //Por pultimo limpiamos el formulario con el método reset
+            this.reset()
+        }
+
+        /**Acoplamos la función a un EventListener de nuestro formulario,
+         * escucharemos por el evento submit
+        */
+
+        addItemsForm.addEventListener("submit", addItem)
+
 
     </script>
 
