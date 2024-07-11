@@ -48,8 +48,15 @@
         const addItemsForm = document.querySelector('.add-items')
         //Obtenemos la lista de platillos
         const itemsList = document.querySelector('.plates')
-        //Guardamos todos los elementos aquí
-        const items = []
+        //Recuperemos la lista de platillos de localStorage
+        const localItems = localStorage.getItem("items")
+        //console.log(localItems)
+
+        /**Aquí utilizaremos el operador booleano OR para asignarle un valor según el caso, primero tratará
+         * de recuperar la lista de items de localStorage, y si no lo consigue, tomará el valor de un array
+         * vacío
+        */
+        const items = JSON.parse(localItems) || []
 
         /**Creamos una función para añadir elementos a la lista, recibirá un objeto Event 
          * como parámetro y lo imprimirá en consola*/
@@ -65,7 +72,7 @@
              * obtenida la referencia al input sacamos el texto con .value*/
 
             const itemName = (this.querySelector("input")).value
-            console.log(itemName)
+            //console.log(itemName)
 
             /**Ahora creamos un objeto JSON que guardará la información del objeto: 
              * su nombre y si está seleccionada su checkbox: */
@@ -76,13 +83,15 @@
             }
 
             //imprimimos el objeto en consola
-            console.log(item)
+            //console.log(item)
 
             //Añadimos el objeto dentro del array:
             items.push(item)
 
             //invocamos a populateList
             populateList(items, itemsList)
+            //Guardamos nuestro array en el localStorage
+            localStorage.setItem("items", JSON.stringify(items))
             //Por último limpiamos el formulario con el método reset
             this.reset()
         }
@@ -102,7 +111,8 @@
              * También pondremos un checkbox con un atributo data-index (el cual será igual al índice del objeto dentro del array) 
              * que nos ayudará más adelante. Le añadiremos además el atributo id con el valor item${i}, esto nos asegura que se creará 
              * un id único por cada elemento del array. Ponemos el mismo valor en el atributo for de nuestro label para que así ambas queden 
-             * vinculadas*/
+             * vinculadas. Y finalmente usamos un operador ternario para añadir el atributo checked en caso de que la propiedad checked del
+             * objeto sea igual a true*/
             platesList.innerHTML = plates.map((p, i) => {
 
                 const html =
@@ -115,15 +125,57 @@
                 return html
             }).join('') //Aplicamos un .join al final para que nos devuelva el html en forma de string y no de array
         }
+
+
+        /**Creamos la función toggleChecked que se encargará de actualizar la propiedad checked 
+         * de nuestros objetos JSON y recibirá como parámetro un objeto de tipo event*/
+
+        function toggleChecked(e) {
+
+            /**Esto está tomando como blanco tanto el checkbox como su respectivo label al ser ambos hijos de la lista 
+             * a la cual le acoplamos el EventListener (esto se conoce como delegación de eventos), por tanto, debemos 
+             * usar un if para asegurarnos que la función sólo se ejecute cuando el blanco del evento sea un input.*/
+            const target = e.target
+
+            if (target.matches("input")) {
+                //Imprimimos el target o blanco en consola
+                // console.log(target)
+
+                /**Podemos obtener el índice del objeto correspondiente a nuestro elemento 
+                 * HTML almacenado en el array items mediante el valor de su atributo data-index. 
+                 * Deberemos convertirlo a un número mediante parseInt antes de guardarlo en index*/
+
+                const index = parseInt(target.dataset.index)
+                //console.log(index)
+
+                /**Actualizamos la propiedad checked del objeto correspondiente negando 
+                 * su valor, es decir, si es false pasará a ser true y viceversa  
+                 */
+                items[index].checked = !items[index].checked
+                //console.log(items[index])
+
+                //Por último, actualizamos el localStorage con los nuevos valores
+                localStorage.setItem("items", JSON.stringify(items))
+            }
+
+
+        }
+
         /**Acoplamos la función a un EventListener de nuestro formulario,
          * escucharemos por el evento submit
         */
 
         addItemsForm.addEventListener("submit", addItem)
 
+        //Hacemos otro EventListener de tipo click para la función toggleChecked, esta vez sobre nuestra lista
+        itemsList.addEventListener("click", toggleChecked)
+
+        //Llamamos a la función populateList inmediatamente al cargar la página para mostrar la lista
+        populateList(items, itemsList)
+
+
 
     </script>
-
 
 </body>
 
