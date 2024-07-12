@@ -108,14 +108,33 @@ h2 {
     background-color: #007bff;
     border-color: #007bff;
     position: relative;
-    left: -4rem;
+    left: -1rem;
     top: 1rem;
 }
 
 .btn-primary.focus,
-.btn-primary:focus {
+.btn-primary:focus,
+.btn-primary:hover {
     color: #fff;
     background-color: #0069d9;
     border-color: #0062cc;
     box-shadow: 0 0 0 .2rem rgba(38, 143, 255, .5);
+}
+
+.btn-danger {
+    position: relative;
+    top: 1rem;
+    right: -1.5rem;
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger.focus,
+.btn-danger:focus,
+.btn-danger:hover {
+    color: #fff;
+    background-color: #c82333;
+    border-color: #bd2130;
+    box-shadow: 0 0 0 .2rem rgba(225, 83, 97, .5);
 }
