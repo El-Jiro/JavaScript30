@@ -6,6 +6,9 @@ const itemsList = document.querySelector('.plates')
 //Recuperemos la lista de platillos de localStorage
 const localItems = localStorage.getItem("items")
 //console.log(localItems)
+//Obtenemos el botón de seleccionar todo
+const checkBtn = document.getElementById("select-all")
+console.log(checkBtn)
 
 /**Aquí utilizaremos el operador booleano OR para asignarle un valor según el caso, primero tratará
  * de recuperar la lista de items de localStorage, y si no lo consigue, tomará el valor de un array
@@ -88,8 +91,8 @@ function populateList(plates = [], platesList) {
 function toggleChecked(e) {
 
     /**Esto está tomando como blanco tanto el checkbox como su respectivo label al ser ambos hijos de la lista
-* a la cual le acoplamos el EventListener (esto se conoce como delegación de eventos), por tanto, debemos
-* usar un if para asegurarnos que la función sólo se ejecute cuando el blanco del evento sea un input.*/
+    * a la cual le acoplamos el EventListener (esto se conoce como delegación de eventos), por tanto, debemos
+    * usar un if para asegurarnos que la función sólo se ejecute cuando el blanco del evento sea un input.*/
     const target = e.target
 
     if (target.matches("input")) {
@@ -113,6 +116,26 @@ function toggleChecked(e) {
         localStorage.setItem("items", JSON.stringify(items))
     }
 
+}
+
+/**Creamos una función que recorra nuestro array items y se encargue de actualizar a true
+ * la propiedad checked de todos nuestros objetos. Recibirá como parámetro el array antes
+ * mencionado.
+*/
+
+function checkAll(list) {
+
+    //Actualizamos la propiedad checked de cada objeto
+    list.forEach((e) => {
+        e.checked = true
+        console.log(e)
+    });
+
+    //actualizamos el localStorage con los nuevos valores:
+    localStorage.setItem("items", JSON.stringify(list))
+
+    //Llamamos a populateList para actualizar la vista
+    populateList(list, itemsList)
 
 }
 
@@ -125,5 +148,10 @@ addItemsForm.addEventListener("submit", addItem)
 //Hacemos otro EventListener de tipo click para la función toggleChecked, esta vez sobre nuestra lista
 itemsList.addEventListener("click", toggleChecked)
 
+//Creamos otro para marcar todos los elementos:
+checkBtn.addEventListener("click", () => checkAll(items))
+
 //Llamamos a la función populateList inmediatamente al cargar la página para mostrar la lista
 populateList(items, itemsList)
+
+
