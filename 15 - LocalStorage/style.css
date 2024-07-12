@@ -2,7 +2,7 @@ html {
     box-sizing: border-box;
     background: url("oh-la-la.jpeg") center no-repeat;
     background-size: cover;
-    min-height: 100vh;
+    min-height: 105vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,8 +28,10 @@ svg {
 .wrapper {
     padding: 20px;
     max-width: 350px;
+    max-height: fit-content;
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 400px;
 }
 
 h2 {
@@ -78,4 +80,42 @@ h2 {
     padding: 10px;
     outline: 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+.btn {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    position: relative;
+    left: -4.5rem;
+    top: 1rem;
+}
+
+.btn-primary.focus,
+.btn-primary:focus {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    box-shadow: 0 0 0 .2rem rgba(38, 143, 255, .5);
 }
