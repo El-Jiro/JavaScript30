@@ -9,6 +9,9 @@ const localItems = localStorage.getItem("items")
 //Obtenemos el botón de seleccionar todo
 const checkBtn = document.getElementById("select-all")
 console.log(checkBtn)
+//Obtenemos el botón de borrar
+const deleteBtn = document.getElementById("delete")
+console.log(deleteBtn)
 
 /**Aquí utilizaremos el operador booleano OR para asignarle un valor según el caso, primero tratará
  * de recuperar la lista de items de localStorage, y si no lo consigue, tomará el valor de un array
@@ -139,6 +142,53 @@ function checkAll(list) {
 
 }
 
+/**Creamos una función que se encargue de borrar los elementos seleccionados: */
+
+function deleteChecked(list) {
+
+    //Mandamos un mensaje de confirmación para prevenir que el usuario borre elementos accidentalmente
+    const confirmation = confirm("¿Eliminar todos los elementos seleccionados? ¡Esta acción es irreversible!")
+
+    /**Si la confirmación es verdadera, recorreremos la lista con un bucle
+     * forEach y contaremos el número de elementos seleccionados, si hay al 
+     * menos uno, continuaremos con la siguiente parte de la función*/
+    if (confirmation) {
+
+        let checkedElementsCount = 0
+        list.forEach((e) => {
+            e.checked ? checkedElementsCount += 1 : null
+        })
+        console.log(checkedElementsCount)
+
+        /**Si hay uno o más elementos seleccionados, recorreremos la lista otra vez 
+         * para encontrarlos y los eliminaremos uno por uno mediante el método splice*/
+        if (checkedElementsCount >= 1) {
+            list.forEach((e, i) => {
+                if (e.checked) {
+                    list.splice(i, 1)
+                    console.log(e)
+                }
+            })
+
+            //Guardamos el array actualizado en localStorage:
+            localStorage.setItem("items", JSON.stringify(list))
+            console.log(localItems)
+
+            //LLamamos a populateList para actualizar la vista
+            populateList(list, itemsList)
+
+            //Mandamos un mensaje de confirmación
+            alert("Se han eliminado los elementos con éxito")
+
+        } else {
+            //De lo contrario, enviaremos una alerta indicando que no hay elementos seleccionados
+            alert("No seleccionó ningún elemento para eliminar")
+        }
+    }
+
+
+}
+
 /**Acoplamos la función a un EventListener de nuestro formulario,
  * escucharemos por el evento submit
 */
@@ -150,6 +200,9 @@ itemsList.addEventListener("click", toggleChecked)
 
 //Creamos otro para marcar todos los elementos:
 checkBtn.addEventListener("click", () => checkAll(items))
+
+//Otro más para eliminarlos:
+deleteBtn.addEventListener("click", () => deleteChecked(items))
 
 //Llamamos a la función populateList inmediatamente al cargar la página para mostrar la lista
 populateList(items, itemsList)
