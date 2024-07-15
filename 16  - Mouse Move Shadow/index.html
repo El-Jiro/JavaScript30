@@ -15,6 +15,78 @@
     <div class="hero">
         <h1 contenteditable="true">🔥 WHOA!</h1>
     </div>
+
+    <script>
+        //Primeramente seleccionamos nuestro div:
+        const hero = document.querySelector(".hero")
+        console.log(hero)
+        //Seleccionamos también nuestro encabezado:
+        const header = hero.querySelector("h1")
+        console.log(header)
+
+        //Esto nos ayudará a calcular que tanto se moverá la sombra del texto:
+        const walk = 100 //100px
+
+        //Creamos una función llamada shadow que recibirá un objeto Event
+        function shadow(e) {
+
+            /**Necesitaremos obtener el alto y ancho total de nuestro elemento hero mediante sus propiedades 
+             * offsetWidth y offsetHeight, la línea de código presentada a continuación es lo mismo que hacer:
+             * 
+             * const width = hero.offsetWidth
+             * const height = hero.offsetHeight
+            */
+            const { offsetWidth: width, offsetHeight: height } = hero //Esto se llama declaración desestructurada
+            console.log({ width, height }) //También podemos imprimir los valores por consola
+
+            //Hacemos lo mismo con las propiedades offsetX y offsetY del evento:
+            let { offsetX: x, offsetY: y } = e
+            //console.log(x, y)
+
+            /**Aquí tenemos el problema de que dichas propiedades van teniendo valores cada vez más bajos hasta
+             * llegar a 0 o incluso valores negativos conforme nos acercamos a la esquina superior izquierda de 
+             * nuestro elemento h1, esto es debido a la delegación de eventos, ya que nuestro elemento h1 es hijo
+             * de hero, también desencadena el evento y por tanto nos da el valor de sus propios atributos offsetX 
+             * y offsetY, no los de hero. Por tanto deberemos hacer unos pequeños ajustes sumando el ancho y alto 
+             * de header a x e y cuando este sea el blanco del evento
+            */
+
+            //console.log(this, e.target)
+
+            if (this !== e.target) {
+                x += e.target.offsetLeft
+                y += e.target.offsetTop
+            }
+
+            console.log({ x, y })
+
+            /**Esto es el cálculo de que tanto se debe mover la sombra en el eje x,
+             * va desde un máximo de 50 hasta un mínimo de -50, todo medido en píxeles.
+             * Redondeamos el valor a un número entero con Math.round
+            */
+            const xWalk = Math.round((x / width * walk) - (walk / 2))
+            //Repetimos el proceso para el eje Y
+            const yWalk = Math.round((y / width * walk) - (walk / 2))
+
+            console.log({ xWalk, yWalk })
+
+            /**Finalmente le aplicamos el estilo a nuestro texto, los dos primeros valores 
+             * representan la distancia de la sombra respecto a texto en los ejes x e y, el 
+             * tercero es la transparencia y por último, tenemos el color de la sombra. 
+             * Podemos añadir varios colores separando los estilos por comas
+            */
+            header.style.textShadow = `
+                ${xWalk}px ${yWalk}px 0 rgba(255, 0, 255, 0.7),
+                ${xWalk * -1}px ${yWalk}px 0 rgba(0, 255, 255, 0.7),
+                ${yWalk}px ${xWalk * -1}px 0 rgba(0, 255, 0, 0.7),
+                ${yWalk * -1}px ${xWalk}px 0 rgba(0, 0, 255, 0.7)
+            `
+        }
+
+        //Añadimos un EventListener de tipo mousemove al div e invocamos la función dentro de él:
+        hero.addEventListener("mousemove", shadow)
+
+    </script>
 </body>
 
 </html>
