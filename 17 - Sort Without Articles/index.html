@@ -9,8 +9,7 @@
 </head>
 
 <body>
-    <ul id="bands">
-    </ul>
+    <ul id="bands"></ul>
 
     <script>
         const bands = [
@@ -49,9 +48,20 @@
          * sin tomar en cuenta los artículos, simplemente le pasamos un callback con 
          * dos parámetros: a y b y comprobamos cual es mayor en el orden alfábetico 
          * despúes de haber sido pasados pror nuestra función, si a es mayor que b 
-         * retornamso 1, de lo contrario retornamos -1*/
+         * retornamos 1, de lo contrario retornamos -1*/
         const sortedBands = bands.sort((a, b) => removeArticles(a) > removeArticles(b) ? 1 : -1)
         console.log(sortedBands)
+
+        //Ya que los tenemos ordenados, seleccionamos nuestra lista y la guardamos en una variable:
+        const bandsList = document.getElementById("bands")
+        console.log(bandsList)
+
+        /**Ahora mapeamos sortedBands para poner cada elemento en una etiqueta <li></li> 
+         * y le añadimos un join("") al final para que nos lo retorne todo como un solo string
+         * en vez de un array de strings. Por último lo ponemos dentro de nuestra lista asignándolo
+         * a su atributo innerHTML
+        */
+        bandsList.innerHTML = sortedBands.map((band) => `<li>${band}</li>`).join("")
     </script>
 </body>
 
