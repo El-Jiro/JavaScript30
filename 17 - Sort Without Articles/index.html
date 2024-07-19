@@ -10,7 +10,6 @@
 
 <body>
     <ul id="bands">
-        <li>algo</li>
     </ul>
 
     <script>
@@ -31,6 +30,28 @@
         ]
 
         console.log(bands)
+
+        //Creamos una expresión regular para matchear con los artículos:
+        const articleRegex = /^(a |an |the )/i
+
+        //Creamos una función para remover los artículos (A, An, The, etc) del nombre
+        function removeArticles(bandName) {
+            /**Usamos el método replace para remover los artículos, le pasamos nuestra
+             * expresión regular como primer argumento (este el texto que queremos reemplazar)
+             * y como segundo argumento (el texto de reemplazo) una cadena vacía. Añadimos un
+             * trim al final para eliminar los espacios en blanco que hayan quedado.*/
+            const strippedName = bandName.replace(articleRegex, "").trim()
+
+            return strippedName
+        }
+
+        /**Usamos nuestra función removeArticles para ayudarnos a ordenar las bandas 
+         * sin tomar en cuenta los artículos, simplemente le pasamos un callback con 
+         * dos parámetros: a y b y comprobamos cual es mayor en el orden alfábetico 
+         * despúes de haber sido pasados pror nuestra función, si a es mayor que b 
+         * retornamso 1, de lo contrario retornamos -1*/
+        const sortedBands = bands.sort((a, b) => removeArticles(a) > removeArticles(b) ? 1 : -1)
+        console.log(sortedBands)
     </script>
 </body>
 
