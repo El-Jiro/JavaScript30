@@ -186,6 +186,22 @@
     </ul>
 
     <script>
+        /**----------------------------------------------------------------------------------------------- 
+         * 
+         * El objetivo del programa será calcular la duración total de todos los vídeos expresada en formato hh:mm,
+         * para ello primero deberemos obtener la información contenida en el atributo data-time, convertirla de string
+         * a number, sumar todos los valores y convertirlos a horas, para finalmente mostrar el resultado en consola
+         * ----------------------------------------------------------------------------------------------
+        */
+
+        //Obtenemos todos los elementos de la lista y Lo convertimos a un array para poder trabajar con map y reduce:
+        const videos = [...document.querySelectorAll("li")]
+        console.log(videos)
+
+        //Ahora mapearemos el array para obtener un nuevo array con los valores del atributo data-time:
+        const seconds = videos.map((video) => video.dataset.time)
+        console.log(seconds)
+
     </script>
 
 </body>
