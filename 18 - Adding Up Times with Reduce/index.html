@@ -199,7 +199,24 @@
         console.log(videos)
 
         //Ahora mapearemos el array para obtener un nuevo array con los valores del atributo data-time:
-        const seconds = videos.map((video) => video.dataset.time)
+        const durations = videos.map((video) => video.dataset.time)
+        console.log(durations)
+
+        //Creamos un tercer array mapeando el anteriror para convertir el tiempo a segundos:
+        const seconds = durations.map((time) => {
+
+            /**Partimos cada string tomando los dos puntos (:) como divisor y usamos la declaración desestructurada 
+             * para asignar cada parte del string a las variables mins y secs en una sola línea. Sin embargo, esto
+             * nos devolverá un array de strings, por lo que deberemos encadenarle la función map para convertirlos 
+             * a números usando parseFloat
+            */
+            const [mins, secs] = time.split(":").map(parseFloat)
+
+            //Finalmente, multiplicamos los minutos por 60, le sumamos los segundos y retornamos el resultado
+            return (mins * 60) + secs
+
+        })
+
         console.log(seconds)
 
     </script>
