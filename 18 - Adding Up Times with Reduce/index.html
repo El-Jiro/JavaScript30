@@ -219,6 +219,42 @@
 
         console.log(seconds)
 
+        /**Ya que tenemos todos los valores en segundos sólo resta sumarlos,
+         * para esto podemos utilizar el método reduce, el cual tomará dos argumentos:
+         * el valor actual y el valor siguiente, y los irá sumando hasta terminar con 
+         * el último elemento del array, dejándonos así un único valor*/
+
+        const totalSecondsLength = seconds.reduce((previous, next) => previous + next)
+        console.log(totalSecondsLength)
+
+        /**Ahora debemos dividir el valor entre horas, minutos y segundos, 
+         * para ello creamos tres variables llamadas hours, mins, y secs, y hacemos
+         * un poco de atritmética básica:*/
+
+        //Creamos secs con let para poder reasignarlo y lo igualamos a totalSecondsLenght:
+        let secsLeft = totalSecondsLength
+
+        //Calculamos las horas diviendo entre 3600
+        const hours = Math.floor(secsLeft / 3600)
+        //console.log(hours)
+
+        /**Ahora lo dividimos entre 3600, (el número de segundos en 1 hora) y obtenemos 
+         * el residuo o módulo de la división para saber cuantos segundos nos sobran*/
+        secsLeft %= 3600
+
+        /**El resultado de lo anterior lo convertimos a minutos dividiéndolo entre 60, sin embargo esto 
+         * nos devolverá un número decimal, por lo que deberemos redondearlo hacia abajo con Math.floor()
+        */
+        const mins = Math.floor(secsLeft / 60)
+        //console.log(mins)
+
+        //Reasignamos secsLeft al residuo o módulo de la división anterior:
+        secsLeft %= 60
+        //console.log(secsLeft)
+
+        //Finalmente imprimimos por consola el resultado:
+        console.log(`Duración total: ${hours}:${mins}:${secsLeft} hrs`)
+
     </script>
 
 </body>
