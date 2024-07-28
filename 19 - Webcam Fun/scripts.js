@@ -3,6 +3,7 @@ const canvas = document.querySelector('.photo');
 const ctx = canvas.getContext('2d');
 const strip = document.querySelector('.strip');
 const snap = document.querySelector('.snap');
+const photoButton = document.querySelector("#photo")
 
 //console.log(video, canvas, ctx, strip, snap)
 
@@ -63,6 +64,43 @@ function paintToCanvas() {
 }
 
 
+//Creamos la función takePhoto para obtener una screenshot del vídeo:
+function takePhoto() {
+
+    //Reproducimos el sonido de foto:
+    snap.curentTime = 0
+    snap.play()
+
+    /**Obtenemos los datos del canvas: Esto creará una representación de la imagen 
+     * en formato de una cadena de texto super larga, la cual usa una codificación
+     * llamada base64*/
+    const imgData = canvas.toDataURL()
+    console.log(imgData)
+
+    //A partir de dicha cadena podemos crear un link a la imagen de la siguiente forma:
+
+    //Creamos un elemento de enlace (a) en el documento html y lo guardamos en imgLink:
+    const imgLink = document.createElement("a")
+    //Le asignamos el valor de imgData a su atributo href:
+
+    imgLink.href = imgData
+
+    /**Establecemos un valor personalizado para el atributo download, 
+     * es decir el nombre con el que se guardará al descargarlo
+    */
+    imgLink.setAttribute("download", "Kevin")
+
+    //Finalmente, lo insertamos en nuestro elemento strip antes de su primer nodo hijo:
+    strip.insertBefore(imgLink, strip.firstChild)
+
+    /**Para hacer que se vea una miniatura de la imagen en vez sólo un link, crearemos un elemento img 
+     * dentro del msismo y le asignaremos el valor de imgData a su atributo src:
+    */
+
+    imgLink.innerHTML = `<img src="${imgData}" alt="Yo merengues">`
+
+}
+
 //Invocamos la función getVideo inmediatamente al cargar la página
 getVideo()
 
@@ -75,3 +113,6 @@ getVideo()
 */
 
 video.addEventListener("canplay", paintToCanvas)
+
+//Invocamos la función takePhoto al hacer clic en el botón de tomar foto
+photoButton.addEventListener("click", takePhoto)
