@@ -1,6 +1,6 @@
 const video = document.querySelector('.player');
 const canvas = document.querySelector('.photo');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d', true);
 const strip = document.querySelector('.strip');
 const snap = document.querySelector('.snap');
 const photoButton = document.querySelector("#photo")
@@ -60,7 +60,46 @@ function paintToCanvas() {
      * Como segundo argumento de setInterval pasamos el intervalo de tiempo en el que queremos que se ejecute
      * la función, medido en milisegundos, en este caso 100, es decir, cada décima de segundo
      * */
-    return setInterval(() => ctx.drawImage(video, 0, 0), 100)
+    return setInterval(() => {
+
+        ctx.drawImage(video, 0, 0)
+
+        /**Obtenemos cada píxel de la imagen mediante la función getImageData, esta recibirá como parámetros 
+         * las coordenadas desde donde queremos empezar a obtener los datos, y el alto y ancho del canvas. 
+         * Esto nos devolverá un array de pixeles el cual se guardará la variable pixels*/
+        let pixels = ctx.getImageData(0, 0, width, height)
+        console.log(pixels) //Imprimimos en consola
+
+        //Reasignamos el valor de pixels con la función applyRedFilter
+        pixels = applyRedFilter(pixels)
+
+        //Ponemos la imagen modificada dentro del canvas
+        ctx.putImageData(pixels, 0, 0)
+
+    }, 100)
+}
+
+/**Creamos una función para el filtro rojo, esta recibirá un sólo parámetro
+ * llamado pixelsArray
+*/
+
+function applyRedFilter(pixels) {
+
+    /**En nuestro array cada cuatro elementos representan un pixel, el cual se compone de los tres colores básicos 
+     * (Rojo, Verde y Azul) y un cuarto elemento llamado alfa que representa la transparencia de cada color, debido 
+     * a que este es un tipo de array especial que no posee los métodos de los arrays tradicionales en JS, tales 
+     * como map, reduce o forEach, utilizaremos un bucle for común para recorrerlo y modificar los elementos de cada pixel
+     * */
+
+    for (let i = 0; i < pixels.data.length; i += 4) {
+
+        pixels.data[i + 0] += 100 //RED
+        pixels.data[i + 1] -= 50 //GREEN
+        pixels.data[i + 1] *= 0.5
+    }
+
+    //Regresamos el array modificado
+    return pixels
 }
 
 
@@ -86,16 +125,14 @@ function takePhoto() {
     imgLink.href = imgData
 
     /**Establecemos un valor personalizado para el atributo download, 
-     * es decir el nombre con el que se guardará al descargarlo
-    */
+     * es decir el nombre con el que se guardará al descargarlo*/
     imgLink.setAttribute("download", "Kevin")
 
     //Finalmente, lo insertamos en nuestro elemento strip antes de su primer nodo hijo:
     strip.insertBefore(imgLink, strip.firstChild)
 
     /**Para hacer que se vea una miniatura de la imagen en vez sólo un link, crearemos un elemento img 
-     * dentro del msismo y le asignaremos el valor de imgData a su atributo src:
-    */
+     * dentro del msismo y le asignaremos el valor de imgData a su atributo src: */
 
     imgLink.innerHTML = `<img src="${imgData}" alt="Yo merengues">`
 
