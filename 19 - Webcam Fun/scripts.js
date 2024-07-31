@@ -71,7 +71,13 @@ function paintToCanvas() {
         console.log(pixels) //Imprimimos en consola
 
         //Reasignamos el valor de pixels con la función applyRedFilter
-        pixels = applyRedFilter(pixels)
+        //pixels = applyRedFilter(pixels)
+
+
+        //Reasignamos el valor de pixels con la función rgbSplit
+        pixels = rgbSplit(pixels)
+
+        ctx.globalAlpha = 0.1
 
         //Ponemos la imagen modificada dentro del canvas
         ctx.putImageData(pixels, 0, 0)
@@ -88,14 +94,36 @@ function applyRedFilter(pixels) {
     /**En nuestro array cada cuatro elementos representan un pixel, el cual se compone de los tres colores básicos 
      * (Rojo, Verde y Azul) y un cuarto elemento llamado alfa que representa la transparencia de cada color, debido 
      * a que este es un tipo de array especial que no posee los métodos de los arrays tradicionales en JS, tales 
-     * como map, reduce o forEach, utilizaremos un bucle for común para recorrerlo y modificar los elementos de cada pixel
+     * como map, reduce o forEach, utilizaremos un bucle for común para recorrerlo y modificar los elementos de 
+     * cada pixel. Le sumaremos 100 a los rojos, restaremos 50 a los verdes y dividimos los azules entre 2
      * */
 
     for (let i = 0; i < pixels.data.length; i += 4) {
 
-        pixels.data[i + 0] += 100 //RED
-        pixels.data[i + 1] -= 50 //GREEN
-        pixels.data[i + 1] *= 0.5
+        pixels.data[i - 150] += 100 //RED
+        pixels.data[i + 150] -= 50 //GREEN
+        pixels.data[i - 150] /= 2 //BLUE
+    }
+
+    //Regresamos el array modificado
+    return pixels
+}
+
+/**De forma similar a la función de arriba, crearemos otra que nos permitirá ver las sombras
+ * de los diferentes colores primarios que componen la imagen, la llamaremos rgbSplit
+*/
+function rgbSplit(pixels) {
+
+    /**Recorremos el array con un bucle for, pero en lugar de sumar o restar a los componentes
+     * de cada pixel, los moveremos 150 posiciones a la izquierda en el caso del rojo y azul, y 
+     * a la derecha en el caso del verde:
+    */
+
+    for (let i = 0; i < pixels.data.length; i += 4) {
+
+        pixels.data[i - 150] = pixels.data[i + 0]   //RED
+        pixels.data[i + 200] = pixels.data[i + 1]  //GREEN
+        pixels.data[i - 250] = pixels.data[i + 2] //BLUE
     }
 
     //Regresamos el array modificado
