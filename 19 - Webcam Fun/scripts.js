@@ -82,7 +82,7 @@ function paintToCanvas() {
         //Ponemos la imagen modificada dentro del canvas
         ctx.putImageData(pixels, 0, 0)
 
-    }, 100)
+    }, 16)
 }
 
 /**Creamos una función para el filtro rojo, esta recibirá un sólo parámetro
@@ -122,8 +122,8 @@ function rgbSplit(pixels) {
     for (let i = 0; i < pixels.data.length; i += 4) {
 
         pixels.data[i - 150] = pixels.data[i + 0]   //RED
-        pixels.data[i + 200] = pixels.data[i + 1]  //GREEN
-        pixels.data[i - 250] = pixels.data[i + 2] //BLUE
+        pixels.data[i + 250] = pixels.data[i + 1]  //GREEN
+        pixels.data[i - 300] = pixels.data[i + 2] //BLUE
     }
 
     //Regresamos el array modificado
