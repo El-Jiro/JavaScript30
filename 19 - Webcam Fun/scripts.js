@@ -68,16 +68,18 @@ function paintToCanvas() {
          * las coordenadas desde donde queremos empezar a obtener los datos, y el alto y ancho del canvas. 
          * Esto nos devolverá un array de pixeles el cual se guardará la variable pixels*/
         let pixels = ctx.getImageData(0, 0, width, height)
-        console.log(pixels) //Imprimimos en consola
+        //console.log(pixels) //Imprimimos en consola
 
         //Reasignamos el valor de pixels con la función applyRedFilter
         //pixels = applyRedFilter(pixels)
 
 
         //Reasignamos el valor de pixels con la función rgbSplit
-        pixels = rgbSplit(pixels)
+        //pixels = rgbSplit(pixels)
 
-        ctx.globalAlpha = 0.1
+        //ctx.globalAlpha = 0.1
+
+        pixels = setGreenScreen(pixels)
 
         //Ponemos la imagen modificada dentro del canvas
         ctx.putImageData(pixels, 0, 0)
@@ -131,6 +133,65 @@ function rgbSplit(pixels) {
 }
 
 
+/**Creamos una tercera función llamada setGreenScreen, la cual, como indica su nombre,
+ * fungirá como una suerte de pantalla verde poniendo en blanco todos los pixeles que esten
+ * entre cierto rango de colores, los cuales indicaremos mediante los controles que se encuentran
+ * en la esquina superior izquierda de la pantalla, justo debajo del botón tomar foto. 
+*/
+
+function setGreenScreen(pixels) {
+
+    //Empezamos creando un objeto JSON vacío llamado colors:
+    const colors = {}
+
+    /**Hacemos una consulta al documento para obtener todos los elementos de tipo input 
+     * que sean descendientes de un elemento con la clase rgb. Sobre la lista resultante
+     * hacemos un forEach que añadirá al objeto colors los nombres de cada input como
+     * propiedades y como valor de dichas propiedades el valor del input en cuestión. 
+     * Deberemos convertir dicho valor a un número mediante parseInt antes de asignarlo a
+     * la propiedad de colors, de lo contrario se guardará como texto y las operaciones de
+     * comparación no funcionarán correctamente.
+     */
+
+    document.querySelectorAll(".rgb input").forEach((input) => {
+        //console.log(input)
+        colors[input.name] = parseInt(input.value)
+        //console.log(colors)
+    })
+
+
+
+    //Recorremos el array con un bucle for
+    for (let i = 0; i < pixels.data.length; i += 4) {
+
+
+        //Creamos variables para cada componente de los pixeles:
+        const red = pixels.data[i + 0]
+        const green = pixels.data[i + 1]
+        const blue = pixels.data[i + 2]
+
+
+
+        /**Creamos una variable para guardar la condición, la cual será que el valor del componente rgb 
+         * esté dentro del rango definido por nosotros, o sea, que sea mayor o igual al mínimo y menor
+         * o igual al máximo, de ser el caso, establecerá el valor de alpha en 0, es decir completamente
+         * transparente, lo que nos dará un pixel en blanco.
+         * 
+         */
+
+        const isInRange = red >= colors.rmin && red <= colors.rmax
+            && green >= colors.gmin && green <= colors.gmax
+            && blue >= colors.bmin && blue <= colors.bmax
+
+        //Si nuestra condición se cumple, establecemos en 0 el valor de alpha
+
+        isInRange ? pixels.data[i + 3] = 0 : null
+    }
+
+    return pixels
+}
+
+
 //Creamos la función takePhoto para obtener una screenshot del vídeo:
 function takePhoto() {
 
@@ -138,9 +199,8 @@ function takePhoto() {
     snap.curentTime = 0
     snap.play()
 
-    /**Obtenemos los datos del canvas: Esto creará una representación de la imagen 
-     * en formato de una cadena de texto super larga, la cual usa una codificación
-     * llamada base64*/
+    /**Obtenemos los datos del canvas: Esto creará una representación de la imagen en formato 
+     * de una cadena de texto super larga, la cual usa una codificación llamada base64*/
     const imgData = canvas.toDataURL()
     console.log(imgData)
 
