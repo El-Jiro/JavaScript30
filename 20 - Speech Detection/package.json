@@ -12,5 +12,8 @@
     "url": "JavaScript 30"
   },
   "author": "Kevin",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^3.0.2"
+  }
 }
