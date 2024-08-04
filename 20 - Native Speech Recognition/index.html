@@ -11,8 +11,40 @@
 
 <body>
     <div class="words" contenteditable="true">
-
     </div>
+
+    <script>
+
+        /**La API tiene nombres distintos dependiendo del navegador, en Google Chrome y otros navegadores
+         * basados en Chromium se llama webkitSpeechRecognition, meintras que en el resto es simplemente 
+         * SpeechRecognition, con esta línea de código nos aseguramos de que use el webkit en caso de que
+         * no soporte el normal.*
+         */
+
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+        //Primeramente creamos una nueva instancia de SpeechRecognition y la guardamos en recognition:
+        const recognition = new SpeechRecognition()
+        console.log(recognition)
+
+        /**Ahora establecemos el valor de su propiedad interimResults en true, esto hará que la transcripción
+         * se muestre en pantalla conforme vayamos hablando, mientras que si lo dejamos en false, esperará hasta
+         * que hayamos terminado de hablar para mostrar la transcripción.
+         */
+
+        recognition.interimResults = true
+
+        //Creamos un párrafo mediante la función document.createElement y lo guardamos en la variable p
+        const p = document.createElement("p")
+        console.log(p)
+
+        //Hacemos una consulta para obtener el div donde se mostrará la transcripción y lo guardamos en words:
+        const words = document.querySelector(".words")
+        console.log(words)
+
+        //Insertamos el párrafo dentro de nuestro div mediante el método appendChild:
+        words.appendChild(p)
+    </script>
 </body>
 
 </html>
