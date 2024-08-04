@@ -1,0 +1,16 @@
+{
+  "name": "20---native-speech-recognition",
+  "version": "1.0.0",
+  "description": "A program that recognizes your speech and shows the transcription in a div with vanilla JS and browser-sync as a server",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start --directory --server --files \"*css, *html, *.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "JavaScript 30"
+  },
+  "author": "Kevin",
+  "license": "ISC"
+}
