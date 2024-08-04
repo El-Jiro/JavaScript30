@@ -16,7 +16,7 @@
     <script>
 
         /**La API tiene nombres distintos dependiendo del navegador, en Google Chrome y otros navegadores
-         * basados en Chromium se llama webkitSpeechRecognition, meintras que en el resto es simplemente 
+         * basados en Chromium se llama webkitSpeechRecognition, mientras que en el resto es simplemente 
          * SpeechRecognition, con esta línea de código nos aseguramos de que use el webkit en caso de que
          * no soporte el normal.*
          */
@@ -35,7 +35,7 @@
         recognition.interimResults = true
 
         //Creamos un párrafo mediante la función document.createElement y lo guardamos en la variable p
-        const p = document.createElement("p")
+        let p = document.createElement("p")
         console.log(p)
 
         //Hacemos una consulta para obtener el div donde se mostrará la transcripción y lo guardamos en words:
@@ -44,6 +44,53 @@
 
         //Insertamos el párrafo dentro de nuestro div mediante el método appendChild:
         words.appendChild(p)
+
+        //Iniciamos el reconocimiento con recognition.start()
+        recognition.start()
+
+        /**Añadimos un EventListener sobre recognition que detectará el evento result, que se dará 
+         * cuando el servicio de reconocimiento procese el audio y genere una transcripción, e imprimirá 
+         * la información del objeto e en consola cuando se desate dicho evento*/
+
+        recognition.addEventListener("result", (e) => {
+
+            //Accediendo a la propiedad results podemos ver cada parte de la transcripción
+            //console.log(e.results)
+
+            /**Convertimos los objetos e.results en un array mediante Array.from, mapeamos sobre el array resultante 
+             * para tomar sólo el primer elemento de cada resultado y volvemos a mapear para tomar sólo el elemento 
+             * transcript. Finalmente, le hacemos un join('') para que nos lo devuelva en forma de un sólo string en
+             * vez de un array de strings y guardamos todo en la variable transcription*/
+            const transcription = Array.from(e.results).map((res) => res[0]).map((res) => res.transcript).join('')
+
+            //console.log(transcription)
+
+            /**Ya que tenemos la transcripción, la ponemos en nuestro parráfo ya sea con innerText 
+             * o textContent, y con eso deberíamos poder verla dentro del div.
+            */
+            p.innerText = transcription
+
+            /**Cada vez que terminemos y volvamos a hablar de nuevo la transcripción más reciente sobreescribirá
+             * a la anterior, para evitar esto, comprobaremos en la información del primer elemento de  results si 
+             * ya hemos terminado de hablar mediante el atributo isFinal, en cuyo caso actualizaremos el valor de p 
+             * con otro párrafo nuevo y lo añadiremos al final del div:
+            */
+
+            if (e.results[0].isFinal) {
+                p = document.createElement("p")
+                words.appendChild(p)
+            }
+
+            if (transcription.includes("unicornio")) {
+                console.log("🦄🦄🦄🦄")
+            }
+        })
+
+        /**Después de obtener el primer resultado deja de funcionar, por lo que necesitaremos 
+         * escuchar por el evento end y dentro de este segundo listener llamamos de nuevo al método start*/
+
+        recognition.addEventListener("end", recognition.start)
+
     </script>
 </body>
 
