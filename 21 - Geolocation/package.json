@@ -1,0 +1,23 @@
+{
+  "name": "21---geolocation",
+  "version": "1.0.0",
+  "description": "Geolocation-based speedometer and compass with vanilla javascript and browser-sync as server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start --directory --server --files \"*css, *html, *.js\" --https"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/El-Jiro/JavaScript30.git"
+  },
+  "author": "Kevin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/El-Jiro/JavaScript30/issues"
+  },
+  "homepage": "https://github.com/El-Jiro/JavaScript30#readme",
+  "dependencies": {
+    "browser-sync": "^3.0.2"
+  }
+}
