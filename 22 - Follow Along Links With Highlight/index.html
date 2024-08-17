@@ -51,8 +51,26 @@
 
         //Creamos una función llamada highlightLinks:
         function highlightLinks() {
-            console.log("c%¡RESALTADO!", "background-color:yellow, border-radius: 20px")
+
+            //Obtenemos las coordenadas de cade link, así como el alto y ancho mediante el método getBoundingClientRect:
+            const linkCoords = this.getBoundingClientRect()
+            console.log(linkCoords)
+
+
+            //Ajustamos el alto y ancho de nuestro elemento hightlight de acuerdo con el de cada link:
+            highlight.style.width = `${linkCoords.width}px`
+            highlight.style.height = `${linkCoords.height}px`
+
+            //Ahora movemos el hightlight a través de los links usando las propiedades left y top de linkCoords:
+            highlight.style.transform = `translate(${linkCoords.left}px, ${linkCoords.top}px)`
         }
+
+        //Añadimos a cada link un EventListener de tipo mouseenter que ejecutará nuestra función
+        links.forEach((e) => {
+            //console.log(e)
+            e.addEventListener("mouseenter", highlightLinks)
+        })
+
     </script>
 </body>
 
