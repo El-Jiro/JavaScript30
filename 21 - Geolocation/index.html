@@ -35,6 +35,25 @@
         <span class="speed-value">0</span>
         <span class="units">KM/H</span>
     </h1>
+
+    <script>
+        //Seleccionamos la flecha de la brújula y el velocímetro
+        const arrow = document.querySelector(".arrow")
+        const speed = document.querySelector(".speed-value")
+
+        console.log(arrow, speed)
+
+        //Escuchamos los cambios en la posición del usuario mediante watchPosition(): 
+        navigator.geolocation.watchPosition((data) => {
+
+            console.log(data) //imprimimos en consola los datos de la posición
+            speed.textContent = data.speed || 0
+            arrow.style.transform = `rotate(${data.coords.heading}deg)`
+        }, (err) => {
+            console.error(err)
+            alert("¡AUTORICE EL ACCESO A SU UBICACIÓN PARA CONTINUAR!")
+        })
+    </script>
 </body>
 
 </html>
