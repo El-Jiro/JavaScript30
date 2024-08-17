@@ -56,13 +56,25 @@
             const linkCoords = this.getBoundingClientRect()
             console.log(linkCoords)
 
+            /**Conforme vayamos bajando en la página, el highlight irá quedando desfasado, por lo que
+             * deberemos hacer unos pequeños ajustes para que siga funcionando, crearemos un nuevo objeto 
+             * JSON llamado coords con las mismas propiedades de linkCoords, pero ajustaremos los valores de left y top
+             * sumándoles el scroll lateral y vertical para que no se queden desfasados:
+             * */
+
+            const coords = {
+                width: linkCoords.width + 1,
+                height: linkCoords.height + 1,
+                left: linkCoords.left + window.scrollX,
+                top: linkCoords.top + window.scrollY
+            }
 
             //Ajustamos el alto y ancho de nuestro elemento hightlight de acuerdo con el de cada link:
-            highlight.style.width = `${linkCoords.width}px`
-            highlight.style.height = `${linkCoords.height}px`
+            highlight.style.width = `${coords.width}px`
+            highlight.style.height = `${coords.height}px`
 
-            //Ahora movemos el hightlight a través de los links usando las propiedades left y top de linkCoords:
-            highlight.style.transform = `translate(${linkCoords.left}px, ${linkCoords.top}px)`
+            //Ahora movemos el hightlight a través de los links usando las propiedades left y top de coords:
+            highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`
         }
 
         //Añadimos a cada link un EventListener de tipo mouseenter que ejecutará nuestra función
