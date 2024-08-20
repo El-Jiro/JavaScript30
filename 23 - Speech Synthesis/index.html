@@ -45,12 +45,28 @@
         function populateVoices() {
 
             /**Añadimos al array cada una de las voces del objeto speechSynthesis mediante el método getVoices, 
-             * recordando añadir el operador spread ..., de lo contrario obtendremos un array de objetos JSON dentro
-             * de nuestro propio array
+             * recordando añadir el operador spread de lo contrario obtendremos un array de objetos JSON dentro
+             * de nuestro propio array en vez de sólo un array de objetos JSON
             */
             voices.push(...this.getVoices())
             console.log(voices)
 
+            /**Mapeamos el array voices para crear las opciones de la lista desplegable
+             * recordando añadir un join al final para que nos devuelva el resultado en 
+             * forma de string y lo guardamos en voiceOptions*/
+
+            const voiceOptions = voices.map((voice) => {
+                /**Creamos una etiqueta html option, en su atributo value ponemos el nombre de la voz 
+                 * y en el texto dentro de las etiquetas de apetura y cierre ponemos el nombre junto 
+                 * con el idioma entre paréntesis, recordando usar el retorno explícito con return*/
+
+                return `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`
+            }).join("")
+
+            console.log(voiceOptions)
+
+            //Ahora lo asignamos al atributo innerHTML de voicesDropdown:
+            voicesDropdown.innerHTML = voiceOptions
         }
 
         /**Añadimos un EventListener de tipo voiceschanged a la variable global speechSynthesis, la cual 
