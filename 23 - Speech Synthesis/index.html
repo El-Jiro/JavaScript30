@@ -56,17 +56,29 @@
              * forma de string y lo guardamos en voiceOptions*/
 
             const voiceOptions = voices.map((voice) => {
+
                 /**Creamos una etiqueta html option, en su atributo value ponemos el nombre de la voz 
                  * y en el texto dentro de las etiquetas de apetura y cierre ponemos el nombre junto 
                  * con el idioma entre paréntesis, recordando usar el retorno explícito con return*/
 
                 return `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`
+
             }).join("")
 
             console.log(voiceOptions)
 
             //Ahora lo asignamos al atributo innerHTML de voicesDropdown:
             voicesDropdown.innerHTML = voiceOptions
+        }
+
+        /**Creamos una nueva función llamada setVoice, la cual se encargará de aplicar la 
+         * voz seleccionada a nuestro mensaje*/
+
+        function setVoice() {
+
+            /**Buscamos en el array de voces el objeto cuyo atributo name coincida con el atributo.value 
+             * de la opción seleccionada y lo asignamos al atributo voice de nuestro mensaje*/
+            msg.voice = voices.find((voice) => voice.name === this.value)
         }
 
         /**Añadimos un EventListener de tipo voiceschanged a la variable global speechSynthesis, la cual 
@@ -77,6 +89,10 @@
          * por cualquier razón*/
         speechSynthesis.addEventListener("voiceschanged", populateVoices)
 
+        /**Creamos otro EventListener, esta vez de tipo change, y lo acoplamos a nuestra lista desplegable,
+         * de esta manera cada vez que se seleccione una nueva voz llamará a nuestra función setVoice
+        */
+        voicesDropdown.addEventListener("change", setVoice)
     </script>
 
 </body>
