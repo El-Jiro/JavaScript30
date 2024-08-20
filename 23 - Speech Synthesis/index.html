@@ -25,7 +25,7 @@
         <label for="pitch">Tono:</label>
 
         <input id="pitch" type="range" min="0" max="2" step="0.1">
-        <textarea name="text">¡Hola! Adoro JavaScript 👍</textarea>
+        <textarea id="text">¡Hola! Adoro JavaScript 👍</textarea>
         <button id="stop">Detener</button>
         <button id="speak">Hablar</button>
 
@@ -35,11 +35,11 @@
         const msg = new SpeechSynthesisUtterance();
         const voices = [];
         const voicesDropdown = document.querySelector('[name="voice"]');
-        const options = document.querySelectorAll('[type="range"], [name="text"]');
+        const options = document.querySelectorAll('[type="range"], #text');
         const speakButton = document.querySelector('#speak');
         const stopButton = document.querySelector('#stop');
         //El mensaje que aparezca al cargar la página será siempre "Hello! I love JavaScript 👍"
-        msg.text = document.querySelector('[name="text"]').value
+        msg.text = document.querySelector('#text').value
 
         //Creamos la función populateVoices para llenar el array voices
         function populateVoices() {
@@ -94,6 +94,14 @@
             startOver ? speechSynthesis.speak(msg) : null
         }
 
+        /**Creamos la función setOptions que se encargará de ajustar el valor de 
+         * la propiedad de msg cuyo nombre coincida con el id del controlador*/
+        function setOptions() {
+            console.log(`${this.id}: ${this.value}`) //Imprimimos el id del controlador y su respectivo valor
+            msg[this.id] = this.value //Le asignamos el valor del controlador a la propiedad correspondiente de msg
+            toggleVoice() //Llamamos a toggleVoice para reiniciar cada vez que se aplique un cambio
+        }
+
         /**Añadimos un EventListener de tipo voiceschanged a la variable global speechSynthesis, la cual 
          * representa el propio servicio de habla y provee distintos métodos y propiedades para controlar las
          * operaciones de texto a voz. Cada vez que el navegador carga, llena la lista de voces disponibles dependiendo
@@ -106,6 +114,10 @@
          * de esta manera cada vez que se seleccione una nueva voz llamará a nuestra función setVoice
         */
         voicesDropdown.addEventListener("change", setVoice)
+
+        /**Hacemos un forEach sobre la lista de opciones de configuración del mensaje 
+         * y le añadimos a cada uno un eventListener de tipo chssnge que llame a setOptions*/
+        options.forEach((option) => option.addEventListener("change", setOptions))
     </script>
 
 </body>
