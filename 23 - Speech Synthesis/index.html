@@ -20,11 +20,11 @@
         </select>
 
         <label for="rate">Rate:</label>
-        <input name="rate" type="range" min="0" max="3" value="1" step="0.1">
+        <input id="rate" type="range" min="0" max="3" value="1" step="0.1">
 
         <label for="pitch">Pitch:</label>
 
-        <input name="pitch" type="range" min="0" max="2" step="0.1">
+        <input id="pitch" type="range" min="0" max="2" step="0.1">
         <textarea name="text">Hello! I love JavaScript 👍</textarea>
         <button id="stop">Stop!</button>
         <button id="speak">Speak</button>
@@ -33,11 +33,34 @@
 
     <script>
         const msg = new SpeechSynthesisUtterance();
-        let voices = [];
+        const voices = [];
         const voicesDropdown = document.querySelector('[name="voice"]');
         const options = document.querySelectorAll('[type="range"], [name="text"]');
         const speakButton = document.querySelector('#speak');
         const stopButton = document.querySelector('#stop');
+        //El mensaje que aparezca al cargar la página será siempre "Hello! I love JavaScript 👍"
+        msg.text = document.querySelector('[name="text"]').value
+
+        //Creamos la función populateVoices para llenar el array voices
+        function populateVoices() {
+
+            /**Añadimos al array cada una de las voces del objeto speechSynthesis mediante el método getVoices, 
+             * recordando añadir el operador spread ..., de lo contrario obtendremos un array de objetos JSON dentro
+             * de nuestro propio array
+            */
+            voices.push(...this.getVoices())
+            console.log(voices)
+
+        }
+
+        /**Añadimos un EventListener de tipo voiceschanged a la variable global speechSynthesis, la cual 
+         * representa el propio servicio de habla y provee distintos métodos y propiedades para controlar las
+         * operaciones de texto a voz. Cada vez que el navegador carga, llena la lista de voces disponibles dependiendo
+         * de las capacidades del sistema y los datos de voz instalados, esto desata el evemtp voiceschanged. También
+         * puede ser activado si el usuario instala nuevas voces o si el navegador actualiza su lista interna de voces 
+         * por cualquier razón*/
+        speechSynthesis.addEventListener("voiceschanged", populateVoices)
+
     </script>
 
 </body>
