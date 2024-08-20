@@ -85,11 +85,13 @@
         }
 
         /**Creamos una tercera función llamada toggleVoice, la cual se encargará de reiniciar la lectura 
-         * del mensaje si seleccionamos una nueva voz antes de que esta haya finalizado*/
-        function toggleVoice() {
+         * del mensaje si seleccionamos una nueva voz antes de que esta haya finalizado. Añadimos un parámetro opcional
+         * llamado startOver, el cual definirá si el mensaje se reinicia automáticamente después de detenerse. Por default
+         * el parámetro tendrá el valor de true*/
+        function toggleVoice(startOver = true) {
             //Llamamos al método cancel e inmedidatemente después al método speak, recordando pasarle msg como parámetro
             speechSynthesis.cancel()
-            speechSynthesis.speak(msg)
+            startOver ? speechSynthesis.speak(msg) : null
         }
 
         /**Añadimos un EventListener de tipo voiceschanged a la variable global speechSynthesis, la cual 
