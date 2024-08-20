@@ -79,6 +79,17 @@
             /**Buscamos en el array de voces el objeto cuyo atributo name coincida con el atributo.value 
              * de la opción seleccionada y lo asignamos al atributo voice de nuestro mensaje*/
             msg.voice = voices.find((voice) => voice.name === this.value)
+
+            //Llamamos a toggleVoice
+            toggleVoice()
+        }
+
+        /**Creamos una tercera función llamada toggleVoice, la cual se encargará de reiniciar la lectura 
+         * del mensaje si seleccionamos una nueva voz antes de que esta haya finalizado*/
+        function toggleVoice() {
+            //Llamamos al método cancel e inmedidatemente después al método speak, recordando pasarle msg como parámetro
+            speechSynthesis.cancel()
+            speechSynthesis.speak(msg)
         }
 
         /**Añadimos un EventListener de tipo voiceschanged a la variable global speechSynthesis, la cual 
