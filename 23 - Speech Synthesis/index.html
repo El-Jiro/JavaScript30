@@ -26,8 +26,9 @@
 
         <input id="pitch" type="range" min="0" max="2" step="0.1">
         <textarea id="text">¡Hola! Adoro JavaScript 👍</textarea>
-        <button id="stop">Detener</button>
+
         <button id="speak">Hablar</button>
+        <button id="stop">Detener</button>
 
     </div>
 
@@ -118,6 +119,13 @@
         /**Hacemos un forEach sobre la lista de opciones de configuración del mensaje 
          * y le añadimos a cada uno un eventListener de tipo chssnge que llame a setOptions*/
         options.forEach((option) => option.addEventListener("change", setOptions))
+
+        /**Añadimos un EventListener de tipo click a cada uno de los botones, dentro del cual invocaremos 
+         * a toggleVoice, sin parámetros en el botón de hablar y con el parámetro startOVer en false para 
+         * el botón de parar*/
+
+        speakButton.addEventListener("click", toggleVoice)
+        stopButton.addEventListener("click", () => toggleVoice(false))
     </script>
 
 </body>
