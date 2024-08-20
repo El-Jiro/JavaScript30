@@ -54,17 +54,19 @@
 
             /**Mapeamos el array voices para crear las opciones de la lista desplegable
              * recordando añadir un join al final para que nos devuelva el resultado en 
-             * forma de string y lo guardamos en voiceOptions*/
+             * forma de string y lo guardamos en voiceOptions. Pero antes le aplicaremos un 
+             * filtro para que sólo incluya las voces en español e inglés*/
 
-            const voiceOptions = voices.map((voice) => {
+            const voiceOptions = voices.filter((voice) => voice.lang.includes("en") || voice.lang.includes("es"))
+                .map((voice) => {
 
-                /**Creamos una etiqueta html option, en su atributo value ponemos el nombre de la voz 
-                 * y en el texto dentro de las etiquetas de apetura y cierre ponemos el nombre junto 
-                 * con el idioma entre paréntesis, recordando usar el retorno explícito con return*/
+                    /**Creamos una etiqueta html option, en su atributo value ponemos el nombre de la voz 
+                     * y en el texto dentro de las etiquetas de apetura y cierre ponemos el nombre junto 
+                     * con el idioma entre paréntesis, recordando usar el retorno explícito con return*/
 
-                return `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`
+                    return `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`
 
-            }).join("")
+                }).join("")
 
             console.log(voiceOptions)
 
