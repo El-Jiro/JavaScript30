@@ -81,9 +81,17 @@ li.logo {
     max-width: 0;
     overflow: hidden;
     background: white;
-    transition: all .5s;
+    transition: all 0.5s;
     font-weight: 600;
     font-size: 30px;
+}
+
+/*Cuando el cuerpo tenga la clase fixed-nav, el logo se mostrará, pero debemos
+especificar un ancho fijo, si le ponemos ancho automático la animación de transición
+no funcionará*/
+
+.fixed-nav li.logo {
+    max-width: 100px;
 }
 
 li.logo a {
