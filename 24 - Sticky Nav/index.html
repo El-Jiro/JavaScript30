@@ -179,6 +179,34 @@
 
     <script>
 
+        //Como primer paso seleccionamos la barra de navegación y la guardamos en nav
+        const nav = document.getElementById("main")
+        console.log(nav)
+
+        /**Ahora obtenemos la propiedad offSetTop de nav, la cual representa la distancia entre
+         * el borde superior de un elemento y el borde superior de su ancestro más cercano, y la
+         * guardamos en topOfNav*/
+        const topOfNav = nav.offsetTop
+
+        /**Creamos la función fixNav, que, tal como indica su nombre, se encargará de fijar la 
+         * barra de navegación en la parte superior de la pantalla una vez hayamos scrolleado lo
+         * suficiente como para que ya no se vea.
+        */
+        function fixNav() {
+
+            /**Cuando hayamos bajado más que el tamaño de la barra de navegación, añadiremos al cuerpo
+             * del documento la clase fixed-nav. Por el contrario, si volvemos a subir hasta que esta sea
+             * visible al menos parcialmente, eliminaremos la clase*/
+            window.scrollY >= topOfNav ?
+                document.body.classList.add("fixed-nav") :
+                document.body.classList.remove("fixed-nav")
+
+            console.log(document.body.classList)
+        }
+
+        //Añadimos un EventListener a toda la ventana para que invoque la función cada vez que scrolleemos
+        window.addEventListener("scroll", fixNav)
+
     </script>
 
 </body>
