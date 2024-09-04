@@ -108,9 +108,9 @@
         /**Añadimos un EventListener de tipo voiceschanged a la variable global speechSynthesis, la cual 
          * representa el propio servicio de habla y provee distintos métodos y propiedades para controlar las
          * operaciones de texto a voz. Cada vez que el navegador carga, llena la lista de voces disponibles dependiendo
-         * de las capacidades del sistema y los datos de voz instalados, esto desata el evemtp voiceschanged. También
+         * de las capacidades del sistema y los datos de voz instalados, esto desata el evento voiceschanged. También
          * puede ser activado si el usuario instala nuevas voces o si el navegador actualiza su lista interna de voces 
-         * por cualquier razón*/
+         * por cualquier otra razón*/
         speechSynthesis.addEventListener("voiceschanged", populateVoices)
 
         /**Creamos otro EventListener, esta vez de tipo change, y lo acoplamos a nuestra lista desplegable,
