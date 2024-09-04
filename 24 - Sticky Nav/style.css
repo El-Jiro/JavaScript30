@@ -52,6 +52,16 @@ nav {
     z-index: 1;
 }
 
+/*Cuando el cuerpo del documento tenga la clase fixed-nav, 
+la posición de nuestro elemento nav cambiará a fija, también le
+aplicaremos una pequeña sombra con box shadow para darle algo de 
+profundidad */
+
+.fixed-nav nav {
+    position: fixed;
+    box-shadow: 0 5px rgba(0, 0, 0, 0.2);
+}
+
 nav ul {
     margin: 0;
     padding: 0;
