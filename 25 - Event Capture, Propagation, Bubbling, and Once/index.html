@@ -56,11 +56,22 @@
             console.log(this.classList.value)
         }
 
+        /**Hacemos un forEach que le añada un EventListener de tipo clic a cada div. Como los divs están anidados, 
+         * al hacer clic en uno el evento también se desencadenará en todos los que estén arriba del mismo, esto 
+         * se conoce como "Bubbling".
+        */
+        //divs.forEach((div) => div.addEventListener("click", logClass))
 
-        /**Hacemos un forEach que le añada un EventListener de tipo clic 
-         *a cada div, el cual se encargará de invocar nuestra función*/
-        divs.forEach((div) => div.addEventListener("click", logClass))
+        //Pasará lo mismo si añadimos el Listener en el cuerpo del documento
+        //document.body.addEventListener("click", logClass)
 
+        /**Esto se debe a que la captura y propagación de los eventos por defecto se hace de menor
+         * a mayor, es decir se empieza por el elemento que esté más abajo en la anidación y de ahí se propaga
+         * a todos sus elementos padres, sin embargo, esto se puede invertir si al invocar la función addEventListener
+         * le pasamos como tercer parámetro un objeto JSON con la propiedad capture establecida en true
+        */
+
+        divs.forEach((div) => div.addEventListener("click", logClass, { capture: true }))
     </script>
 </body>
 
