@@ -56,6 +56,11 @@
             console.log(this.classList.value)
         }
 
+
+        /**Hacemos un forEach que le añada un EventListener de tipo clic 
+         *a cada div, el cual se encargará de invocar nuestra función*/
+        divs.forEach((div) => div.addEventListener("click", logClass))
+
     </script>
 </body>
 
