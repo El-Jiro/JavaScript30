@@ -44,7 +44,7 @@
             </div>
         </div>
     </div>
-    <button></button>
+    <button>Ejemplo</button>
 
     <script>
         //Seleccionamos todos los divs
@@ -52,15 +52,18 @@
         console.log(divs)
 
         //Creamos una función para imprimir el nombre de la clase del elemento sobre el cual sea llamada la función
-        function logClass() {
+        function logClass(e) {
             console.log(this.classList.value)
+            /**Es posible también evitar que el evento se propague si en la función pasamos como parámetro 
+             * la info del mismo (e) y llamamos a su método stopPropagation*/
+            e.stopPropagation()
         }
 
         /**Hacemos un forEach que le añada un EventListener de tipo clic a cada div. Como los divs están anidados, 
          * al hacer clic en uno el evento también se desencadenará en todos los que estén arriba del mismo, esto 
          * se conoce como "Bubbling".
         */
-        //divs.forEach((div) => div.addEventListener("click", logClass))
+        divs.forEach((div) => div.addEventListener("click", logClass))
 
         //Pasará lo mismo si añadimos el Listener en el cuerpo del documento
         //document.body.addEventListener("click", logClass)
@@ -68,10 +71,20 @@
         /**Esto se debe a que la captura y propagación de los eventos por defecto se hace de menor
          * a mayor, es decir se empieza por el elemento que esté más abajo en la anidación y de ahí se propaga
          * a todos sus elementos padres, sin embargo, esto se puede invertir si al invocar la función addEventListener
-         * le pasamos como tercer parámetro un objeto JSON con la propiedad capture establecida en true
+         * le pasamos como tercer parámetro el objeto JSON options con una única propiedad llamada capture establecida en true
         */
 
-        divs.forEach((div) => div.addEventListener("click", logClass, { capture: true }))
+        //divs.forEach((div) => div.addEventListener("click", logClass, { capture: true }))
+
+
+
+        const button = document.querySelector("button")
+
+        /**También podemos usar la propiedad once de options para que el EventListener
+           * sólo se ejecute una vez, despúes de lo cual se desacoplará del elemento HTML, 
+           * o sea, lo mismo que hacer element.removeEventLister*/
+        button.addEventListener("click", () => console.log("Algo"), { once: true })
+
     </script>
 </body>
 
