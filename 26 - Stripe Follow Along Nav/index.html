@@ -80,6 +80,20 @@
     </nav>
 
     <script>
+        /**Primeramente seleccionamos las tres pestañas consultando todos los elementos de tipo li 
+         * (lista) que sean descendientos directos del elemento con la clase "cool"*/
+
+        const tabs = document.querySelectorAll(".cool > li")
+        console.log(tabs)
+
+        //Seleccionamos también el div que contendrá nuestra lista desplegable:
+        const dropdown = document.querySelector(".dropdownBackground")
+        console.log(dropdown)
+
+        //Y por último la barra de navegación
+        const nav = document.querySelector("nav")
+        console.log(nav)
+
     </script>
 </body>
 
