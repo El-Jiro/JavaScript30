@@ -120,7 +120,13 @@
             this.classList.remove("trigger-enter", "trigger-enter-active")
         }
 
+        /**Hacemos un bucle forEach sobre la lista de nuestras pestañas para añadir a cada elemento
+         * dos EventListener que desencadenen nuestras funciones, uno de tipo mouseenter y el otro de tipo mouseleave*/
 
+        tabs.forEach((tab) => {
+            tab.addEventListener("mouseenter", handleEntrance)
+            tab.addEventListener("mouseleave", handleLeft)
+        })
     </script>
 </body>
 
