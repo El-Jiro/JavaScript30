@@ -86,9 +86,9 @@
         const tabs = document.querySelectorAll(".cool > li")
         console.log(tabs)
 
-        //Seleccionamos también el div que contendrá nuestra lista desplegable:
-        const dropdown = document.querySelector(".dropdownBackground")
-        console.log(dropdown)
+        //Seleccionamos también el div que contendrá elnuestra lista desplegable:
+        const dropdownBG = document.querySelector(".dropdownBackground")
+        console.log(dropdownBG)
 
         //Y por último la barra de navegación
         const nav = document.querySelector("nav")
@@ -98,12 +98,28 @@
          * nuestras pestañas, las llamaremos handleEntrance y handleLeft respectivamente*/
 
         function handleEntrance() {
-            console.log("¡ENTRANDO!")
+
+            //Añadimos la clase trigger-enter al elemento de la lista que desencadene la función:
+            this.classList.add("trigger-enter")
+
+            /**Añadimos también la clase trigger-enter-active con 150 ms de retraso. Deberemos usar forzosamente
+             * una función apuntador-flecha, hacerlo con function nos dará error, ya que al entrar en el ámbito 
+             * de otra función cambia el valor de this, mientras que con las funciones de flecha el valor es heredado
+             * de la función padre*/
+            setTimeout(() => this.classList.add("trigger-enter-active"), 150)
+
         }
 
         function handleLeft() {
-            console.log("¡SALIENDO!")
+
+            /**Por el contrario, cuando quitemos el cursor de las pestañas, eliminaremos de ellas las dos clases
+             * añadidas en la función anterior para que las listas desplegables vuelvan a ser invisibles, pero 
+             * aquí removeremos las dos al mismo tiempo ya que no necesitamos hacer una animación de salida
+            */
+
+            this.classList.remove("trigger-enter", "trigger-enter-active")
         }
+
 
     </script>
 </body>
