@@ -108,6 +108,8 @@
              * de la función padre*/
             setTimeout(() => this.classList.add("trigger-enter-active"), 150)
 
+            //Igualmente añadimos la clase open a nuestro background
+            dropdownBG.classList.add("open")
         }
 
         function handleLeft() {
@@ -116,8 +118,10 @@
              * añadidas en la función anterior para que las listas desplegables vuelvan a ser invisibles, pero 
              * aquí removeremos las dos al mismo tiempo ya que no necesitamos hacer una animación de salida
             */
-
             this.classList.remove("trigger-enter", "trigger-enter-active")
+
+            //Removemos la clase open de nuestro background
+            dropdownBG.classList.remove("open")
         }
 
         /**Hacemos un bucle forEach sobre la lista de nuestras pestañas para añadir a cada elemento
