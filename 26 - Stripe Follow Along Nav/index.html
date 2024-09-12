@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h2>Cool</h2>
+    <!--<h2>Cool</h2>-->
     <nav class="top">
         <div class="dropdownBackground">
             <span class="arrow"></span>
@@ -129,6 +129,21 @@
              * su posición dentro de la página llega a cambiar en el futuro*/
             const navCoords = nav.getBoundingClientRect()
             console.log(navCoords)
+
+            //Creamos otro objeto llamado coords para guardar las coordenadas y dimensiones de ambos elementos HTML:
+            const coords = {
+                width: dropdownCoords.width,
+                height: dropdownCoords.height,
+                left: dropdownCoords.left,
+                top: dropdownCoords.top
+            }
+
+            //Igualamos la altura y anchura del background a los datos de coords, recordando añadir el px al final:
+            dropdownBG.style.setProperty("width", `${coords.width}px`)
+            dropdownBG.style.setProperty("height", `${coords.height}px`)
+
+            //Aplicamos una traslación al background utilizando los valores top y left de coords
+            dropdownBG.style.setProperty("transform", `translate(${coords.left}px, ${coords.top}px)`)
         }
 
         function handleLeft() {
