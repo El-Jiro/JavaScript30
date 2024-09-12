@@ -108,8 +108,27 @@
              * de la función padre*/
             setTimeout(() => this.classList.add("trigger-enter-active"), 150)
 
-            //Igualmente añadimos la clase open a nuestro background
+            //Igualmente añadimos la clase open a nuestro background para hacerlo visible
             dropdownBG.classList.add("open")
+
+            /**Ahora necesitamos saber cuál es la lista desplegable (dropdown) en la que nos encontramos,
+             * así que realizaremos una  consulta dentro de nuestra pestaña buscando el elemento hijo que 
+             * tenga la clase dropdown y guardaremos el resultado en la constante homónima 
+            */
+            const dropdown = this.querySelector(".dropdown")
+            console.log(dropdown)
+
+            /**A continaución necesitaremos obtener información sobre el tamaño del elemento, así como su posición
+             * dentro de la página, toda esta info se guarda en la propiedad ClientRect, a la cual podemos 
+             * acceder mediante el método getBoundingClientRect. Guardamos el resultado en dropdownCoords*/
+
+            const dropdownCoords = dropdown.getBoundingClientRect()
+            console.log(dropdownCoords)
+
+            /**Repetimos el proceso para la barra de navegación, así no se romperá el código si 
+             * su posición dentro de la página llega a cambiar en el futuro*/
+            const navCoords = nav.getBoundingClientRect()
+            console.log(navCoords)
         }
 
         function handleLeft() {
