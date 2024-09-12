@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <!--<h2>Cool</h2>-->
+    <h2>Cool</h2>
     <nav class="top">
         <div class="dropdownBackground">
             <span class="arrow"></span>
@@ -80,9 +80,9 @@
     </nav>
 
     <script>
+
         /**Primeramente seleccionamos las tres pestañas consultando todos los elementos de tipo li 
          * (lista) que sean descendientos directos del elemento con la clase "cool"*/
-
         const tabs = document.querySelectorAll(".cool > li")
         console.log(tabs)
 
@@ -104,8 +104,8 @@
 
             /**Añadimos también la clase trigger-enter-active con 150 ms de retraso. Deberemos usar forzosamente
              * una función apuntador-flecha, hacerlo con function nos dará error, ya que al entrar en el ámbito 
-             * de otra función cambia el valor de this, mientras que con las funciones de flecha el valor es heredado
-             * de la función padre*/
+             * de otra función normalmente cambia el valor de this, mientras que con las funciones de flecha el 
+             * valor es heredado de la función padre*/
             setTimeout(() => this.classList.add("trigger-enter-active"), 150)
 
             //Igualmente añadimos la clase open a nuestro background para hacerlo visible
@@ -130,12 +130,15 @@
             const navCoords = nav.getBoundingClientRect()
             console.log(navCoords)
 
-            //Creamos otro objeto llamado coords para guardar las coordenadas y dimensiones de ambos elementos HTML:
+            /**Creamos otro objeto llamado coords para calcular las coordenadas del background correctamente
+             * en caso de que tengamos otro elemento encima de él, esto lo hacemos restándole las propiedades
+             * left y top de la barra de navegación que obtuvimos anteriormente
+            */
             const coords = {
                 width: dropdownCoords.width,
                 height: dropdownCoords.height,
-                left: dropdownCoords.left,
-                top: dropdownCoords.top
+                left: dropdownCoords.left - navCoords.left,
+                top: dropdownCoords.top - navCoords.top
             }
 
             //Igualamos la altura y anchura del background a los datos de coords, recordando añadir el px al final:
@@ -160,7 +163,6 @@
 
         /**Hacemos un bucle forEach sobre la lista de nuestras pestañas para añadir a cada elemento
          * dos EventListener que desencadenen nuestras funciones, uno de tipo mouseenter y el otro de tipo mouseleave*/
-
         tabs.forEach((tab) => {
             tab.addEventListener("mouseenter", handleEntrance)
             tab.addEventListener("mouseleave", handleLeft)
