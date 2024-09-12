@@ -106,7 +106,8 @@
              * una función apuntador-flecha, hacerlo con function nos dará error, ya que al entrar en el ámbito 
              * de otra función normalmente cambia el valor de this, mientras que con las funciones de flecha el 
              * valor es heredado de la función padre*/
-            setTimeout(() => this.classList.add("trigger-enter-active"), 150)
+            setTimeout(() => this.classList.contains("trigger-enter") &&
+                this.classList.add("trigger-enter-active"), 150)
 
             //Igualmente añadimos la clase open a nuestro background para hacerlo visible
             dropdownBG.classList.add("open")
