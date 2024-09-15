@@ -61,17 +61,30 @@
 
         slider.addEventListener("mousedown", () => {
 
+            //Cuando se presione el botón del mouse, cambiamos isMouseDown a true
+            isMouseDown = true
         })
 
         slider.addEventListener("mouseleave", () => {
 
+            //Cambiaremos a false si el cursor se mueve fuera del elemento objetivo, es decir el slider
+            isMouseDown = false
+
         })
 
         slider.addEventListener("mouseup", () => {
+            //También será falso cuando se suelte el botón obviamente
+            isMouseDown = false
 
         })
 
-        slider.addEventListener("mouseenter", () => {
+        slider.addEventListener("mousemove", () => {
+            //Imprimimos el valor de isMouseDown y mensaje que diga "¡Funciona!"
+            //Añadimos un if para que sólo se ejecute si isMouseDown es true:
+
+            console.log(isMouseDown)
+            console.log("¡Funciona!")
+
 
         })
 
