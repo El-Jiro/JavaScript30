@@ -38,6 +38,23 @@
     </div>
 
     <script>
+        //Primeramente agarramos el div.items, es decir el marco blanco que contiene todos los demás elementos
+        const slider = document.querySelector("div.items")
+        console.log(slider)
+
+        /**Creamos una variable booleana que nos indique si el botón izquierdo del mouse 
+         * está siendo presionado, por defecto su valor será falso:*/
+        let isMouseDown = false
+
+        /**Creamos otras dos variables, una que nos indique el punto de inicio donde
+         * hicimos clic y otra que nos indique la distancia que hemos arrastrado el ratón 
+         * en píxeles desde el punto inicial. Estas no tendrán un valor inicial, ya el valor 
+         * se les asignará dinámicamente durante el transcurso de los eventos.
+        */
+        let startX
+        let scrollLeft
+
+
     </script>
 </body>
 
