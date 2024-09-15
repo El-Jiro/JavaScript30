@@ -86,7 +86,7 @@
         const tabs = document.querySelectorAll(".cool > li")
         console.log(tabs)
 
-        //Seleccionamos también el div que contendrá elnuestra lista desplegable:
+        //Seleccionamos también el div que actuará como fondo para nuestras listas desplegables:
         const dropdownBG = document.querySelector(".dropdownBackground")
         console.log(dropdownBG)
 
@@ -104,8 +104,8 @@
 
             /**Añadimos también la clase trigger-enter-active con 150 ms de retraso. Deberemos usar forzosamente
              * una función apuntador-flecha, hacerlo con function nos dará error, ya que al entrar en el ámbito 
-             * de otra función normalmente cambia el valor de this, mientras que con las funciones de flecha el 
-             * valor es heredado de la función padre*/
+             * de otra función en la forma tradicional cambia el valor de this, mientras que con las funciones de 
+             * flecha el valor es heredado de la función padre*/
             setTimeout(() => this.classList.contains("trigger-enter") &&
                 this.classList.add("trigger-enter-active"), 150)
 
@@ -113,7 +113,7 @@
             dropdownBG.classList.add("open")
 
             /**Ahora necesitamos saber cuál es la lista desplegable (dropdown) en la que nos encontramos,
-             * así que realizaremos una  consulta dentro de nuestra pestaña buscando el elemento hijo que 
+             * así que realizaremos una consulta dentro de nuestra pestaña buscando el elemento hijo que 
              * tenga la clase dropdown y guardaremos el resultado en la constante homónima 
             */
             const dropdown = this.querySelector(".dropdown")
