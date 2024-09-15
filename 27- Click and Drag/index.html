@@ -59,13 +59,24 @@
            * y añadir el listener a cada uno de los rectángulos
           */
 
-        slider.addEventListener("mousedown", () => {
+
+        //Pasamos como parámetro del callback un objeto Event (e)
+        slider.addEventListener("mousedown", (e) => {
 
             //Cuando se presione el botón del mouse, cambiamos isMouseDown a true
             isMouseDown = true
 
             //También añadimos la clase active al slider: 
             slider.classList.add("active")
+
+            /**Calcularemos el valor de startX, es decir el punto donde se cliqueó inicialmente, restando  el valor 
+             * de la propiedad offsetLeft de slider (que representa la distancia entre el borde izquierdo del div
+             * y el borde de la ventana) al valor de la propiedad pageX de evento, que representa el punto absoluto 
+             * en el eje x de la venta donde hicimos clic*/
+            console.log(e)
+            startX = e.pageX - slider.offsetLeft
+            console.log(startX)
+
         })
 
         slider.addEventListener("mouseleave", () => {
@@ -89,8 +100,9 @@
             //Imprimimos el valor de isMouseDown y mensaje que diga "¡Funciona!"
             //Añadimos un if para que sólo se ejecute si isMouseDown es true:
             if (isMouseDown == true) {
-                console.log(isMouseDown)
+                console.count(isMouseDown)
                 console.log("¡Funciona!")
+                console.log(startX)
             }
         })
 
