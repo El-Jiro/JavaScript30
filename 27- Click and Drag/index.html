@@ -63,12 +63,17 @@
 
             //Cuando se presione el botón del mouse, cambiamos isMouseDown a true
             isMouseDown = true
+
+            //También añadimos la clase active al slider: 
+            slider.classList.add("active")
         })
 
         slider.addEventListener("mouseleave", () => {
 
             //Cambiaremos a false si el cursor se mueve fuera del elemento objetivo, es decir el slider
             isMouseDown = false
+            //Eliminamos la clase active:
+            slider.classList.remove("active")
 
         })
 
@@ -76,6 +81,8 @@
             //También será falso cuando se suelte el botón obviamente
             isMouseDown = false
 
+            //Eliminamos la clase active:
+            slider.classList.remove("active")
         })
 
         slider.addEventListener("mousemove", () => {
