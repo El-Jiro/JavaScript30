@@ -54,15 +54,8 @@
         let startX
         let scrollLeft
 
-        /**Añadimos cuatro EventListener de tipo mouseenter, mouseup, mouseleave y mousedown,
-           * los añadiremos al slider aprovechando la propagación para no tener que hacer un forEach
-           * y añadir el listener a cada uno de los rectángulos
-          */
-
-
-        //Pasamos como parámetro del callback un objeto Event (e)
-        slider.addEventListener("mousedown", (e) => {
-
+        //Creamos una función para manejar la lógica de apretar el botón del mouse:
+        function handleDown(e) {
             //Cuando se presione el botón del mouse, cambiamos isMouseDown a true
             isMouseDown = true
 
@@ -80,28 +73,10 @@
             /**Asignamos el scrollLeft de slider, que representa la actual posición horizontal del contenido de un 
              * elemento respecto al borde izquierdo del mismo*/
             scrollLeft = slider.scrollLeft
-        })
+        }
 
-        slider.addEventListener("mouseleave", () => {
-
-            //Cambiaremos a false si el cursor se mueve fuera del elemento objetivo, es decir el slider
-            isMouseDown = false
-            //Eliminamos la clase active:
-            slider.classList.remove("active")
-
-        })
-
-        slider.addEventListener("mouseup", () => {
-            //También será falso cuando se suelte el botón obviamente
-            isMouseDown = false
-
-            //Eliminamos la clase active:
-            slider.classList.remove("active")
-        })
-
-        //Pasamos un objeto Event (e) como parámetro en el callback
-        slider.addEventListener("mousemove", (e) => {
-
+        //Otra función más para manejar la lógica del desplazamiento
+        function handleMove(e) {
             //Añadimos un if para que sólo se ejecute si isMouseDown es true:
             if (isMouseDown == true) {
 
@@ -133,8 +108,27 @@
                  * ya no tenga que recalcular el scroll cada vez que soltemos el mouse*/
                 slider.scrollLeft = scrollLeft - walk
             }
-        })
+        }
 
+        //Y una más para cuando se suelte el botón:
+        function handleUp() {
+            /**Cambiaremos a false cuando se suelte el botón del mouse o el cursor se 
+             * mueva fuera del elemento objetivo, es decir el slider*/
+            isMouseDown = false
+
+            //Eliminamos la clase active:
+            slider.classList.remove("active")
+        }
+
+        /**Añadimos al slider cuatro EventListener de tipo mousedown, mousemove, mouseleave y mouseup*/
+
+        slider.addEventListener("mousedown", handleDown)
+
+        slider.addEventListener("mousemove", handleMove)
+
+        slider.addEventListener("mouseleave", handleUp)
+
+        slider.addEventListener("mouseup", handleUp)
     </script>
 </body>
 
