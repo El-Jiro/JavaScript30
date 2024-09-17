@@ -109,14 +109,20 @@
                  * del navegador, como por ejemplo tratar de seleccionar el texto dentro de nuestros divs*/
                 e.preventDefault()
 
-                /**Calculamos la distancia de desplazamiento en el eje x de la misma manera 
+                /**Calculamos el valor de desplazamiento en el eje x de la misma manera 
                  * en que calculamos el punto de origen, pero en esta ocasión el valor cambiará
                  * dinámicamente conforme nos movamos ya que lo estamos haciendo con la información
                  * de un evento mousemove. Guardamos el resultado en la variable x
                 */
                 const x = e.pageX - slider.offsetLeft
-                //Imprimimos en consola un objeto con las propiedades x y startx:
-                console.log({ startX, x })
+
+                /**Calculamos la distancia recorrida desde el inicio hasta la posición actual y 
+                 * la guardamos dentro de la constante walk
+                */
+                const walk = x - startX
+
+                //Imprimimos en consola un objeto con las propiedades x y startX:
+                console.log({ startX, x, walk })
             }
         })
 
