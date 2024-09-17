@@ -99,10 +99,16 @@
             slider.classList.remove("active")
         })
 
-        slider.addEventListener("mousemove", () => {
-            //Imprimimos el valor de isMouseDown y mensaje que diga "¡Funciona!"
+        //Pasamos un objeto Event (e) como parámetro en el callback
+        slider.addEventListener("mousemove", (e) => {
+
             //Añadimos un if para que sólo se ejecute si isMouseDown es true:
             if (isMouseDown == true) {
+
+                /**Llamamos al método preventDefault de e, esto prevendrá cualquier comportamiento inesperado 
+                 * del navegador, como por ejemplo tratar de seleccionar el texto dentro de nuestros divs*/
+                e.preventDefault()
+
                 /**Calculamos la distancia de desplazamiento en el eje x de la misma manera 
                  * en que calculamos el punto de origen, pero en esta ocasión el valor cambiará
                  * dinámicamente conforme nos movamos ya que lo estamos haciendo con la información
