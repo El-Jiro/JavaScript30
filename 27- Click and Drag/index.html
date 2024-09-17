@@ -77,6 +77,9 @@
             startX = e.pageX - slider.offsetLeft
             console.log(startX)
 
+            /**Asignamos el scrollLeft de slider, que representa la actual posición horizontal del contenido de un 
+             * elemento respecto al borde izquierdo del mismo*/
+            scrollLeft = slider.scrollLeft
         })
 
         slider.addEventListener("mouseleave", () => {
@@ -100,9 +103,14 @@
             //Imprimimos el valor de isMouseDown y mensaje que diga "¡Funciona!"
             //Añadimos un if para que sólo se ejecute si isMouseDown es true:
             if (isMouseDown == true) {
-                console.count(isMouseDown)
-                console.log("¡Funciona!")
-                console.log(startX)
+                /**Calculamos la distancia de desplazamiento en el eje x de la misma manera 
+                 * en que calculamos el punto de origen, pero en esta ocasión el valor cambiará
+                 * dinámicamente conforme nos movamos ya que lo estamos haciendo con la información
+                 * de un evento mousemove. Guardamos el resultado en la variable x
+                */
+                const x = e.pageX - slider.offsetLeft
+                //Imprimimos en consola un objeto con las propiedades x y startx:
+                console.log({ startX, x })
             }
         })
 
