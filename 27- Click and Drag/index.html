@@ -117,12 +117,21 @@
                 const x = e.pageX - slider.offsetLeft
 
                 /**Calculamos la distancia recorrida desde el inicio hasta la posición actual y 
-                 * la guardamos dentro de la constante walk
+                 * la guardamos dentro de la constante walk. Para hacer una animación de scrolling 
+                 * mejor y más fluida, podemos multiplicar el resultado de la resta por 3 o 4
                 */
-                const walk = x - startX
+                const walk = (x - startX) * 3
 
-                //Imprimimos en consola un objeto con las propiedades x y startX:
+                //Imprimimos en consola un objeto con las propiedades x, startX y walk:
                 console.log({ startX, x, walk })
+
+                //Esto funciona pero se bugea
+                //slider.scrollLeft = walk
+
+                /**En su lugar le restamos la distancia recorrida a la variable scrollLeft 
+                 * y lo guardamos en la propiedad homónima de slider, para que así el navegador 
+                 * ya no tenga que recalcular el scroll cada vez que soltemos el mouse*/
+                slider.scrollLeft = scrollLeft - walk
             }
         })
 
