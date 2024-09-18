@@ -38,7 +38,7 @@
         */
 
         speed.addEventListener("mousemove", function (e) {
-            console.log(e)
+            //console.log(e)
             /**Necesitamos calcular en que punto relativo al eje Y de la barra nos encontramos, 
              * para esto le restamos la propiedad offsetTop de this (el elemento que está desencadenando
              * nuestro EventListener, es decir la barra de velocidad) a la propiedad pageY del objeto e.
@@ -49,7 +49,19 @@
             //Ahora necesitaremos calcular el porcentaje de llenado de la barra dividiendo y sobre offsetHeight:
             const percent = y / this.offsetHeight
 
-            console.log({ y, percent })
+            //La velocidad mínima será x0.4 y la máxima x4, guardaremos estos valores en constantes
+            const min = 0.4
+            const max = 4
+
+            //Calculamos la altura a la que se llenará la barra multiplicando el porcentaje x100 y rendondeando
+            //Deberemos añadir también el signo de porcentaje al final
+            const height = `${Math.round(percent * 100)}%`
+
+            //Ajustamos la auttra visuamente asignando height a la propiedad css homónima de bar:
+            bar.style.height = height
+
+            console.log({ y, percent, height })
+
         })
     </script>
 </body>
