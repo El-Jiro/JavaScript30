@@ -36,6 +36,17 @@
          * le pasaremos un callback que reciba como parámetro un objeto de tipo Event 
          * e imprima en consola la información del mismo
         */
+
+        speed.addEventListener("mousemove", function (e) {
+
+            /**Necesitamos calcular en que punto relativo al eje Y de la barra nos encontramos, 
+             * para esto le restamos la propiedad offsetTop de this (el elemento que está desencadenando
+             * nuestro EventListener, es decir la barra de velocidad) a la propiedad pageY del objeto e.
+             * Guardamos el resultado en y
+            */
+            const y = e.pageY - this.offsetTop
+            console.log(y)
+        })
     </script>
 </body>
 
