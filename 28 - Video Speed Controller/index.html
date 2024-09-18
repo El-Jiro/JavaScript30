@@ -32,6 +32,24 @@
         const video = document.querySelector("video")
         console.log(video)
 
+        let isMouseDown = false
+
+        speed.addEventListener("mousedown", function () {
+            isMouseDown = true
+            this.style.cursor = "grabbing"
+        })
+
+        speed.addEventListener("mouseup", function () {
+            isMouseDown = false
+            this.style.cursor = "grab"
+        })
+
+        speed.addEventListener("mouseup", function () {
+            isMouseDown = false
+            this.style.cursor = "grab"
+        })
+
+
         /**Añadimos a speed un EventListener de tipo mousemove, al cual
          * le pasaremos un callback que reciba como parámetro un objeto de tipo Event 
          * e imprima en consola la información del mismo
@@ -44,23 +62,27 @@
              * nuestro EventListener, es decir la barra de velocidad) a la propiedad pageY del objeto e.
              * Guardamos el resultado en y
             */
-            const y = e.pageY - this.offsetTop
 
-            //Ahora necesitaremos calcular el porcentaje de llenado de la barra dividiendo y sobre offsetHeight:
-            const percent = y / this.offsetHeight
+            if (isMouseDown == true) {
+                e.preventDefault()
+                const y = e.pageY - this.offsetTop
 
-            //La velocidad mínima será x0.4 y la máxima x4, guardaremos estos valores en constantes
-            const min = 0.4
-            const max = 4
+                //Ahora necesitaremos calcular el porcentaje de llenado de la barra dividiendo y sobre offsetHeight:
+                const percent = y / this.offsetHeight
 
-            //Calculamos la altura a la que se llenará la barra multiplicando el porcentaje x100 y rendondeando
-            //Deberemos añadir también el signo de porcentaje al final
-            const height = `${Math.round(percent * 100)}%`
+                //La velocidad mínima será x0.4 y la máxima x4, guardaremos estos valores en constantes
+                const min = 0.4
+                const max = 4
 
-            //Ajustamos la auttra visuamente asignando height a la propiedad css homónima de bar:
-            bar.style.height = height
+                //Calculamos la altura a la que se llenará la barra multiplicando el porcentaje x100 y rendondeando
+                //Deberemos añadir también el signo de porcentaje al final
+                const height = `${Math.round(percent * 100)}%`
 
-            console.log({ y, percent, height })
+                //Ajustamos la altura visualmente asignando height a la propiedad css homónima de bar:
+                bar.style.height = height
+
+                console.log({ y, percent, height })
+            }
 
         })
     </script>
