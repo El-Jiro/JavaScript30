@@ -82,6 +82,15 @@
                 bar.style.height = height
 
                 console.log({ y, percent, height })
+
+                //Calculamos la velocidad de reproducción con la siguiente fórmula
+                const playbackRate = percent * (max - min) + min
+
+                //Le añadimos una x al principio y le concatenamos la función toFixed para mostrar sólo 2 decimales               
+                bar.textContent = `x${playbackRate.toFixed(2)}`
+
+                //Finalmente, actualizamos la velocidad real del vídeo
+                video.playbackRate = playbackRate
             }
 
         })
