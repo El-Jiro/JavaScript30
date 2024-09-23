@@ -9,6 +9,10 @@ let countdown
 const timerDisplay = document.querySelector(".display__time-left")
 console.log(timerDisplay)
 
+//Creamos una variable que haga referencia al sonido de alarma:
+const clockAlarm = document.querySelector("audio")
+console.log(clockAlarm)
+
 /**Creamos una función llamada timer que reciba como parámetro 
  * el número de segundos que durará la cuenta regresiva
 */
@@ -49,7 +53,12 @@ function timer(secs) {
          * como argumento el nombre de nuestro intervalo, es decir countdown, esto detendrá
          * la cuenta regresiva que de otra manera continuará hasta el -infinito*/
 
-        secondsLeft === 0 ? clearInterval(countdown) : null
+        if (secondsLeft === 0) {
+            clearInterval(countdown)
+            //También reproducimos el sonido de alarma:
+            clockAlarm.currentTime = 0
+            clockAlarm.play()
+        }
 
     }, 1000)
 
