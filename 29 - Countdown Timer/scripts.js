@@ -24,7 +24,7 @@ function timer(secs) {
          * su valor a then. Dividimos el resultado entre 1000 y redondeamos para convertir 
          * a segundos. Guardamos en secondsLeft*/
 
-        const secondsLeft = then - Date.now()
+        const secondsLeft = Math.round((then - Date.now()) / 1000)
         console.log(secondsLeft)
 
     }, 1000)
