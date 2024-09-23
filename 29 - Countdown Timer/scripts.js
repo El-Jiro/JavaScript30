@@ -44,19 +44,29 @@ function timer(secs) {
          * como argumento el nombre de nuestro intervalo, es decir countdown, esto detendrá
          * la cuenta regresiva que de otra manera continuará hasta el -infinito*/
 
-        secondsLeft <= 0 ? clearInterval(countdown) : null
+        secondsLeft === 0 ? clearInterval(countdown) : null
 
     }, 1000)
 
 }
 
 
-/**Creamos otra función llamada displayTimeLeft, que se encargará de convertir 
- * los segundos restantes a formato MM:SS, recibiendo los segundos como parámetro
+/**Creamos otra función llamada displayTimeLeft, que se encargará de mostrar 
+ * la cuenta regressiva en formato MM:SS, recibiendo los segundos como parámetro
  * al igual que la función anterior*/
 
-function displayTimeLeft(secs) {
+function displayTimeLeft(seconds) {
 
-    //imprimimos secs en consola
-    console.log(secs)
+    /**Convertimos los segundos a minutos dividiendo entre 60 y redondeando 
+     * con Math.floor() para obtener sólo la parte entera de la división*/
+    const mins = Math.floor(seconds / 60)
+
+    /**Para obtener los segundos restantes, dividimos nuevamente entre 60 
+     * y tomamos el residuo o módulo de la división*/
+    const secs = seconds % 60
+
+
+    //imprimimos los minutos y segundos en consola en forma de objeto
+    console.log({ mins, secs })
+
 }
