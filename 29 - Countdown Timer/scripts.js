@@ -3,6 +3,11 @@
 
 let countdown
 
+/**Creamos otra variable global que haga referencia al encabezado dentro del div 
+ * en el cual mostraremos la cuenta regresiva, lo llamaremos timerDisplay*/
+
+const timerDisplay = document.querySelector(".display__time-left")
+console.log(timerDisplay)
 
 /**Creamos una función llamada timer que reciba como parámetro 
  * el número de segundos que durará la cuenta regresiva
@@ -65,8 +70,17 @@ function displayTimeLeft(seconds) {
      * y tomamos el residuo o módulo de la división*/
     const secs = seconds % 60
 
+    /**Creamos una nueva variable llamada formattedTime y le asignamos como valor
+     * un string conformado pro mins y seconds convertidos a strings e invocando el
+     * método padStart de cada uno, que se encargará de anteponer un 0 al valor cuando
+     * este sólo posea un dígito
+    */
+    const formattedTime = `${new String(mins).padStart(2, "0")}:${new String(secs).padStart(2, "0")}`
+
+    //Finalmente, asignamos el valor de formattedTime a la propiedad textContent de nuestro displayer:
+    timerDisplay.textContent = formattedTime
 
     //imprimimos los minutos y segundos en consola en forma de objeto
-    console.log({ mins, secs })
+    //console.log({ mins, secs })
 
 }
