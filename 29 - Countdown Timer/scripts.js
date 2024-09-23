@@ -1,3 +1,9 @@
+/**Creamos una variable global llamada countdown que almacenará 
+ * el id de nuestro intervalo*/
+
+let countdown
+
+
 /**Creamos una función llamada timer que reciba como parámetro 
  * el número de segundos que durará la cuenta regresiva
 */
@@ -18,14 +24,24 @@ function timer(secs) {
     //Imprimimos un objeto con ambos valores
     console.log({ now, then })
 
-    //Llamamos a setInterval y cada segundo y le pasamos un callback:
-    setInterval(() => {
+    //Llamamos a setInterva cada segundo,le pasamos un callback y asignamos su valor a countdown:
+    countdown = setInterval(() => {
+
         /**Calculamos los segundos restantes llamando de nuevo a Date.now() y restando 
          * su valor a then. Dividimos el resultado entre 1000 y redondeamos para convertir 
          * a segundos. Guardamos en secondsLeft*/
-
-        const secondsLeft = Math.round((then - Date.now()) / 1000)
+        let secondsLeft = Math.round((then - Date.now()) / 1000)
+        secondsLeft === -0 ? secondsLeft = 0 : null
         console.log(secondsLeft)
 
+        /**Cuando secondsLeft llegue a 0, llamaremos a la función clearInterval, pasándole
+         * como argumento el nombre de nuestro intervalo, es decir countdown, esto detendrá
+         * la cuenta regresiva que de otra manera continuará hasta el -infinito*/
+
+        if (secondsLeft <= 0) {
+            clearInterval(countdown)
+        }
     }, 1000)
+
+
 }
