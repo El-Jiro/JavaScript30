@@ -35,7 +35,9 @@ function timer(secs) {
      * para obtener el tiempo en milisegundos donde terminará la cuenta regresiva*/
     const then = now + (secs * 1000)
 
-
+    /**Invocamos displayEndTime aquí, justo después de obtener el valor 
+     * de then, y le pasamos el mismo como argumento*/
+    displayEndTime(then)
     //Imprimimos un objeto con ambos valores
     console.log({ now, then })
 
@@ -63,6 +65,9 @@ function timer(secs) {
             //También reproducimos el sonido de alarma:
             clockAlarm.currentTime = 0
             clockAlarm.play()
+
+            //Limpiamos también la hora de regreso
+            endTime.textContent = ""
         }
 
     }, 1000)
