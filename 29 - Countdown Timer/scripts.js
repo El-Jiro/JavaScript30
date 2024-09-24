@@ -1,11 +1,9 @@
 /**Creamos una variable global llamada countdown que almacenará 
- * el id de nuestro intervalo*/
-
+ * el id de nuestro intervalo para poder reutilizarlo*/
 let countdown
 
 /**Creamos otra variable global que haga referencia al encabezado dentro del div 
  * en el cual mostraremos la cuenta regresiva, lo llamaremos timerDisplay*/
-
 const timerDisplay = document.querySelector(".display__time-left")
 console.log(timerDisplay)
 
@@ -14,8 +12,7 @@ const clockAlarm = document.querySelector("audio")
 console.log(clockAlarm)
 
 /**Creamos una función llamada timer que reciba como parámetro 
- * el número de segundos que durará la cuenta regresiva
-*/
+ * el número de segundos que durará la cuenta regresiva*/
 function timer(secs) {
 
     /**Llamamos al método estático now de la clase Date, el cual nos devuelve 
@@ -27,7 +24,7 @@ function timer(secs) {
 
     /**Creamos otra constante llamada then, donde multiplicaremos secs 
      * x 1000 para convertirlo a milisegundos y lo sumaremos al valor de then
-     * para obtener el número exacto de milisegundos que durará la cuenta regresiva*/
+     * para obtener el tiempo en milisegundos donde terminará la cuenta regresiva*/
     const then = now + (secs * 1000)
 
 
@@ -61,7 +58,6 @@ function timer(secs) {
         }
 
     }, 1000)
-
 }
 
 
@@ -80,7 +76,7 @@ function displayTimeLeft(seconds) {
     const secs = seconds % 60
 
     /**Creamos una nueva variable llamada formattedTime y le asignamos como valor
-     * un string conformado pro mins y seconds convertidos a strings e invocando el
+     * un string conformado por mins y seconds convertidos a strings e invocando el
      * método padStart de cada uno, que se encargará de anteponer un 0 al valor cuando
      * este sólo posea un dígito
     */
@@ -94,5 +90,31 @@ function displayTimeLeft(seconds) {
 
     //imprimimos los minutos y segundos en consola en forma de objeto
     //console.log({ mins, secs })
-
 }
+
+/**Creamos una tercera función llamada displayEndTime, que calculará la hora exacta 
+ * a la que terminará la cuenta regresiva basada en la duración de la misma. Recibirá
+ * como parámetro un timestamp o marca de tiempo*/
+
+function displayEndTime(timestamp) {
+    //Creamos un objeto de tipo Date a partir del timeStamp y lo guardamos en end
+    const end = new Date(timestamp)
+    console.log(end)
+
+    //Obtenemos las horas y los minutos:
+    const hours = end.getHours()
+    const minutes = end.getMinutes()
+
+    /**Haremos un poco de matématicas para convertir las horas del formato 24 hrs
+     * al formato a.m./p.m., creamos una nueva constante llamada hours12 al que le asignamos
+     * primeramente el valor del residuo de la división de hours entre 12, y usamos un operador
+     * lógico OR para asignarle el valor de 12 en caso de que el primer caso sea falso (es decir 0)
+    */
+    const hours12 = hours % 12 || 12
+
+    /**Creamos otra constante llamada ampm que determinará cual de las dos sufijos
+     * le asignaremos a la hora, si la hora es mayor que 12 será a.m y si es menor o
+     * igual será p.m */
+    const ampm = hours < 12 ? "a.m." : "p.m."
+}
+
