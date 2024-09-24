@@ -89,6 +89,9 @@ function displayTimeLeft(seconds) {
     //Finalmente, asignamos el valor de formattedTime a la propiedad textContent de nuestro displayer:
     timerDisplay.textContent = formattedTime
 
+    //También mostraremos el tiempo restante en el título de la página:
+    document.title = `Temporizador ${formattedTime}`
+
     //imprimimos los minutos y segundos en consola en forma de objeto
     //console.log({ mins, secs })
 
