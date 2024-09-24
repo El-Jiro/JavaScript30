@@ -7,6 +7,14 @@ let countdown
 const timerDisplay = document.querySelector(".display__time-left")
 console.log(timerDisplay)
 
+/**De manera similar a lo de arriba, creamos una constante que haga referencia
+ * al parráfo dentro del mismo div donde mostraremos la hora de finalización del
+ * conteo regresivo.
+ */
+
+const endTime = document.querySelector(".display__end-time")
+console.log(endTime)
+
 //Creamos una variable que haga referencia al sonido de alarma:
 const clockAlarm = document.querySelector("audio")
 console.log(clockAlarm)
@@ -116,5 +124,8 @@ function displayEndTime(timestamp) {
      * le asignaremos a la hora, si la hora es mayor que 12 será a.m y si es menor o
      * igual será p.m */
     const ampm = hours < 12 ? "a.m." : "p.m."
+
+    //Finalmente mostramos el tiempo dentro de endTime en formato hh:mm
+    endTime.textContent = `Estaré de vuelta a las ${hours12}:${minutes} ${ampm}`
 }
 
