@@ -47,7 +47,8 @@ body {
 .timer__controls input {
     flex: 1;
     border: 0;
-    padding: 2rem;
+    text-align: center;
+    font-size: 17px;
 }
 
 .timer__button {
