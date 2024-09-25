@@ -21,11 +21,20 @@ console.log(buttons)
 const clockAlarm = document.querySelector("audio")
 console.log(clockAlarm)
 
-/**Creamos una función llamada timer que reciba como parámetro 
+/**
+ * Creamos una función llamada timer que reciba como parámetro 
  * el número de segundos que durará la cuenta regresiva*/
 function timer(secs) {
 
-    /**Llamamos al método estático now de la clase Date, el cual nos devuelve 
+    /** 
+     * Justo al inicio de la función, cancelaremos cualquier intervalo existente, 
+     * de esta manera evitaremos que se el conteo se bugee al iniciar un nuevo 
+     * temporizador cuando el anterior aún no haya finalizado 
+    */
+    clearInterval(countdown)
+
+    /**
+     * Llamamos al método estático now de la clase Date, el cual nos devuelve 
      * un número entero representando el número de milisegundos transcurridos 
      * desde el inicio de la época Unix, es decir el 1 de enero de 1970 y guardamos
      * el resultado en la constante now.
@@ -74,7 +83,6 @@ function timer(secs) {
 
     }, 1000)
 }
-
 
 /**Creamos otra función llamada displayTimeLeft, que se encargará de mostrar 
  * la cuenta regressiva en formato MM:SS, recibiendo los segundos como parámetro
