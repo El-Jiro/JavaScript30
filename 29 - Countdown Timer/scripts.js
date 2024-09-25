@@ -159,22 +159,12 @@ function startTimer() {
     timer(seconds)
 }
 
-//Le acoplamos a los botones un EventListener de tipo click que llamará a startTimer
-buttons.forEach((btn) => btn.addEventListener("click", startTimer))
 
-/**
- * Si nuestro formulario tiene un nombre, seremos capaces de invocarlo en el script
- * directamento como una propiedad de document sin tener que realizar una consulta y
- * guardar el resultado en una variable. De la misma forma podemos añadirle un listener,
- * el cual será del tipo submit, es decir que ejecutará la función cuando se envíe el
- * formulario. Le pasamos un callback que a su vez recibirá un objeto Event.
- */
-
-document.customForm.addEventListener("submit", function (e) {
+function handleForm(e) {
 
     /**El formulario por defecto usa el método get que envía la información en la URL,
-     * por lo que nos pondrá minutes y su valor como parámetro de consulta en la dirección
-     * de la página, para evitar esto llamamos e.preventDefault()*/
+    * por lo que nos pondrá minutes y su valor como parámetro de consulta en la dirección
+    * de la página, para evitar esto llamamos e.preventDefault()*/
     e.preventDefault()
 
     /**De manera similar a como hicimos con el formulario, llamamos a la caja de texto 
@@ -193,4 +183,17 @@ document.customForm.addEventListener("submit", function (e) {
      * por defecto al ser enviado, por lo que deberemos llamar manualmente 
      * a su método reset al final de la función*/
     this.reset()
-})
+}
+
+//Le acoplamos a los botones un EventListener de tipo click que llamará a startTimer
+buttons.forEach((btn) => btn.addEventListener("click", startTimer))
+
+/**
+ * Si nuestro formulario tiene un nombre, seremos capaces de invocarlo en el script
+ * directamento como una propiedad de document sin tener que realizar una consulta y
+ * guardar el resultado en una variable. De la misma forma podemos añadirle un listener,
+ * el cual será del tipo submit, es decir que ejecutará la función cuando se envíe el
+ * formulario. Le pasamos un callback que a su vez recibirá un objeto Event.
+ */
+
+document.customForm.addEventListener("submit", handleForm)
