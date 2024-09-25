@@ -139,3 +139,17 @@ function displayEndTime(timestamp) {
     endTime.textContent = `Estaré de vuelta a las ${formattedTime} `
 }
 
+//Creamos otra función más llamada startTimer, esta vez sin parámetros:
+
+function startTimer() {
+    /**Obtenemos el valor del atributo html data-time de cada uno de los botones,
+     * el cual representa el número de segundos que durará la cuenta regresiva, aplicamos 
+     * la función parseInt para convertirlo de string a number y lo guardamos en seconds*/
+    const seconds = parseInt(this.dataset.time)
+
+    //Invocamos a timer pasandóle seconds como argumento para iniciar el temporizador
+    timer(seconds)
+}
+
+//Le acoplamos a los botones un EventListener de tipo click que llamará a startTimer
+buttons.forEach((btn) => btn.addEventListener("click", startTimer))
