@@ -9,11 +9,13 @@ console.log(timerDisplay)
 
 /**De manera similar a lo de arriba, creamos una constante que haga referencia
  * al parráfo dentro del mismo div donde mostraremos la hora de finalización del
- * conteo regresivo.
- */
-
+ * conteo regresivo.*/
 const endTime = document.querySelector(".display__end-time")
 console.log(endTime)
+
+//Seleccionamos todos los botones con el atributo data-time y los guardamos en una lista
+const buttons = document.querySelectorAll("button[data-time]")
+console.log(buttons)
 
 //Creamos una variable que haga referencia al sonido de alarma:
 const clockAlarm = document.querySelector("audio")
@@ -125,12 +127,15 @@ function displayEndTime(timestamp) {
     */
     const hours12 = hours % 12 || 12
 
-    /**Creamos otra constante llamada ampm que determinará cual de las dos sufijos
-     * le asignaremos a la hora, si la hora es mayor que 12 será a.m y si es menor o
-     * igual será p.m */
+    /**Creamos otra constante llamada ampm que determinará cual de los dos sufijos
+     * le asignaremos a la hora, si la hora es menor que 12 será a.m y si es mayor 
+     * o igual será p.m */
     const ampm = hours < 12 ? "a.m." : "p.m."
 
-    //Finalmente mostramos el tiempo dentro de endTime en formato hh:mm
-    endTime.textContent = `Estaré de vuelta a las ${hours12}:${minutes} ${ampm}`
+    //Necesito hacerle padStart a los minutos Y horas otra vez, la ptm
+    const formattedTime = `${new String(hours12).padStart(2, "0")}:${new String(minutes).padStart(2, "0")} ${ampm}`
+
+    //Finalmente mostramos el tiempo dentro de endTime en formato hh:mm a.m/p.m
+    endTime.textContent = `Estaré de vuelta a las ${formattedTime} `
 }
 
