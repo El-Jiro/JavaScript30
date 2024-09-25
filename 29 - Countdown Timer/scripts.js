@@ -190,10 +190,10 @@ buttons.forEach((btn) => btn.addEventListener("click", startTimer))
 
 /**
  * Si nuestro formulario tiene un nombre, seremos capaces de invocarlo en el script
- * directamento como una propiedad de document sin tener que realizar una consulta y
+ * directamente como una propiedad de document sin tener que realizar una consulta y
  * guardar el resultado en una variable. De la misma forma podemos añadirle un listener,
  * el cual será del tipo submit, es decir que ejecutará la función cuando se envíe el
- * formulario. Le pasamos un callback que a su vez recibirá un objeto Event.
+ * formulario. Le pasamos la función handleForm.
  */
 
 document.customForm.addEventListener("submit", handleForm)
