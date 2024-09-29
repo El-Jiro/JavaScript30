@@ -58,6 +58,24 @@
             return randomTime
         }
 
+
+        /**Creamos otra función llamada getRandomHole que seleccionará un elemento
+         * al azar de nuestra lista de agujeros, la cual recibirá como parámetro, 
+         * y lo retornará
+        */
+        function getRandomHole(holes) {
+            /**Obtenemos un número de 0 a 5 al azar multiplicando Math.random 
+             * por la longitud de nuestra lista, y lo redondeamos con Math.floor 
+             * para quedarnos sólo con la parte entera*/
+            const idx = Math.floor(Math.random() * holes.length)
+
+            //Accedemos a la posición de la lista correspondiente al número que obtuvimos
+            const hole = holes[idx]
+
+            //Retornamos el hoyo
+            return hole
+        }
+
     </script>
 </body>
 
