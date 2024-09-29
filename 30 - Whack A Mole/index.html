@@ -40,6 +40,9 @@
         const scoreBoard = document.querySelector('.score');
         const moles = document.querySelectorAll('.mole');
 
+        //Esta variable almacenará el último resultado de getRandomHole
+        let lastHole
+
         console.log(holes)
         console.log(moles)
         console.log(scoreBoard)
@@ -72,6 +75,17 @@
             //Accedemos a la posición de la lista correspondiente al número que obtuvimos
             const hole = holes[idx]
 
+            /**Si sale el mismo agujero dos veces seguidas, en vez de retornarlo, llamaremos
+             * a la función de nuevo hasta que salga uno distinto y retornaremos su resultado
+            */
+
+            if (hole === lastHole) {
+                console.log("Ese es el mismo agujero de antes")
+                return getRandomHole(holes)
+            }
+
+            //Asigamos hole a lastHole
+            lastHole = hole
             //Retornamos el hoyo
             return hole
         }
