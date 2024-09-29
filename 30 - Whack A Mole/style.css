@@ -83,10 +83,11 @@ h1 {
     border-color: #dc3545;
     font-weight: bold;
     cursor: pointer !important;
+    box-shadow: none !important;
 }
 
 .start:hover,
-.start:focus {
+.start:active {
     color: #fff;
     background-color: #c82333;
     border-color: #bd2130;
