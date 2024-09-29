@@ -69,3 +69,26 @@ h1 {
 .hole.up .mole {
     top: 0;
 }
+
+.start {
+    position: relative;
+    left: 50%;
+    margin-top: 20px;
+    border-radius: 20px;
+    font-size: 20px;
+    height: 40px;
+    width: 100px;
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    font-weight: bold;
+    cursor: pointer !important;
+}
+
+.start:hover,
+.start:focus {
+    color: #fff;
+    background-color: #c82333;
+    border-color: #bd2130;
+    box-shadow: 0 0 0 .2rem rgba(225, 83, 97, .5);
+}
