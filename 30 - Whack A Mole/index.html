@@ -90,6 +90,29 @@
             return hole
         }
 
+        //Creamos una tercera función llamada peep, que controlará la entrada y salida de los topos
+        function peep() {
+
+            /**Determinamos el tiempo que permanecerá cada topo fuera 
+             * de su agujero mediante la función getRandomTime, el mínimo
+             * serán 200 milisegundos y el máximo 2 segundos*/
+            const time = getRandomTime(200, 2000)
+
+            //Determinamos el agujero con getRandomHole
+            const hole = getRandomHole(holes)
+
+            /**Añadimos al agujero la clase html up, toda la animación de nuestros
+             * topos será controlada desde el css mediante esta clase*/
+            hole.classList.add("up")
+
+            /**Para que se vuelvan a ocultar una vez transcurrido el tiempo, 
+             * le ponemos un timeOut y en la función callback del mismo le
+             * retiramos la clase up al respectivo agujero*/
+
+            setTimeout(() => {
+                hole.classList.remove("up")
+            }, time)
+        }
     </script>
 </body>
 
