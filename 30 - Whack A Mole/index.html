@@ -40,6 +40,23 @@
         const scoreBoard = document.querySelector('.score');
         const moles = document.querySelectorAll('.mole');
 
+        console.log(holes)
+        console.log(moles)
+        console.log(scoreBoard)
+
+        /**Creamos una función que nos de un número de milisegundos aleatorio entre
+         * un límite inferior y uno superior, los cuales recibirá como parámetros*/
+
+        function getRandomTime(min, max) {
+
+            /**Llamamos a Math.round() para obtener un número aleatorio, lo multiplicamos 
+             * por la resta de max menos min y a esta le sumamos min otra vez. Redondeamos 
+             * el resultado con Math.round y lo guardamos en randomTime*/
+            const randomTime = Math.round(Math.random() * (max - min) + min)
+
+            //Retornamos randomTime
+            return randomTime
+        }
 
     </script>
 </body>
