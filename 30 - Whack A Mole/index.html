@@ -43,6 +43,11 @@
         //Esta variable almacenará el último resultado de getRandomHole
         let lastHole
 
+        /**Creamos una variable booleana que detecte si el tiempo  
+         * del juego se ha terminado, por defecto estará en false*/
+
+        let timeUp = false
+
         console.log(holes)
         console.log(moles)
         console.log(scoreBoard)
@@ -111,6 +116,8 @@
 
             setTimeout(() => {
                 hole.classList.remove("up")
+                //Seguimos ejecutando peep cuando timeUp sea igual a false
+                !timeUp ? peep() : null
             }, time)
         }
     </script>
