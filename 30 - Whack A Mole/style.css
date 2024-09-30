@@ -28,6 +28,8 @@ h1 {
     padding: 0 3rem;
     line-height: 1;
     border-radius: 1rem;
+    display: inline-block;
+    width: fit-content;
 }
 
 .game {

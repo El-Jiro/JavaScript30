@@ -49,6 +49,9 @@
 
         let timeUp = false
 
+        //Creamos otra variable de tipo number llamada score para el puntaje
+        let score
+
         console.log(holes)
         console.log(moles)
         console.log(scoreBoard)
@@ -127,10 +130,10 @@
         function startGame() {
             //Reiniciamos el marcador de puntos a 0:
             scoreBoard.textContent = "0"
-
+            //Reiniciamos el puntaje también además del DOM
+            score = 0
             //Reiniciamos timeUp a false
             timeUp = false
-
             //Llamamos a peep
             peep()
 
@@ -142,8 +145,33 @@
             }, 30000)
         }
 
+        /**Creamos una última función para detectar cuando se golpee a un topo 
+         * y aumentar el marcador de manera acorde. Esta recibirá como parámetro
+         * la información del evento.*/
+
+        /**En los objetos JSON que guardan la info de los eventos tenemos un atributo
+         * booleano llamado "isTrusted", el cual nos indica si el evento en cuestión fue
+         * realmente desencadenado por un usuario (true) o si ha sido simulado mediante un 
+         * script (false). Ejecutaremos esta función sólo cuando isTrusted sea true para evitar
+         * que el usuario haga trampa usando autoclickers o similares*/
+
+        function bonk(e) {
+
+            if (!!e.isTrusted) {
+                //Aumentamos el puntaje en 10 cada vez
+                score += 10
+                //Hacemos que el topo baje incluso si aún le queda tiempo
+                this.classList.remove("up")
+                //Actualizamos el marcador visualmente
+                scoreBoard.textContent = score
+            }
+        }
+
+        //Invocamos startGame al hacer clic en el botón de inicio
         startButton.addEventListener("click", startGame)
 
+        //Añadimos a cada topo un listener de tipo click que llamará a bonk mediante un forEach
+        moles.forEach((mole) => mole.addEventListener("click", bonk))
 
     </script>
 </body>
