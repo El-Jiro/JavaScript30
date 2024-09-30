@@ -39,6 +39,7 @@
         const holes = document.querySelectorAll('.hole');
         const scoreBoard = document.querySelector('.score');
         const moles = document.querySelectorAll('.mole');
+        //Seleccionamos el botón de inicio
 
         //Esta variable almacenará el último resultado de getRandomHole
         let lastHole
@@ -100,8 +101,8 @@
 
             /**Determinamos el tiempo que permanecerá cada topo fuera 
              * de su agujero mediante la función getRandomTime, el mínimo
-             * serán 200 milisegundos y el máximo 2 segundos*/
-            const time = getRandomTime(200, 2000)
+             * serán 200 milisegundos y el máximo 1 segundo*/
+            const time = getRandomTime(200, 1000)
 
             //Determinamos el agujero con getRandomHole
             const hole = getRandomHole(holes)
@@ -120,6 +121,27 @@
                 !timeUp ? peep() : null
             }, time)
         }
+
+        //Creamos una cuarta función para iniciar el juego:
+        function startGame() {
+            //Reiniciamos el marcador de puntos a 0:
+            scoreBoard.textContent = "0"
+
+            //Reiniciamos timeUp a false
+            timeUp = false
+
+            //Llamamos a peep
+            peep()
+
+            /**Ponemos un temporizador de 30 segundos despúes de los 
+             * cuales timeUp será true, es decir que el juego terminará*/
+            setTimeout(() => {
+                timeUp = true
+                alert("¡Se acabó el tiempo!")
+            }, 30000)
+        }
+
+
     </script>
 </body>
 
