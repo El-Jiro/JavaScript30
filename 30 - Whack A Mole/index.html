@@ -40,7 +40,7 @@
         const scoreBoard = document.querySelector('.score');
         const moles = document.querySelectorAll('.mole');
         //Seleccionamos el botón de inicio
-
+        const startButton = document.querySelector(".start")
         //Esta variable almacenará el último resultado de getRandomHole
         let lastHole
 
@@ -52,6 +52,7 @@
         console.log(holes)
         console.log(moles)
         console.log(scoreBoard)
+        console.log(startButton)
 
         /**Creamos una función que nos de un número de milisegundos aleatorio entre
          * un límite inferior y uno superior, los cuales recibirá como parámetros*/
@@ -140,6 +141,8 @@
                 alert("¡Se acabó el tiempo!")
             }, 30000)
         }
+
+        startButton.addEventListener("click", startGame)
 
 
     </script>
