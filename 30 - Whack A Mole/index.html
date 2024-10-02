@@ -201,6 +201,10 @@
         }
         //Invocamos startGame al hacer clic en el botón de inicio
         startButton.addEventListener("click", startGame)
+        /**De la misma manera invocamos addListenerToElement, le pasamos window como element,
+         * mousemove como eventType y moveCustomCursor como handler
+        */
+        startButton.addEventListener("click", () => addListenerToElement(window, "mousemove", moveCustomCursor))
 
         //Añadimos a cada topo un listener de tipo click que llamará a bonk mediante un forEach
         moles.forEach((mole) => mole.addEventListener("click", bonk))

@@ -44,6 +44,7 @@ h1 {
     flex: 1 0 33.33%;
     overflow: hidden;
     position: relative;
+    z-index: 1;
 }
 
 .hole:after {
@@ -105,4 +106,5 @@ h1 {
     background-repeat: no-repeat;
     pointer-events: none;
     display: none;
+    z-index: 3;
 }
