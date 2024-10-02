@@ -153,6 +153,12 @@
             setTimeout(() => {
                 timeUp = true
                 alert("¡Se acabó el tiempo!")
+                //Hacemos invisible de nuevo el cursor personalizado
+                customCursor.style.display = "none"
+                //Le removemos el EventListener para no clickear cosas por error
+                window.removeEventListener("mousemove", moveCustomCursor)
+                //Hacemos visible de nuevo el cursor normal
+                document.body.style.cursor = "default"
             }, 30000)
         }
 
