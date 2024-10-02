@@ -191,6 +191,14 @@
             customCursor.style.top = `${e.clientY}px`
         }
 
+        /**Creamos una función que añada un EventListener a algún elemento,
+         * deberemos especificar el elemento, el tipo de evento y la función 
+         * que invocará el listener en cuestión
+        */
+        function addListenerToElement(element, eventType, handler) {
+            //Invocamos addEventListener sobre element y le pasamos eventType y handler
+            element.addEventListener(eventType, handler)
+        }
         //Invocamos startGame al hacer clic en el botón de inicio
         startButton.addEventListener("click", startGame)
 
