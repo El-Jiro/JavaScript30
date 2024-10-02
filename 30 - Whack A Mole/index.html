@@ -14,9 +14,8 @@
     <h1>Whack-a-mole! <span class="score">0</span></h1>
     <button class="start">Start!</button>
 
-    <div id="custom-cursor">
-
-    </div>
+    <div id="custom-cursor"></div>
+    <audio src="golpe-seco.mp3" hidden></audio>
 
     <div class="game">
         <div class="hole hole1">
@@ -47,6 +46,8 @@
         const startButton = document.querySelector(".start")
         //Seleccionamos el div que fungirá como cursor:
         const customCursor = document.getElementById("custom-cursor")
+        //Seleccionamos el sonido de golpe
+        const hitSound = document.querySelector("audio")
         //Esta variable almacenará el último resultado de getRandomHole
         let lastHole
 
@@ -63,6 +64,7 @@
         console.log(scoreBoard)
         console.log(startButton)
         console.log(customCursor)
+        console.log(hitSound)
 
         /**Creamos una función que nos de un número de milisegundos aleatorio entre
          * un límite inferior y uno superior, los cuales recibirá como parámetros*/
@@ -175,6 +177,9 @@
         function bonk(e) {
 
             if (!!e.isTrusted) {
+                //Reproducimos el sonido de golpe
+                hitSound.currentTime = 0
+                hitSound.play()
                 //Aumentamos el puntaje en 10 cada vez
                 score += 10
                 //Hacemos que el topo baje incluso si aún le queda tiempo
