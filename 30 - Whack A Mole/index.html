@@ -144,6 +144,7 @@
             score = 0
             //Reiniciamos timeUp a false
             timeUp = false
+
             //Llamamos a peep
             peep()
 
@@ -175,6 +176,19 @@
                 //Actualizamos el marcador visualmente
                 scoreBoard.textContent = score
             }
+        }
+
+
+        /**Creamos una función que maneje nuestro cursor personalizado 
+         * y reciba como parámetro la información del evento:*/
+        function moveCustomCursor(e) {
+
+            /**Asignamos el valor de clientX y clientY del evento a los atributos
+             * top y left de nuestro cursor predeterminado, recordando añadir px
+             * al final 
+            */
+            customCursor.style.left = `${e.clientX}px`
+            customCursor.style.top = `${e.clientY}px`
         }
 
         //Invocamos startGame al hacer clic en el botón de inicio
