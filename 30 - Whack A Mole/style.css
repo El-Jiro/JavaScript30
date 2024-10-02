@@ -95,3 +95,14 @@ h1 {
     border-color: #bd2130;
     box-shadow: 0 0 0 .2rem rgba(225, 83, 97, .5);
 }
+
+#custom-cursor {
+    width: 192px;
+    height: 192px;
+    position: fixed;
+    top: 0;
+    background-image: url("hammer-design.png");
+    background-repeat: no-repeat;
+    pointer-events: none;
+    display: none;
+}
