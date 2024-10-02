@@ -45,6 +45,8 @@
         const moles = document.querySelectorAll('.mole');
         //Seleccionamos el botón de inicio
         const startButton = document.querySelector(".start")
+        //Seleccionamos el div que fungirá como cursor:
+        const customCursor = document.getElementById("custom-cursor")
         //Esta variable almacenará el último resultado de getRandomHole
         let lastHole
 
@@ -60,6 +62,7 @@
         console.log(moles)
         console.log(scoreBoard)
         console.log(startButton)
+        console.log(customCursor)
 
         /**Creamos una función que nos de un número de milisegundos aleatorio entre
          * un límite inferior y uno superior, los cuales recibirá como parámetros*/
@@ -74,7 +77,6 @@
             //Retornamos randomTime
             return randomTime
         }
-
 
         /**Creamos otra función llamada getRandomHole que seleccionará un elemento
          * al azar de nuestra lista de agujeros, la cual recibirá como parámetro, 
@@ -132,6 +134,10 @@
 
         //Creamos una cuarta función para iniciar el juego:
         function startGame() {
+            //Ocultamos el cursor predeterminado
+            document.body.style.cursor = "none"
+            //Hacemos visible el cursor personalizado
+            customCursor.style.display = "block"
             //Reiniciamos el marcador de puntos a 0:
             scoreBoard.textContent = "0"
             //Reiniciamos el puntaje también además del DOM
