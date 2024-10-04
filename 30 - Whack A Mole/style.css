@@ -107,4 +107,10 @@ h1 {
     pointer-events: none;
     display: none;
     z-index: 3;
+    transform: rotate(30deg);
+    transition: all 0.4ms;
+}
+
+#custom-cursor.active {
+    transform: rotate(-10deg);
 }

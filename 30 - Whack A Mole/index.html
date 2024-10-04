@@ -180,10 +180,16 @@
                 //Reproducimos el sonido de golpe
                 hitSound.currentTime = 0
                 hitSound.play()
+
+                //Añadimos la clase active al martillo para hacerlo rotar
+                customCursor.classList.add("active")
+
+                setTimeout(() => customCursor.classList.remove("active"), 200)
                 //Aumentamos el puntaje en 10 cada vez
                 score += 10
                 //Hacemos que el topo baje incluso si aún le queda tiempo
                 this.classList.remove("up")
+
                 //Actualizamos el marcador visualmente
                 scoreBoard.textContent = score
             }
