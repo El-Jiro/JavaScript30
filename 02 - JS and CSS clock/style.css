@@ -13,6 +13,8 @@ body {
     flex: 1;
     min-height: 100vh;
     align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .clock {
@@ -44,16 +46,16 @@ body {
     background: black;
     position: absolute;
     top: 50%;
+    /*Esto nos servirá para que rote alrededor de su extremo derecho en vez de por el centro*/
     transform-origin: 100%;
-    /*Esto nos servirá para que rote alrededor de su extremo derecho en vez de por el centro*/
-    /*Esto nos servirá para que rote alrededor de su extremo derecho en vez de por el centro*/
-    transform: rotate(90deg);
     /*Esto es para que todas las manecillas empicen en las doce horas por default*/
-    transition: all 0.05s;
+    transform: rotate(90deg);
     /*Esto es para que tarde un poco en cada movimiento y no se vea tan brusca la transición*/
-    transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    transition: all 0.05s;
     /*Esto servirá para que las manecillas hagan un pequeño retroceso en cada movimiento,
-    simulando así el tic-tac de un reloj real*/
+        simulando así el tic-tac de un reloj real*/
+    transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+
 }
 
 .second-hand {
@@ -68,4 +70,12 @@ body {
 .hour-hand {
     width: 35%;
     margin-left: 15%;
+}
+
+#digital-clock {
+    text-align: center;
+    font-size: 3rem;
+    font-family: monospace;
+    margin-top: 20px;
+    color: white;
 }
