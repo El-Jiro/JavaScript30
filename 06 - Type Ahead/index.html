@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+    <h2>NÚMERO DE HABITANTES</h2>
     <form class="search-form">
         <input type="text" id="search" placeholder="Ciudad o Estado">
         <ul class="suggestions">
@@ -92,6 +92,10 @@
         //Creamos otra función para mostrar los valores en pantalla:
         function displayMatches() {
 
+            if (this.value.trim() === "") {
+                suggestions.innerHTML = "";
+                return;
+            }
             /**Llamamos a la función findMatches pasandóle como argumentos this.value, es decir, 
              * el valor del objeto sobre el cual sea llamada la función, en este caso nuestro 
              * input search y el array de cities. Guardamos su resultado en matchArray*/
