@@ -11,9 +11,14 @@
 
 <body>
     <ul id="bands"></ul>
-    <button type="button" title="Presione para ordenar alfábeticamente la lista sin tomar en cuenta los artículos.">
+    <button type="button" id="sort"
+        title="Presione para ordenar alfábeticamente la lista sin tomar en cuenta los artículos.">
         Ordenar
         <i class="fa-solid fa-arrow-down-a-z"></i>
+    </button>
+    <button type="button" id="unsort" title="Presione para desordenar nuevamente la lista.">
+        Restaurar
+        <i class="fa-solid fa-arrows-rotate"></i>
     </button>
 
     <script>
@@ -33,8 +38,18 @@
             'An Old Dog'
         ]
 
+        //Añadimos una variable booleana que nos indique si la lista ya está ordenada
+        let sorted = false
+
+        //Seleccionamos nuestra lista y la guardamos en una variable:
+        const bandsList = document.getElementById("bands")
+
+        bandsList.innerHTML = bands.map((band) => `<li>${band}</li>`).join("")
+
         console.log(bands)
 
+        //Empezamos mostrando el array desordenado:
+        bands
         //Creamos una expresión regular para matchear con los artículos:
         const articleRegex = /^(a |an |the )/i
 
@@ -49,25 +64,48 @@
             return strippedName
         }
 
+        //Creamos una nueva función para ordenar las bandas
+        function sortBands() {
 
-        /**Usamos nuestra función removeArticles para ayudarnos a ordenar las bandas 
-         * sin tomar en cuenta los artículos, simplemente le pasamos un callback con 
-         * dos parámetros: a y b y comprobamos cual es mayor en el orden alfábetico 
-         * despúes de haber sido pasados por nuestra función, si a es mayor que b 
-         * retornamos 1, de lo contrario retornamos -1*/
-        const sortedBands = bands.sort((a, b) => removeArticles(a) > removeArticles(b) ? 1 : -1)
-        console.log(sortedBands)
+            //Si ya está ordenada sale de la función sin hacer nada
+            if (!!sorted) {
+                return
+            }
 
-        //Ya que los tenemos ordenados, seleccionamos nuestra lista y la guardamos en una variable:
-        const bandsList = document.getElementById("bands")
-        console.log(bandsList)
+            /**Usamos nuestra función removeArticles para ayudarnos a ordenar las bandas 
+             * sin tomar en cuenta los artículos, simplemente le pasamos un callback con 
+             * dos parámetros: a y b y comprobamos cual es mayor en el orden alfábetico 
+             * despúes de haber sido pasados por nuestra función, si a es mayor que b 
+             * retornamos 1, de lo contrario retornamos -1*/
+            const sortedBands = [...bands].sort((a, b) => removeArticles(a) > removeArticles(b) ? 1 : -1)
+            console.log(sortedBands)
 
-        /**Ahora mapeamos sortedBands para poner cada elemento en una etiqueta <li></li> 
-         * y le añadimos un join("") al final para que nos lo retorne todo como un solo string
-         * en vez de un array de strings. Por último lo ponemos dentro de nuestra lista asignándolo
-         * a su atributo innerHTML
-        */
-        bandsList.innerHTML = sortedBands.map((band) => `<li>${band}</li>`).join("")
+            console.log(bandsList)
+
+            /**Ahora mapeamos sortedBands para poner cada elemento en una etiqueta <li></li> 
+             * y le añadimos un join("") al final para que nos lo retorne todo como un solo string
+             * en vez de un array de strings. Por último lo ponemos dentro de nuestra lista asignándolo
+             * a su atributo innerHTML
+            */
+            bandsList.innerHTML = sortedBands.map((band) => `<li>${band}</li>`).join("")
+            sorted = true
+        }
+
+        function unsort() {
+            if (!sorted) {
+                return
+            }
+            bandsList.innerHTML = bands.map((band) => `<li>${band}</li>`).join("")
+            sorted = false
+        }
+
+        //Seleccionamos el botón mediante su id y lo guardamos en una variable
+        const sortButton = document.getElementById("sort")
+        const unsortButton = document.getElementById("unsort")
+
+        //Añadimos un listener de tipo click al botón e invocamos nuestra función sortBands
+        sortButton.addEventListener("click", sortBands)
+        unsortButton.addEventListener("click", unsort)
     </script>
 </body>
 

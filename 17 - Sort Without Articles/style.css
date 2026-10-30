@@ -39,7 +39,7 @@
      border-radius: 15px;
      border: transparent;
      color: white;
-     background-color: green;
+
      height: 50px;
      width: 120px;
      font-weight: bold;
@@ -47,6 +47,13 @@
      position: absolute;
      margin-left: 80%;
      cursor: pointer;
+
+
+ }
+
+ button#sort {
+
+     background-color: green;
 
      &:hover {
          background-color: rgb(4, 98, 4);
@@ -56,5 +63,20 @@
 
      &:active {
          background-color: rgb(0, 152, 0);
+     }
+ }
+
+ button#unsort {
+     background-color: rgb(222, 4, 4);
+     margin-top: 130px;
+
+     &:hover {
+         background-color: rgb(188, 4, 4);
+     }
+
+     ;
+
+     &:active {
+         background-color: rgb(229, 4, 4);
      }
  }
