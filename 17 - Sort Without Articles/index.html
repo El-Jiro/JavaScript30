@@ -6,10 +6,15 @@
     <title>Sort Without Articles</title>
     <link rel="shortcut icon" href="https://fav.farm/🔥" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/e56f733d59.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <ul id="bands"></ul>
+    <button type="button" title="Presione para ordenar alfábeticamente la lista sin tomar en cuenta los artículos.">
+        Ordenar
+        <i class="fa-solid fa-arrow-down-a-z"></i>
+    </button>
 
     <script>
         const bands = [
@@ -43,6 +48,7 @@
 
             return strippedName
         }
+
 
         /**Usamos nuestra función removeArticles para ayudarnos a ordenar las bandas 
          * sin tomar en cuenta los artículos, simplemente le pasamos un callback con 
