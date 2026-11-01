@@ -5,6 +5,16 @@ const strip = document.querySelector('.strip');
 const snap = document.querySelector('.snap');
 const photoButton = document.querySelector("#photo")
 
+//Obtenemos los botones de los filtros
+const redFilterButton = document.getElementById("red-filter")
+const rgbSplitButton = document.getElementById("rgb-split-filter")
+
+
+
+//Creamos dos variables booleanas que controlen los filtros
+let redFilterActive = false
+let rgbSplitActive = false
+
 //console.log(video, canvas, ctx, strip, snap)
 
 /**Primeramente obtendremos el video de la webcam  y lo mostraremos en
@@ -33,7 +43,7 @@ function getVideo() {
             video.srcObject = localMediaStream
             video.play()
         })
-        .catch((error) => console.error(`No se ha podido acceder a la cámara: ${error}`))
+        .catch((error) => alert(`No se ha podido acceder a la cámara: ${error}`))
 }
 
 /**El siguiente paso es tomar un fotograma del vídeo y pintarlo en nuestro elemento canvas,
@@ -70,14 +80,16 @@ function paintToCanvas() {
         let pixels = ctx.getImageData(0, 0, width, height)
         //console.log(pixels) //Imprimimos en consola
 
-        //Reasignamos el valor de pixels con la función applyRedFilter
-        //pixels = applyRedFilter(pixels)
 
+        // Aplicamos el filtro rojo si está activado
+        if (redFilterActive) {
+            pixels = applyRedFilter(pixels)
+        }
 
-        //Reasignamos el valor de pixels con la función rgbSplit
-        //pixels = rgbSplit(pixels)
-
-        //ctx.globalAlpha = 0.1
+        // Aplicamos RGB Split si está activado
+        if (rgbSplitActive) {
+            pixels = rgbSplit(pixels)
+        }
 
         pixels = setGreenScreen(pixels)
 
@@ -241,3 +253,24 @@ video.addEventListener("canplay", paintToCanvas)
 
 //Invocamos la función takePhoto al hacer clic en el botón de tomar foto
 photoButton.addEventListener("click", takePhoto)
+
+//Añadimos los listener para los botones de filtros
+redFilterButton.addEventListener("click", () => {
+
+    redFilterActive = !redFilterActive
+
+    redFilterButton.textContent = redFilterActive
+        ? "Desactivar filtro rojo"
+        : "Activar filtro rojo"
+
+})
+
+rgbSplitButton.addEventListener("click", () => {
+
+    rgbSplitActive = !rgbSplitActive
+
+    rgbSplitButton.textContent = rgbSplitActive
+        ? "Desactivar RGB Split"
+        : "Activar RGB Split"
+
+})
